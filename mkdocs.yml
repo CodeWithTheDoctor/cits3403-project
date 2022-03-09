@@ -1,0 +1,5 @@
+site_name: Web AKARI Project CITS3403 
+nav:
+    - Home: index.md
+    - Developers: developers.md
+theme: material
