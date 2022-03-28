@@ -44,6 +44,43 @@ GitHub is awesome because it provides us a fantastic system to contribute togeth
 
 ![creating a branch](createBranch.png)
 
-- Run `git pull`. It should tell you to type `git branch --set-upstream-to=origin/{branch} {branch}` so just copy and paste it. (So if my branch is called *testBranch*, I would run `git branch --set-upstream-to=origin/testBranch testBranch`)
+- Run `git pull`. It should tell you to type `git branch --set-upstream-to=origin/{branch} {branch}` so just copy and paste it, editing the '{branch}' field with your branch's name. (So if my branch is called *testBranch*, I would run `git branch --set-upstream-to=origin/testBranch testBranch`)
 
-- Run `git push`
+- Run `git push`. It should tell you to type `git push --set-upstream origin {branch}` so just copy and paste it, again changing the '{branch}' field to your branch's name. (eg: `git push --set-upstream origin testBranch`)
+
+- Now you're ready to start doing work in your branch!
+
+## Committing changes to your branch.
+- Commiting your changes is basically setting a "checkpoint" on the changes you've made on the code since the last commit. 
+- When you commit something, you must "push" the commit as well so that it can be pulled by other people if they are working on the same branch or if you wish to continue working on a different device. 
+### Committing changes 
+
+  - Make some changes (eg: Create a file, write something in it and save it.)
+  - Commit the changes on your machine by going `git commit -a`. 
+  - In the text editor, at the bottom of the file, describe what your changes are.
+    - Use dot points. Eg. "*- Improved page styling.*"
+
+### Pushing the commit (IMPORTANT)
+
+  - Now that you've committed the changes to your machine, you need to push this commit to GitHub.
+  - Push the commit to GitHub by doing `git push`
+
+### Deleting your changes (Stashing)
+  - If you have made some changes in a branch and don't want to keep the changes, you can go back to the previous commit by doing `git stash`. 
+  - These changes can be retrieved again, to clear the stash, you can do `git clear stash` or you can list the stash `git stash list` and delete a specific stashed change using `git stash drop stash@{index}`
+
+
+## Merging your branch to main (Pull Requests)
+To merge your branch into main, you do a pull requests. 
+  
+  - Go to the Pull Requests page of your repository
+  - Choose your branch. 
+  - Give the pull request a title and an appropriate description summarising what the branch implements.
+  - Request a review from your peers
+  - Resolve any merge conflicts before hand. (By merging `main` into your branch first.)
+  - Once 1-2 peers approve your changes, you may merge the branch.
+
+### Reviewers
+
+  - To reviewers: Make sure you try running the branch on your device locally and seeing that the website is working, etc.
+    - Check the code for any bad habits. Point them out by leaving a comment and request changes from the person who created the PR.
