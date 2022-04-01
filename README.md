@@ -1,1 +1,1 @@
-# cits3403-project
+source venv/bin/activate
