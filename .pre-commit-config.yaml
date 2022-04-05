@@ -3,10 +3,6 @@ repos:
   rev: v2.4.0
   hooks:
   - id: check-added-large-files
-  - id: check-ast
-  - id: check-json
-  - id: pretty-format-json
-  - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://gitlab.com/pycqa/flake8
@@ -17,5 +13,6 @@ repos:
     args: ['--max-line-length=89']
 - repo: https://github.com/psf/black
   rev: v22.3.0
+  exclude: ^migrations/
   hooks:
   - id: black
