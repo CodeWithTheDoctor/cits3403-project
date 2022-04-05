@@ -16,6 +16,5 @@
     "trailingComma": "es5",
     "useTabs": false,
     "vueIndentScriptAndStyle": false,
-    "filepath": "/home/timothy/code/microblog/app/templates/index.html",
     "parser": "html"
   }
