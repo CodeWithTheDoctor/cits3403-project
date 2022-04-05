@@ -13,12 +13,12 @@ GitHub is awesome because it provides us a fantastic system to contribute togeth
     <img src="/gitbash.png" alt="Git Bash" width="70%">
 ### Branching
 
-![branching image](Branching.png) 
-  
+![branching image](Branching.png)
+
   - <u>**Main branch**</u> : This will be the main code, that will hold the latest version of your software, i.e. the version our website the users will
-  - **Feature branches** : (eg. Branch 1 and Branch 2) These branches are made everytime you want to implement something to your software or if you wanna fix a bug 
+  - **Feature branches** : (eg. Branch 1 and Branch 2) These branches are made everytime you want to implement something to your software or if you wanna fix a bug
     - You should *NEVER* commit directly to main.
-  
+
 ### Merging
 
 <img src="/Merging.png" alt="Merging" width="70%">
@@ -51,12 +51,12 @@ GitHub is awesome because it provides us a fantastic system to contribute togeth
 - Now you're ready to start doing work in your branch!
 
 ## Committing changes to your branch.
-- Commiting your changes is basically setting a "checkpoint" on the changes you've made on the code since the last commit. 
-- When you commit something, you must "push" the commit as well so that it can be pulled by other people if they are working on the same branch or if you wish to continue working on a different device. 
-### Committing changes 
+- Commiting your changes is basically setting a "checkpoint" on the changes you've made on the code since the last commit.
+- When you commit something, you must "push" the commit as well so that it can be pulled by other people if they are working on the same branch or if you wish to continue working on a different device.
+### Committing changes
 
   - Make some changes (eg: Create a file, write something in it and save it.)
-  - Commit the changes on your machine by going `git commit -a`. 
+  - Commit the changes on your machine by going `git commit -a`.
   - In the text editor, at the bottom of the file, describe what your changes are.
     - Use dot points. Eg. "*- Improved page styling.*"
 
@@ -66,15 +66,15 @@ GitHub is awesome because it provides us a fantastic system to contribute togeth
   - Push the commit to GitHub by doing `git push`
 
 ### Deleting your changes (Stashing)
-  - If you have made some changes in a branch and don't want to keep the changes, you can go back to the previous commit by doing `git stash`. 
+  - If you have made some changes in a branch and don't want to keep the changes, you can go back to the previous commit by doing `git stash`.
   - These changes can be retrieved again, to clear the stash, you can do `git clear stash` or you can list the stash `git stash list` and delete a specific stashed change using `git stash drop stash@{index}`
 
 
 ## Merging your branch to main (Pull Requests)
-To merge your branch into main, you do a pull requests. 
-  
+To merge your branch into main, you do a pull requests.
+
   - Go to the Pull Requests page of your repository
-  - Choose your branch. 
+  - Choose your branch.
   - Give the pull request a title and an appropriate description summarising what the branch implements.
   - Request a review from your peers
   - Resolve any merge conflicts before hand. (By merging `main` into your branch first.)

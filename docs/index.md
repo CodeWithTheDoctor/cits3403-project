@@ -1,4 +1,4 @@
-# Welcome to the Web Akari Documentation 
+# Welcome to the Web Akari Documentation
 
 This documentation has been written to guide users in tweaking the experience of the game and as a guideline for developers to follow when contributing to the project.
 
@@ -8,7 +8,7 @@ As you may have noticed, this documentation is built by a software called MkDocs
 
 ### MkDocs Commands
 
-The only command that you'll need while adding stuff to the documentation is the following: 
+The only command that you'll need while adding stuff to the documentation is the following:
 
 * `mkdocs serve` - This will start the live-reloading docs server. You will see changes to the documentation live whenever you save a file.
 
