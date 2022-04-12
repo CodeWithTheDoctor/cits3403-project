@@ -1,4 +1,4 @@
-# To install
+# To install dependencies
 poetry install
 
 # To enter venv in terminal
@@ -11,6 +11,9 @@ OR
 
 poetry shell
 flask run
+
+# To add dependencies
+poetry add pkgname
 
 # On change to databse ( in venv )
 flask db migrate
