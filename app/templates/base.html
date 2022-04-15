@@ -16,28 +16,31 @@
   </head>
 
   <body>
-    <button type="button" class="btn btn-primary">Primary</button>
-    <div>
-      Microblog:
+    <nav class="navbar navbar-light navbar-expand bg-light">
+      <div class="container">
+        <a class="nav-brand" href="{{url_for('index')}}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a class="nav-item" href="{{url_for('login')}}">Login</a>
+        {% else %}
+        <a class="nav-item" href="{{url_for('user', username=current_user.username)}}">Profile</a>
+        <a class="nav-item" href="{{url_for('logout')}}">Logout</a>
+        {% endif %}
+      </div>
+      <hr />
+    </nav>
 
-      <a href="{{url_for('index')}}">Home</a>
-      {% if current_user.is_anonymous %}
-      <a href="{{url_for('login')}}">Login</a>
-      {% else %}
-      <a href="{{url_for('user', username=current_user.username)}}">Profile</a>
-      <a href="{{url_for('logout')}}">Logout</a>
-      {% endif %}
+
+    <div class="container">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+      <hr />
+      {% block content %}{% endblock %}
     </div>
-    <hr />
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li>{{message}}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
-    <hr />
-    {% block content %}{% endblock %}
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
