@@ -15,7 +15,7 @@ login.login_view = "login"  # pass flask-login the view function
 
 from app import routes, models
 
-
+# TODO: error logging
 def create_app(config_class=Config):
     # ...
     if not app.debug and not app.testing:

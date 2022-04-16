@@ -33,3 +33,7 @@ class Config(object):
     # ...
 
 # check logging
+
+
+# to push to deploy
+git push heroku tim/poetry:main
