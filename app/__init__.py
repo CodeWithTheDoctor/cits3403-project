@@ -18,10 +18,7 @@ from app import routes, models, errors
 
 # TODO: error logging and duplicate username bug
 # def create_app(config_class=Config):
-#     # ...
 if not app.debug and not app.testing:
-    # ...
-
     if app.config["LOG_TO_STDOUT"]:
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(logging.INFO)
@@ -41,6 +38,5 @@ if not app.debug and not app.testing:
         app.logger.addHandler(file_handler)
 
     app.logger.setLevel(logging.INFO)
-    app.logger.info("Microblog startup")
-
+    app.logger.info("Akari startup")
     # return app
