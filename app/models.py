@@ -58,4 +58,4 @@ class Puzzle(db.Model):
     dimension = db.Column(db.Integer)
 
     def __repr__(self) -> str:
-        return "<Puzzle {}>".format(self.board)
+        return "<Puzzle {}>".format(self.id)
