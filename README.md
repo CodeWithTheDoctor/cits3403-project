@@ -37,3 +37,7 @@ class Config(object):
 
 # to push to deploy
 git push heroku tim/poetry:main
+
+
+# for postgres terminal login
+sudo -u postgres psql postgres
