@@ -6,3 +6,4 @@ Github has a great boilerplate .gitignore
 __pycache__/
 *.py[cod]
 timnotes.md
+.env
