@@ -50,6 +50,7 @@ class Post(db.Model):
         return "<Post {}>".format(self.body)
 
 
+# TODO: Investigate the many to many relationship between puzzle and user and add score
 class Puzzle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     board = db.Column(ARRAY(db.Integer, dimensions=2))
