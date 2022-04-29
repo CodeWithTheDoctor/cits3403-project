@@ -4,7 +4,7 @@
   <head>
     {% if title %}
       <title>{{title}}
-        - Microblog</title>
+        - Akari 3403</title>
     {% else %}
       <title>Welcome to microblog</title>
     {% endif %}
@@ -20,6 +20,7 @@
           <a class="nav-item" href="{{url_for('login')}}">Login</a>
         {% else %}
           <a class="nav-item" href="{{url_for('user', username=current_user.username)}}">Profile</a>
+          <a class="nav-item" href="{{url_for('statistics', username=current_user.username)}}">Statistics</a>
           <a class="nav-item" href="{{url_for('logout')}}">Logout</a>
         {% endif %}
       </div>

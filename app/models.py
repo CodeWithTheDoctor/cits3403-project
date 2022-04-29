@@ -3,6 +3,9 @@ from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import select, func
+from sqlalchemy.orm import column_property
 
 
 @login.user_loader
@@ -17,6 +20,16 @@ user_puzzles = db.Table(
 )
 
 
+class Puzzle(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    board = db.Column(ARRAY(db.Integer, dimensions=2))
+    score = db.Column(db.Integer, nullable=False)
+    dimension = db.Column(db.Integer)
+
+    def __repr__(self) -> str:
+        return "<Puzzle {}>".format(self.id)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -28,6 +41,16 @@ class User(UserMixin, db.Model):
         secondary=user_puzzles,
         lazy="subquery",
         backref=db.backref("puzzles", lazy=True),
+    )
+
+    @hybrid_property
+    def score(self):
+        return sum(puzzle.score for puzzle in self.puzzles)
+
+    test = column_property(
+        select(func.sum(Puzzle.score))
+        .where(user_puzzles.c.user_id == id)
+        .scalar_subquery()
     )
 
     def set_password(self, password) -> None:
@@ -48,14 +71,3 @@ class Post(db.Model):
 
     def __repr__(self) -> str:
         return "<Post {}>".format(self.body)
-
-
-# TODO: Investigate the many to many relationship between puzzle and user and add score
-class Puzzle(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    board = db.Column(ARRAY(db.Integer, dimensions=2))
-    score = db.Column(db.Integer, nullable=False)
-    dimension = db.Column(db.Integer)
-
-    def __repr__(self) -> str:
-        return "<Puzzle {}>".format(self.id)

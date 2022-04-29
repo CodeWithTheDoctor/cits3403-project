@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User
+from app.models import User, Puzzle
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 
@@ -66,3 +66,22 @@ def user(username):
         {"author": user, "body": "test pist #2"},
     ]
     return render_template("user.html", user=user, posts=posts)
+
+
+@app.route("/user/<username>/statistics")
+@login_required
+def statistics(username):
+
+    user = {"username": "john", "puzzles": [1, 2, 3, 5], "score": 800, "rank": 15}
+
+    # top = User.query.order_by(score).limit(10)
+
+    # user = User.query.filter_by(username=username).first_or_404()
+
+    top = [
+        {"username": "henry", "score": 1300, "rank": 1},
+        {"username": "david", "score": 1200, "rank": 2},
+        {"username": "alexis", "score": 1000, "rank": 3},
+    ]
+
+    return render_template("statistics.html", user=user, top=top)

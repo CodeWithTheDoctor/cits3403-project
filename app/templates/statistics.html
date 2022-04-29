@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Statistics</h1>
+<p>Puzzles completed: {{user.puzzles|count()}} </p>
+<p>Score : {{user.score}} </p>
+<p>Rank: {{user.rank}} </p>
+{% if top %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">User</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    {% for user in top %}
+    <tbody>
+        <tr>
+            <td>{{user.rank}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.score}} </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
