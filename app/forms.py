@@ -1,9 +1,6 @@
-from ast import Pass
-from lib2to3.pgen2.token import EQUAL
-from xml.dom import ValidationErr
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from app.models import User
 
 
@@ -26,9 +23,9 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationErr("Please use a different username")
+            raise ValidationError("Please use a different username")
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationErr("Please use a different email")
+            raise ValidationError("Please use a different email")

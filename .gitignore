@@ -5,3 +5,5 @@ Github has a great boilerplate .gitignore
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+timnotes.md
+.env
