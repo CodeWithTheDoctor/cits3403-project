@@ -78,6 +78,11 @@ def statistics(username):
 
     # user = User.query.filter_by(username=username).first_or_404()
 
+    # top = [
+    #     {"username": user.username, "score": user.score, "rank": user.index}
+    #     for user in top
+    # ]
+
     top = [
         {"username": "henry", "score": 1300, "rank": 1},
         {"username": "david", "score": 1200, "rank": 2},
