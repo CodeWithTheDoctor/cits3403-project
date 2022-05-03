@@ -4,17 +4,32 @@
 
 .grid-wrapper{
   display: grid;
-  grid-template-columns: repeat(7, 50px);
+  grid-template-columns: repeat(7, 104px);
   text-align: center;
 }
 
 .grid-wrapper div {
-  height: 30px;
-  width: 50px;
-  border: 1px solid;
+  height: 100px;
+  width: 100px;
+  margin-top: 4px;
+  border: 2px solid;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+.grid-wrapper img {
+  transition: 1s; 
+  height: 80%;
 }
 
 .non-selectable {
   background-color: black;
   color: white;
+}
+
+.selected, .lit {
+  background-color: yellow; 
+  transition: 0.5s;
 }

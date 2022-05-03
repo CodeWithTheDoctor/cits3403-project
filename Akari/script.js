@@ -108,7 +108,7 @@ const parseGrid = puzzleString => {
 const renderGrid = () => {
   for (i = 0; i < 7; i++) {
     for (j = 0; j < 7; j++) {
-      renderCell(grid[i][j], `${i},${j}`);
+      renderCell(grid[j][i], `${j},${i}`);
     }
   }
 };
@@ -117,7 +117,7 @@ const renderCell = (CELL_STATUS, id) => {
   const gridBox = document.getElementById("grid-box");
   let itemClass = "";
   let innerText = "";
-  let cell = document.createElement('div', )
+  let cell = document.createElement("div");
   switch (CELL_STATUS) {
     case EMPTY:
       itemClass = "selectable";
@@ -146,15 +146,112 @@ const renderCell = (CELL_STATUS, id) => {
       innerText = "4";
       break;
   }
-  cell.appendChild(document.createTextNode(innerText))
-  cell.className =  itemClass;
+  cell.appendChild(document.createTextNode(innerText));
+  cell.className = itemClass;
   cell.id = `${id}`;
-  cell.click = 
+  cell.onclick = toggleCell;
   gridBox.appendChild(cell);
   // gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
 };
 
-parseGrid(exampleLevel);
-console.log(grid);
-renderGrid();
+const toggleCell = e => {
+  if (e.target.tagName == "IMG") {
+    toggleSides(e.target.parentNode);
+    if (e.target.parentNode.className.includes("selected")) {
+      e.target.parentNode.className = e.target.parentNode.className.split("selected").join("").trim();
+      e.target.remove();
+    }
+  } else {
+    const coords = e.target.id.split(",").map(num => parseInt(num));
+    if (isBlack(coords[0], coords[1])) 
+      return;
+    toggleSides(e.target);
+    if (!e.target.className.includes("selected")) {
+      e.target.className += " selected";
+      e.target.innerHTML = "<img src='images/bulb.png'>";
+    } else {
+      e.target.className = e.target.parentNode.className.split("selected").join("").trim();
+      e.target.innerHTML = "";
+    }
+  }
+};
 
+const toggleSides = node => {
+  const coords = node.id.split(",").map(num => parseInt(num));
+
+  // Traversal to the left
+  for (x = coords[0] - 1; x >= 0; x--) {
+    if (x < 0 || isBlack(x, coords[1])) 
+      break;
+    const id = x + "," + coords[1];
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("lit")) {
+      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
+    } else {
+      neighbourCell.className += " lit";
+    }
+  }
+
+  // Traversal to the right
+  for (x = coords[0] + 1; x <= 6; x++) {
+    if (x > 6 || isBlack(x, coords[1])) 
+      break;
+    const id = x + "," + coords[1];
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("lit")) {
+      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
+    } else {
+      neighbourCell.className += " lit";
+    }
+  }
+
+  // Traversal upwards
+  for (y = coords[1] - 0; y >= 0; y--) {
+    if (y < 0 || isBlack(coords[0], y)) 
+      break;
+    const id = coords[0] + "," + y;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("lit")) {
+      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
+    } else {
+      neighbourCell.className += " lit";
+    }
+  }
+
+  // Traversal downwards
+  for (y = coords[1] + 1; y <= 6; y++) {
+    if (y > 6 || isBlack(coords[0], y)) 
+      break;
+    const id = coords[0] + "," + y;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("lit")) {
+      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
+    } else {
+      neighbourCell.className += " lit";
+    }
+  }
+};
+
+const isBlack = (x, y) => {
+  return [
+    BLACK,
+    ZERO,
+    ONE,
+    TWO,
+    THREE,
+    FOUR
+  ].includes(grid[x][y]);
+};
+
+const findLitClasses = classString => {
+  const classStringArray = classString.split(" ");
+  let count = 0;
+  for (x of classStringArray) {
+    if (x == "lit") 
+      count++;
+    }
+  return count;
+};
+
+parseGrid(exampleLevel);
+renderGrid();
