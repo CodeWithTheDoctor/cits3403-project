@@ -117,6 +117,7 @@ const renderCell = (CELL_STATUS, id) => {
   const gridBox = document.getElementById("grid-box");
   let itemClass = "";
   let innerText = "";
+  let cell = document.createElement('div', )
   switch (CELL_STATUS) {
     case EMPTY:
       itemClass = "selectable";
@@ -145,9 +146,15 @@ const renderCell = (CELL_STATUS, id) => {
       innerText = "4";
       break;
   }
-  gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
+  cell.appendChild(document.createTextNode(innerText))
+  cell.className =  itemClass;
+  cell.id = `${id}`;
+  cell.click(() => alert("Test"))
+  gridBox.appendChild(cell);
+  // gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
 };
 
 parseGrid(exampleLevel);
 console.log(grid);
 renderGrid();
+
