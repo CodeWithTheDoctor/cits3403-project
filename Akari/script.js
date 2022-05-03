@@ -149,7 +149,7 @@ const renderCell = (CELL_STATUS, id) => {
   cell.appendChild(document.createTextNode(innerText))
   cell.className =  itemClass;
   cell.id = `${id}`;
-  cell.click(() => alert("Test"))
+  cell.click = 
   gridBox.appendChild(cell);
   // gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
 };
