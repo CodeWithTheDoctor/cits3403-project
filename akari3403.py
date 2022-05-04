@@ -1,6 +1,6 @@
 from distutils.command.config import config
 from app import app, db
-from app.models import User, Post, Puzzle, user_puzzles
+from app.models import User
 from config import Config
 
 
@@ -9,8 +9,5 @@ def make_shell_context():
     return {
         "db": db,
         "User": User,
-        "Post": Post,
-        "Puzzle": Puzzle,
         "config": Config,
-        "user_puzzles": user_puzzles,
     }

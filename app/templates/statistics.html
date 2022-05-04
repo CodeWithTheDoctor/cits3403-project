@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Statistics</h1>
-<p>Puzzles completed: {{user.puzzles|count()}} </p>
+<p>Puzzles completed: {{user.puzzles}} </p>
 <p>Score : {{user.score}} </p>
 <p>Rank: {{user.rank}} </p>
 {% if top %}
@@ -13,12 +13,13 @@
             <th scope="col">Score</th>
         </tr>
     </thead>
-    {% for user in top %}
+    {% for player in top %}
     <tbody>
         <tr>
+            {# TODO: how to rank users? #}
             <td>{{user.rank}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.score}} </td>
+            <td>{{player.username}}</td>
+            <td>{{player.score}} </td>
         </tr>
     </tbody>
     {% endfor %}
