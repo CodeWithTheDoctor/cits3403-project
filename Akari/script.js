@@ -321,5 +321,73 @@ const findLitClasses = classString => {
   return count;
 }
 
+
+const isSolved = () => {
+  for(y = 0; y < 7; y++) {
+    for(x = 0; x < 7; x++) {
+      const id = x + "," + y;
+      if(isBlack(x, y)) continue;
+      const cell = document.getElementById(id);
+      if(cell.className.includes("selected")) {
+        if(canSeeBulb(x, y)) return false;
+      } 
+      else if (!cell.className.includes("lit")){
+        return false;
+      }
+    }
+  }
+
+  return true
+}
+
+/**
+ * Checks if there is another bulb in the line of sight to the specified cell
+ * @param {number} x
+ * @param {number} y 
+ * @returns true if there is a bulb in the line of sight, else false
+ */
+const canSeeBulb = (x , y) => {
+
+ // Traversal to the left
+ for (i = x - 1; i >= 0; i--) {
+  if (i < 0 || isBlack(i, y)) {
+    break;
+  }
+  const id = i + "," + y;
+  let neighbourCell = document.getElementById(id);
+  if(neighbourCell.className.includes("selected")) return true;
+}
+
+// Traversal to the right
+for (i = x + 1; i <= 6; i++) {
+  if (i > 6 || isBlack(i, y)) 
+    break;
+  const id = i + "," + y;
+  let neighbourCell = document.getElementById(id);
+  if(neighbourCell.className.includes("selected")) return true;
+}
+
+// Traversal upwards
+for (j = y - 1; j >= 0; j--) {
+  if (j < 0 || isBlack(x, j)) 
+    break;
+  const id = x + "," + j;
+  let neighbourCell = document.getElementById(id);
+  if(neighbourCell.className.includes("selected")) return true;
+}
+
+// Traversal downwards
+for (j = y + 1; j <= 6; j++) {
+  if (j > 6 || isBlack(x, j)) 
+    break;
+  const id = x + "," + j;
+  let neighbourCell = document.getElementById(id);
+  if(neighbourCell.className.includes("selected")) return true;
+}
+
+return false;
+
+}
+
 parseGrid(exampleLevel);
 renderGrid();
