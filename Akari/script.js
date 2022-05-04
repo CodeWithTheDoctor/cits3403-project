@@ -105,6 +105,9 @@ const parseGrid = puzzleString => {
  * HANDLER FUNCTIONS
  */
 
+/**
+ * Function for rendering the grid to the page by adding nodes for each cell to the grid-wrapper div container.
+ */
 const renderGrid = () => {
   for (i = 0; i < 7; i++) {
     for (j = 0; j < 7; j++) {
@@ -113,6 +116,11 @@ const renderGrid = () => {
   }
 };
 
+/**
+ * Function for adding a node for a cell to the page
+ * @param {number} CELL_STATUS The state of the cell (eg. Empty, Black, Zero, One, etc.)
+ * @param {string} id The id of the cell, which is also the coordinate of the cell on the grid, in the form "x,y".
+ */
 const renderCell = (CELL_STATUS, id) => {
   const gridBox = document.getElementById("grid-box");
   let itemClass = "";
@@ -154,29 +162,36 @@ const renderCell = (CELL_STATUS, id) => {
   // gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
 };
 
+/**
+ * Function for adding/removing a lightbulb from a cell.
+ * @param {Event} e 
+ */
 const toggleCell = e => {
   if (e.target.tagName == "IMG") {
-    toggleSides(e.target.parentNode);
-    if (e.target.parentNode.className.includes("selected")) {
-      e.target.parentNode.className = e.target.parentNode.className.split("selected").join("").trim();
-      e.target.remove();
-    }
+    removeSides(e.target.parentNode);
+    e.target.parentNode.className = e.target.parentNode.className.split("selected").join("").trim();
+    e.target.remove();
   } else {
     const coords = e.target.id.split(",").map(num => parseInt(num));
     if (isBlack(coords[0], coords[1])) 
       return;
-    toggleSides(e.target);
     if (!e.target.className.includes("selected")) {
+      addSides(e.target);
       e.target.className += " selected";
       e.target.innerHTML = "<img src='images/bulb.png'>";
     } else {
+      removeSides(e.target);
       e.target.className = e.target.parentNode.className.split("selected").join("").trim();
       e.target.innerHTML = "";
     }
   }
 };
 
-const toggleSides = node => {
+/**
+ * Lights up the cells neighbouring the cell that a light-bulb has been added to
+ * @param {Node} node instance of a DOM node
+ */
+const addSides = node => {
   const coords = node.id.split(",").map(num => parseInt(num));
 
   // Traversal to the left
@@ -185,11 +200,7 @@ const toggleSides = node => {
       break;
     const id = x + "," + coords[1];
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("lit")) {
-      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
-    } else {
-      neighbourCell.className += " lit";
-    }
+    neighbourCell.className += " lit";
   }
 
   // Traversal to the right
@@ -198,24 +209,17 @@ const toggleSides = node => {
       break;
     const id = x + "," + coords[1];
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("lit")) {
-      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
-    } else {
-      neighbourCell.className += " lit";
-    }
+    neighbourCell.className += " lit";
   }
 
+  
   // Traversal upwards
   for (y = coords[1] - 0; y >= 0; y--) {
     if (y < 0 || isBlack(coords[0], y)) 
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("lit")) {
-      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
-    } else {
-      neighbourCell.className += " lit";
-    }
+    neighbourCell.className += " lit";
   }
 
   // Traversal downwards
@@ -224,14 +228,61 @@ const toggleSides = node => {
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("lit")) {
-      neighbourCell.className = neighbourCell.className.split("lit").join("").trim();
-    } else {
-      neighbourCell.className += " lit";
-    }
+    neighbourCell.className += " lit";
   }
-};
+}
 
+/**
+ * Removes a string of 'lit' class from neighbouring cells when a light bulb is removed from the cell. 
+ * @param {Node} node instance of a DOM node
+ */
+const removeSides = node => {
+  const coords = node.id.split(",").map(num => parseInt(num));
+
+  // Traversal to the left
+  for (x = coords[0] - 1; x >= 0; x--) {
+    if (x < 0 || isBlack(x, coords[1])) {
+      break;
+    }
+    const id = x + "," + coords[1];
+    let neighbourCell = document.getElementById(id);
+    unlightCell(neighbourCell);
+  }
+
+   // Traversal to the right
+   for (x = coords[0] + 1; x <= 6; x++) {
+    if (x > 6 || isBlack(x, coords[1])) 
+      break;
+    const id = x + "," + coords[1];
+    let neighbourCell = document.getElementById(id);
+    unlightCell(neighbourCell);
+  }
+
+  // Traversal upwards
+  for (y = coords[1] - 0; y >= 0; y--) {
+    if (y < 0 || isBlack(coords[0], y)) 
+      break;
+    const id = coords[0] + "," + y;
+    let neighbourCell = document.getElementById(id);
+    unlightCell(neighbourCell);
+  }
+
+  // Traversal downwards
+  for (y = coords[1] + 1; y <= 6; y++) {
+    if (y > 6 || isBlack(coords[0], y)) 
+      break;
+    const id = coords[0] + "," + y;
+    let neighbourCell = document.getElementById(id);
+    unlightCell(neighbourCell);
+  }
+}
+
+/**
+ * Checks whether the grid cell is a black square or not
+ * @param {number} x 
+ * @param {number} y 
+ * @returns {boolean} true | false
+ */
 const isBlack = (x, y) => {
   return [
     BLACK,
@@ -243,15 +294,32 @@ const isBlack = (x, y) => {
   ].includes(grid[x][y]);
 };
 
+/**
+ * Remove a 'lit' substring from the classes of the provided element. 
+ * @param {Node} neighbourCell instance of a DOM node of a neighbouring cell
+ */
+const unlightCell = (neighbourCell) => {
+    let numLits = findLitClasses(neighbourCell.className)
+    let litStr = ""
+    for(i = 0; i < numLits-1; i++) litStr += " lit";
+    neighbourCell.className = neighbourCell.className.split("lit").join("") + litStr;
+}
+
+/**
+ * Retreives the number of 'lit' strings present in the class field of the provided element.
+ * @param {string} classString 
+ * @returns {number} number of 'lit' strings in the class field of the provided element 
+ */
 const findLitClasses = classString => {
   const classStringArray = classString.split(" ");
   let count = 0;
-  for (x of classStringArray) {
-    if (x == "lit") 
+  for (i = 0; i < classStringArray.length; i++) {
+    if (classStringArray[i] == "lit") {
       count++;
     }
+  }
   return count;
-};
+}
 
 parseGrid(exampleLevel);
 renderGrid();
