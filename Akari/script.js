@@ -164,7 +164,7 @@ const renderCell = (CELL_STATUS, id) => {
 
 /**
  * Function for adding/removing a lightbulb from a cell.
- * @param {Event} e 
+ * @param {Event} e
  */
 const toggleCell = e => {
   if (e.target.tagName == "IMG") {
@@ -212,7 +212,6 @@ const addSides = node => {
     neighbourCell.className += " lit";
   }
 
-  
   // Traversal upwards
   for (y = coords[1] - 0; y >= 0; y--) {
     if (y < 0 || isBlack(coords[0], y)) 
@@ -230,10 +229,10 @@ const addSides = node => {
     let neighbourCell = document.getElementById(id);
     neighbourCell.className += " lit";
   }
-}
+};
 
 /**
- * Removes a string of 'lit' class from neighbouring cells when a light bulb is removed from the cell. 
+ * Removes a string of 'lit' class from neighbouring cells when a light bulb is removed from the cell.
  * @param {Node} node instance of a DOM node
  */
 const removeSides = node => {
@@ -249,8 +248,8 @@ const removeSides = node => {
     unlightCell(neighbourCell);
   }
 
-   // Traversal to the right
-   for (x = coords[0] + 1; x <= 6; x++) {
+  // Traversal to the right
+  for (x = coords[0] + 1; x <= 6; x++) {
     if (x > 6 || isBlack(x, coords[1])) 
       break;
     const id = x + "," + coords[1];
@@ -275,12 +274,12 @@ const removeSides = node => {
     let neighbourCell = document.getElementById(id);
     unlightCell(neighbourCell);
   }
-}
+};
 
 /**
  * Checks whether the grid cell is a black square or not
- * @param {number} x 
- * @param {number} y 
+ * @param {number} x
+ * @param {number} y
  * @returns {boolean} true | false
  */
 const isBlack = (x, y) => {
@@ -295,20 +294,21 @@ const isBlack = (x, y) => {
 };
 
 /**
- * Remove a 'lit' substring from the classes of the provided element. 
+ * Remove a 'lit' substring from the classes of the provided element.
  * @param {Node} neighbourCell instance of a DOM node of a neighbouring cell
  */
-const unlightCell = (neighbourCell) => {
-    let numLits = findLitClasses(neighbourCell.className)
-    let litStr = ""
-    for(i = 0; i < numLits-1; i++) litStr += " lit";
-    neighbourCell.className = neighbourCell.className.split("lit").join("") + litStr;
-}
+const unlightCell = neighbourCell => {
+  let numLits = findLitClasses(neighbourCell.className);
+  let litStr = "";
+  for (i = 0; i < numLits - 1; i++) 
+    litStr += " lit";
+  neighbourCell.className = neighbourCell.className.split("lit").join("") + litStr;
+};
 
 /**
  * Retreives the number of 'lit' strings present in the class field of the provided element.
- * @param {string} classString 
- * @returns {number} number of 'lit' strings in the class field of the provided element 
+ * @param {string} classString
+ * @returns {number} number of 'lit' strings in the class field of the provided element
  */
 const findLitClasses = classString => {
   const classStringArray = classString.split(" ");
@@ -319,169 +319,205 @@ const findLitClasses = classString => {
     }
   }
   return count;
-}
+};
 
 /**
  * Checks if the puzzle has been solved or not
  * @returns True if puzzle has been solved correcly
  */
 const isSolved = () => {
-  for(y = 0; y < 7; y++) {
-    for(x = 0; x < 7; x++) {
+  for (y = 0; y < 7; y++) {
+    for (x = 0; x < 7; x++) {
       const id = x + "," + y;
-      if(isBlack(x, y)) {
-        if(grid[x][y] == BLACK) {
+      if (isBlack(x, y)) {
+        if (grid[x][y] == BLACK) {
           continue;
         }
         let numBulbsRequired = grid[x][y] - ZERO;
-        if(getNumBulbs(x,y) != numBulbsRequired) {
-          return false
+        if (getNumBulbs(x, y) != numBulbsRequired) {
+          return false;
         }
         continue;
       }
       const cell = document.getElementById(id);
-      if(cell.className.includes("selected")) {
-        if(canSeeBulb(x, y)) return false;
-      } 
-      else if (!cell.className.includes("lit")){
+      if (cell.className.includes("selected")) {
+        if (canSeeBulb(x, y)) 
+          return false;
+        }
+      else if (!cell.className.includes("lit")) {
         return false;
-      } 
+      }
     }
   }
 
-  return true
-}
-
+  return true;
+};
 
 /**
  * Checks if there is another bulb in the line of sight to the specified cell
  * @param {number} x
- * @param {number} y 
+ * @param {number} y
  * @returns true if there is a bulb in the line of sight, else false
  */
-const canSeeBulb = (x , y) => {
-
- // Traversal to the left
- for (i = x - 1; i >= 0; i--) {
-  if (i < 0 || isBlack(i, y)) {
-    break;
-  }
-  const id = i + "," + y;
-  let neighbourCell = document.getElementById(id);
-  if(neighbourCell.className.includes("selected")) return true;
-}
-
-// Traversal to the right
-for (i = x + 1; i <= 6; i++) {
-  if (i > 6 || isBlack(i, y)) 
-    break;
-  const id = i + "," + y;
-  let neighbourCell = document.getElementById(id);
-  if(neighbourCell.className.includes("selected")) return true;
-}
-
-// Traversal upwards
-for (j = y - 1; j >= 0; j--) {
-  if (j < 0 || isBlack(x, j)) 
-    break;
-  const id = x + "," + j;
-  let neighbourCell = document.getElementById(id);
-  if(neighbourCell.className.includes("selected")) return true;
-}
-
-// Traversal downwards
-for (j = y + 1; j <= 6; j++) {
-  if (j > 6 || isBlack(x, j)) 
-    break;
-  const id = x + "," + j;
-  let neighbourCell = document.getElementById(id);
-  if(neighbourCell.className.includes("selected")) return true;
-}
-
-return false;
-
-}
+const canSeeBulb = (x, y) => {
+  // Traversal to the left
+  for (i = x - 1; i >= 0; i--) {
+    if (i < 0 || isBlack(i, y)) {
+      break;
+    }
+    const id = i + "," + y;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("selected")) 
+      return true;
+    }
+  
+  // Traversal to the right
+  for (i = x + 1; i <= 6; i++) {
+    if (i > 6 || isBlack(i, y)) 
+      break;
+    const id = i + "," + y;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("selected")) 
+      return true;
+    }
+  
+  // Traversal upwards
+  for (j = y - 1; j >= 0; j--) {
+    if (j < 0 || isBlack(x, j)) 
+      break;
+    const id = x + "," + j;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("selected")) 
+      return true;
+    }
+  
+  // Traversal downwards
+  for (j = y + 1; j <= 6; j++) {
+    if (j > 6 || isBlack(x, j)) 
+      break;
+    const id = x + "," + j;
+    let neighbourCell = document.getElementById(id);
+    if (neighbourCell.className.includes("selected")) 
+      return true;
+    }
+  
+  return false;
+};
 
 /**
  * Function to retrieve the number of bulbs around a cell
- * @param {number} x 
- * @param {number} y 
+ * @param {number} x
+ * @param {number} y
  * @returns the number of bulbs surrounding a cell.
  */
-const getNumBulbs = (x ,y) => {
-  let count = 0
-  if(x == 0) {
-    if(y == 0) {
-      let cell = document.getElementById((x+1) + "," + y);
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y+1))
-      if(cell.className.includes("selected")) count++;
-    }
+const getNumBulbs = (x, y) => {
+  let count = 0;
+  if (x == 0) {
+    if (y == 0) {
+      let cell = document.getElementById(x + 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y + 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      }
     else if (y == 6) {
-      let cell = document.getElementById(x + "," + (y-1))
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x+1 + "," + y)
-      if(cell.className.includes("selected")) count++;
-    }
+      let cell = document.getElementById(x + "," + (
+      y - 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      }
     else {
-      let cell = document.getElementById((x+1) + "," + y);
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y+1))
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y-1))
-      if(cell.className.includes("selected")) count++;
-    }
-  }
-  else if (x == 6) {
-    if(y == 0) {
-      let cell = document.getElementById((x-1) + "," + y);
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y+1))
-      if(cell.className.includes("selected")) count++;
-    }
+      let cell = document.getElementById(x + 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y + 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y - 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      }
+    } else if (x == 6) {
+    if (y == 0) {
+      let cell = document.getElementById(x - 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y + 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      }
     else if (y == 6) {
-      let cell = document.getElementById(x + "," + (y-1))
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x-1 + "," + y)
-      if(cell.className.includes("selected")) count++;
-    }
+      let cell = document.getElementById(x + "," + (
+      y - 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x - 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      }
     else {
-      let cell = document.getElementById((x-1) + "," + y);
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y+1))
-      if(cell.className.includes("selected")) count++;
-      cell = document.getElementById(x + "," + (y-1))
-      if(cell.className.includes("selected")) count++;
+      let cell = document.getElementById(x - 1 + "," + y);
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y + 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      cell = document.getElementById(x + "," + (
+      y - 1));
+      if (cell.className.includes("selected")) 
+        count++;
+      }
+    } else if (y == 0) {
+    let cell = document.getElementById(x - 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + "," + (
+    y + 1));
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
     }
-  }
-  else if(y == 0) {
-    let cell = document.getElementById((x-1) + "," + y)
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById(x + "," + (y+1));
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById((x+1) + "," + y);
-    if(cell.className.includes("selected")) count++;
-  }
-  else if(y == 6) {
-    let cell = document.getElementById((x-1) + "," + y)
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById(x + "," + (y-1));
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById((x+1) + "," + y);
-    if(cell.className.includes("selected")) count++;
-  }
+  else if (y == 6) {
+    let cell = document.getElementById(x - 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + "," + (
+    y - 1));
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
+    }
   else {
-    let cell = document.getElementById((x-1) + "," + y)
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById(x + "," + (y-1));
-    if(cell.className.includes("selected")) count++;
-    cell = document.getElementById((x+1) + "," + y);
-    if(cell.className.includes("selected")) count++; 
-    cell = document.getElementById(x + "," + (y+1));
-    if(cell.className.includes("selected")) count++; 
-  }
+    let cell = document.getElementById(x - 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + "," + (
+    y - 1));
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + 1 + "," + y);
+    if (cell.className.includes("selected")) 
+      count++;
+    cell = document.getElementById(x + "," + (
+    y + 1));
+    if (cell.className.includes("selected")) 
+      count++;
+    }
   return count;
-}
+};
 
 parseGrid(exampleLevel);
 renderGrid();
