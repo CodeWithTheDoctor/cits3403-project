@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User
+from app.models import User, User_Puzzle
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 
@@ -57,6 +57,22 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
+@app.route("/<puzzle_id>/leaderboard", methods=["GET"])
+def leaderboard(puzzle_id):
+
+    query = (
+        User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
+        .order_by(User_Puzzle.time)
+        .all()
+    )
+
+    leaderboard = [{"username": user.user_id, "time": user.time} for user in query]
+
+    return render_template(
+        "leaderboard.html", title="Leaderboard", leaderboard=leaderboard
+    )
+
+
 @app.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
@@ -72,4 +88,6 @@ def statistics(username):
         {"username": "alexis", "score": 1000, "puzzles": 3},
     ]
 
-    return render_template("statistics.html", user=current_user, top=top)
+    return render_template(
+        "statistics.html", title="Statistics", user=current_user, top=top
+    )

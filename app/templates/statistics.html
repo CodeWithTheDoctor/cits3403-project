@@ -2,27 +2,5 @@
 {% block content %}
 <h1>Statistics</h1>
 <p>Puzzles completed: {{user.puzzles}} </p>
-<p>Score : {{user.score}} </p>
-<p>Rank: {{user.rank}} </p>
-{% if top %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">User</th>
-            <th scope="col">Score</th>
-        </tr>
-    </thead>
-    {% for player in top %}
-    <tbody>
-        <tr>
-            {# TODO: how to rank users? #}
-            <td>{{player.rank}}</td>
-            <td>{{player.username}}</td>
-            <td>{{player.score}} </td>
-        </tr>
-    </tbody>
-    {% endfor %}
-</table>
-{% endif %}
+<p>Average solve time : {{user.time}} </p>
 {% endblock %}
