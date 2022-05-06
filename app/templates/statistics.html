@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Statistics</h1>
-<p>Puzzles completed: {{user.puzzles}} </p>
-<p>Average solve time : {{user.time}} </p>
+<div class="jumbotron">
+    <h1>Hello {{stats.username}}!</h1>
+    <h2>Here are your stats!</h2>
+    <h3>Puzzles completed: {{stats.num_puzzles}} </h3>
+    <h3>Average solve time : {{stats.average}} seconds </h3>
+</div>
 {% endblock %}

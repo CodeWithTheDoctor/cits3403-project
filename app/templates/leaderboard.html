@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-{% if leaderboard %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Username</th>
-            <th scope="col">Time</th>
-        </tr>
-    </thead>
-    {% for user in leaderboard %}
-    <tbody>
-        <tr>
-            {# TODO: how to rank users? #}
-            <td> {{user["username"]}}</td>
-            <td> {{user["time"]}} </td>
-        </tr>
-    </tbody>
-    {% endfor %}
-</table>
-{% endif %}
+<div class="jumbotron">
+    <h1>Leaderboard for Puzzle: {{puzzle_id}} </h1>
+    {% if leaderboard %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        {% for user in leaderboard %}
+        <tbody>
+            <tr>
+                {# TODO: how to rank users? #}
+                <td> {{user["username"]}}</td>
+                <td> {{user["time"]}} </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
 
 {% endblock %}

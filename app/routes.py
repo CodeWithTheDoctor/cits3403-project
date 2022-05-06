@@ -69,7 +69,10 @@ def leaderboard(puzzle_id):
     leaderboard = [{"username": user.user_id, "time": user.time} for user in query]
 
     return render_template(
-        "leaderboard.html", title="Leaderboard", leaderboard=leaderboard
+        "leaderboard.html",
+        title="Leaderboard",
+        leaderboard=leaderboard,
+        puzzle_id=puzzle_id,
     )
 
 
@@ -77,17 +80,14 @@ def leaderboard(puzzle_id):
 @login_required
 def statistics(username):
 
-    current_user = User.query.filter_by(username=username).first_or_404()
+    user = User.query.filter_by(username=username).first_or_404()
 
-    # top = User.query.order_by(score).limit(10)
+    query = User_Puzzle.query.filter_by(user_id=user.id).all()
+    times = [puzzle.time for puzzle in query]
 
-    # FIXME: This top is a mock return object
-    top = [
-        {"username": "henry", "score": 1300, "puzzles": 1},
-        {"username": "david", "score": 1200, "puzzles": 2},
-        {"username": "alexis", "score": 1000, "puzzles": 3},
-    ]
+    average = sum(times) / len(times)
+    num_puzzles = len(query)
 
-    return render_template(
-        "statistics.html", title="Statistics", user=current_user, top=top
-    )
+    stats = {"username": user.username, "average": average, "num_puzzles": num_puzzles}
+
+    return render_template("statistics.html", title="Statistics", stats=stats)
