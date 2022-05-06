@@ -34,8 +34,10 @@ class Puzzle(db.Model):
 
 
 class User_Puzzle(db.Model):
-    user_id = db.Column(db.ForeignKey(User.id), primary_key=True)
-    puzzle_id = db.Column(db.ForeignKey(Puzzle.id), primary_key=True)
+    user_id = db.Column(db.ForeignKey(User.id), primary_key=True, autoincrement=False)
+    puzzle_id = db.Column(
+        db.ForeignKey(Puzzle.id), primary_key=True, autoincrement=False
+    )
     time = db.Column(db.Float)
     puzzle = db.relationship("Puzzle", back_populates="users")
     user = db.relationship("User", back_populates="puzzles")

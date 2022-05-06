@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, User_Puzzle
+from app.models import User, User_Puzzle, Puzzle
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 
@@ -79,7 +79,6 @@ def leaderboard(puzzle_id):
 def statistics(username):
 
     user = User.query.filter_by(username=username).first_or_404()
-
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
     times = [puzzle.time for puzzle in query]
 
@@ -89,3 +88,29 @@ def statistics(username):
     stats = {"username": user.username, "average": average, "num_puzzles": num_puzzles}
 
     return render_template("statistics.html", title="Statistics", stats=stats)
+
+
+def add_puzzle(config: str) -> bool:
+    if not validate_puzzle(config):
+        app.logger.info("Puzzle is invalid")
+    else:
+        new_puzzle = Puzzle(config=config)
+        db.session.add(new_puzzle)
+        db.session.commit()
+        app.logger.info("New puzzle succesfully added.")
+        return True
+
+
+def validate_puzzle(config: str) -> bool:
+    pass
+
+
+def submit_puzzle(puzzle_id: int, time: float, user_id: int):
+    if check_puzzle():
+        entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
+        db.session.add(entry)
+        db.session.commit()
+
+
+def check_puzzle() -> bool:
+    return True
