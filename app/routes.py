@@ -11,11 +11,7 @@ from app.forms import RegistrationForm
 @app.route("/index")
 @login_required
 def index():
-    posts = [
-        {"author": {"username": "john"}, "body": "Beautiful day in portland!"},
-        {"author": {"username": "susan"}, "body": "The avengers movie was so cool!"},
-    ]
-    return render_template("index.html", title="Home", posts=posts)
+    return render_template("index.html", title="Home")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -66,7 +62,9 @@ def leaderboard(puzzle_id):
         .all()
     )
 
-    leaderboard = [{"username": user.user_id, "time": user.time} for user in query]
+    leaderboard = [
+        {"username": entry.user.username, "time": entry.time} for entry in query
+    ]
 
     return render_template(
         "leaderboard.html",
