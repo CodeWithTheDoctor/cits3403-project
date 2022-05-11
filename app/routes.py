@@ -55,7 +55,7 @@ def register():
 
 @app.route("/<puzzle_id>/leaderboard", methods=["GET"])
 def leaderboard(puzzle_id):
-
+    # TODO: Check referring url
     query = (
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
