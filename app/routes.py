@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import User, Puzzle
+from app.models import User, User_Puzzle, Puzzle
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 
@@ -11,11 +11,7 @@ from app.forms import RegistrationForm
 @app.route("/index")
 @login_required
 def index():
-    posts = [
-        {"author": {"username": "john"}, "body": "Beautiful day in portland!"},
-        {"author": {"username": "susan"}, "body": "The avengers movie was so cool!"},
-    ]
-    return render_template("index.html", title="Home", posts=posts)
+    return render_template("index.html", title="Home")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -57,31 +53,64 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
-@app.route("/user/<username>")
-@login_required
-def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {"author": user, "body": "test post #1"},
-        {"author": user, "body": "test pist #2"},
+@app.route("/<puzzle_id>/leaderboard", methods=["GET"])
+def leaderboard(puzzle_id):
+    # TODO: Check referring url
+    query = (
+        User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
+        .order_by(User_Puzzle.time)
+        .all()
+    )
+
+    leaderboard = [
+        {"username": entry.user.username, "time": entry.time} for entry in query
     ]
-    return render_template("user.html", user=user, posts=posts)
+
+    return render_template(
+        "leaderboard.html",
+        title="Leaderboard",
+        leaderboard=leaderboard,
+        puzzle_id=puzzle_id,
+    )
 
 
 @app.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
 
-    user = {"username": "john", "puzzles": [1, 2, 3, 5], "score": 800, "rank": 15}
+    user = User.query.filter_by(username=username).first_or_404()
+    query = User_Puzzle.query.filter_by(user_id=user.id).all()
+    times = [puzzle.time for puzzle in query]
 
-    # top = User.query.order_by(score).limit(10)
+    average = sum(times) / len(times)
+    num_puzzles = len(query)
 
-    # user = User.query.filter_by(username=username).first_or_404()
+    stats = {"username": user.username, "average": average, "num_puzzles": num_puzzles}
 
-    top = [
-        {"username": "henry", "score": 1300, "rank": 1},
-        {"username": "david", "score": 1200, "rank": 2},
-        {"username": "alexis", "score": 1000, "rank": 3},
-    ]
+    return render_template("statistics.html", title="Statistics", stats=stats)
 
-    return render_template("statistics.html", user=user, top=top)
+
+def add_puzzle(config: str) -> bool:
+    if not validate_puzzle(config):
+        app.logger.info("Puzzle is invalid")
+    else:
+        new_puzzle = Puzzle(config=config)
+        db.session.add(new_puzzle)
+        db.session.commit()
+        app.logger.info("New puzzle succesfully added.")
+        return True
+
+
+def validate_puzzle(config: str) -> bool:
+    pass
+
+
+def submit_puzzle(puzzle_id: int, time: float, user_id: int):
+    if check_puzzle():
+        entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
+        db.session.add(entry)
+        db.session.commit()
+
+
+def check_puzzle() -> bool:
+    return True

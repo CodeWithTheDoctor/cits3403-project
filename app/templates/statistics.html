@@ -1,27 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Statistics</h1>
-<p>Puzzles completed: {{user.puzzles|count()}} </p>
-<p>Score : {{user.score}} </p>
-<p>Rank: {{user.rank}} </p>
-{% if top %}
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">User</th>
-            <th scope="col">Score</th>
-        </tr>
-    </thead>
-    {% for user in top %}
-    <tbody>
-        <tr>
-            <td>{{user.rank}}</td>
-            <td>{{user.username}}</td>
-            <td>{{user.score}} </td>
-        </tr>
-    </tbody>
-    {% endfor %}
-</table>
-{% endif %}
+<div class="jumbotron">
+    <h1>Hello {{stats.username}}!</h1>
+    <h2>Here are your stats!</h2>
+    <h3>Puzzles completed: {{stats.num_puzzles}} </h3>
+    <h3>Average solve time : {{stats.average}} seconds </h3>
+</div>
 {% endblock %}
