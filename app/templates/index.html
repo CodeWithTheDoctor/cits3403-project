@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Button trigger modal -->
-<div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Rules
-    </button>
-</div>
 
 <div class="container">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,13 +26,12 @@
             </div>
         </div>
     </div>
+</div>
 
-    <h1>Hi, {{current_user.username}}!</h1>
-
-    <div class="container">
-        <div class="grid-wrapper" id="grid-box">
-        </div>
+<div class="container">
+    <div class="grid-wrapper" id="grid-box">
     </div>
+</div>
 
 
-    {% endblock %}
+{% endblock %}
