@@ -109,13 +109,20 @@ def add_puzzle(config: str) -> bool:
 
 @app.route("/api/puzzle/<username>")
 def get_puzzle(username):
-    random.seed()
 
-    user_puzzles = User.query.filter_by(username=username).first_or_404().puzzles
+    seed = int(datetime.datetime.today().strftime("%Y%m%d"))
+    random.seed(seed)
+
+    done_puzzles = User.query.filter_by(username=username).first_or_404().puzzles
+    done_puzzles = [puzzle.puzzle_id for puzzle in done_puzzles]
+
     all_puzzles = Puzzle.query.all()
-    puzzle_ids = [puzzle.id for puzzle in all_puzzles]
+    puzzle_ids_all = [puzzle.id for puzzle in all_puzzles]
 
-    not_done_puzzles = list(set(puzzle_ids).difference(user_puzzles))
+    choices = list(set(puzzle_ids_all).difference(done_puzzles))
+
+    choice = random.choice(choices)
+    return Puzzle.query.get(choice).config
 
 
 def validate_puzzle(config: str) -> bool:

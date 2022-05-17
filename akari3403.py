@@ -14,4 +14,20 @@ def make_shell_context():
         "User_Puzzle": User_Puzzle,
         "routes": routes,
         "submit_puzzle": routes.submit_puzzle,
+        "populate_db": populate_db,
     }
+
+
+def populate_db():
+    names = ["henry", "lateesha", "susan"]
+    puzzles = ["123", "345", "456", "789"]
+
+    for name in names:
+        user = User(username=name)
+        db.session.add(user)
+        db.session.commit()
+
+    for x in puzzles:
+        x = Puzzle(config=x)
+        db.session.add(x)
+        db.session.commit()
