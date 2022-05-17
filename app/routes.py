@@ -80,12 +80,15 @@ def leaderboard(puzzle_id):
 @app.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
+    # FIXME: division by zero error when notimes listed
 
     user = User.query.filter_by(username=username).first_or_404()
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
     times = [puzzle.time for puzzle in query]
 
-    average = sum(times) / len(times)
+    if not times:
+        average = sum(times) / len(times)
+
     num_puzzles = len(query)
 
     stats = {"username": user.username, "average": average, "num_puzzles": num_puzzles}
@@ -107,7 +110,12 @@ def add_puzzle(config: str) -> bool:
 @app.route("/api/puzzle/<username>")
 def get_puzzle(username):
     random.seed()
-    pass
+
+    user_puzzles = User.query.filter_by(username=username).first_or_404().puzzles
+    all_puzzles = Puzzle.query.all()
+    puzzle_ids = [puzzle.id for puzzle in all_puzzles]
+
+    not_done_puzzles = list(set(puzzle_ids).difference(user_puzzles))
 
 
 def validate_puzzle(config: str) -> bool:

@@ -13,4 +13,5 @@ def make_shell_context():
         "Puzzle": Puzzle,
         "User_Puzzle": User_Puzzle,
         "routes": routes,
+        "submit_puzzle": routes.submit_puzzle,
     }
