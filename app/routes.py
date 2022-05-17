@@ -6,6 +6,9 @@ from app.models import User, User_Puzzle, Puzzle
 from werkzeug.urls import url_parse
 from app.forms import RegistrationForm
 
+import random
+import datetime
+
 
 @app.route("/")
 @app.route("/index")
@@ -99,6 +102,12 @@ def add_puzzle(config: str) -> bool:
         db.session.commit()
         app.logger.info("New puzzle succesfully added.")
         return True
+
+
+@app.route("/api/puzzle/<username>")
+def get_puzzle(username):
+    random.seed()
+    pass
 
 
 def validate_puzzle(config: str) -> bool:
