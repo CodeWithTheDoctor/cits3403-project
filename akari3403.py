@@ -31,3 +31,10 @@ def populate_db():
         x = Puzzle(config=x)
         db.session.add(x)
         db.session.commit()
+
+    up1 = User_Puzzle(user_id=1, puzzle_id=2, time=30)
+    up2 = User_Puzzle(User_id=1, puzzle_id=1, time=20.4)
+
+    db.session.add(up1)
+    db.session.add(up2)
+    db.session.commit()

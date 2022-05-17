@@ -1,5 +1,13 @@
-from flask import render_template, flash, redirect, url_for, request
-from app import app, db
+from flask import (
+    jsonify,
+    render_template,
+    flash,
+    redirect,
+    url_for,
+    request,
+    abort,
+)
+from app import app, db, errors
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import User, User_Puzzle, Puzzle
@@ -109,6 +117,10 @@ def add_puzzle(config: str) -> bool:
 
 @app.route("/api/puzzle/<username>")
 def get_puzzle(username):
+    """
+    Returns the config for a random puzzle from the list of undone puzzles of a user
+    Uses pseudorandom date as seed so will return the same puzzle for the day
+    """
 
     seed = int(datetime.datetime.today().strftime("%Y%m%d"))
     random.seed(seed)
@@ -126,14 +138,43 @@ def get_puzzle(username):
 
 
 def validate_puzzle(config: str) -> bool:
+    """
+    Serverside validation of the puzzle
+    """
     pass
 
 
-def submit_puzzle(puzzle_id: int, time: float, user_id: int):
+@app.route("/api/puzzle/submit", methods=["POST"])
+def submit_puzzle():
+    """
+    request structures:
+    {
+        "user_id':
+        "puzzle_id":
+        "time"
+    }
+    """
+    data = request.get_json() or {}
+
+    if "user_id" not in data:
+        return errors.bad_request("Must include user_id, puzzle_id and time")
+
+    user_id = data["user_id"]
+    puzzle_id = data["puzzle_id"]
+    time = float(data["time"])
+
     if check_puzzle():
         entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
         db.session.add(entry)
-        db.session.commit()
+        # db.session.commit()
+        db.session.rollback()
+
+        data = entry.to_dict()
+        response = jsonify(data)
+        response.status_code = 201
+        return response
+    else:
+        abort(403)
 
 
 def check_puzzle() -> bool:
