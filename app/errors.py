@@ -16,7 +16,7 @@ def internal_error(error):
 
 def error_response(status_code, message=None):
     """
-    Error response fr api requests
+    Error response for api requests
     """
     payload = {"error": HTTP_STATUS_CODES.get(status_code, "unknown error")}
     if message:

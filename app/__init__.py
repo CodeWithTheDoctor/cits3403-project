@@ -27,7 +27,7 @@ if not app.debug and not app.testing:
         if not os.path.exists("logs"):
             os.mkdir("logs")
         file_handler = logging.RotatingFileHandler(
-            "logs/microblog.log", maxBytes=10240, backupCount=10
+            "logs/akari3403.log", maxBytes=10240, backupCount=10
         )
         file_handler.setFormatter(
             logging.Formatter(

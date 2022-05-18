@@ -108,6 +108,14 @@ trio = ["trio (>=0.14,<0.20)"]
 wmi = ["wmi (>=1.5.1,<2.0.0)"]
 
 [[package]]
+name = "dotsi"
+version = "0.0.3"
+description = "Dotsi: Dot-accessible, update-aware Python dicts (& lists)."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "email-validator"
 version = "1.1.3"
 description = "A robust email syntax and deliverability validation library for Python 2.x/3.x."
@@ -606,7 +614,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "bd31264da406ffc401bf2a73e685da1a5758ca00dd1b0e5317e61ef25af02587"
+content-hash = "e4a6aa7a6ae25a2ecec00ca2ada78cdb8f081a2d15a91d745c736e03774ada7f"
 
 [metadata.files]
 alembic = [
@@ -665,6 +673,10 @@ distlib = [
 dnspython = [
     {file = "dnspython-2.2.1-py3-none-any.whl", hash = "sha256:a851e51367fb93e9e1361732c1d60dab63eff98712e503ea7d92e6eccb109b4f"},
     {file = "dnspython-2.2.1.tar.gz", hash = "sha256:0f7569a4a6ff151958b64304071d370daa3243d15941a7beedf0c9fe5105603e"},
+]
+dotsi = [
+    {file = "dotsi-0.0.3-py2.py3-none-any.whl", hash = "sha256:fe857974d3c1abe399defef0ea9281caf273da1dcab7c171e1066f1b672aca63"},
+    {file = "dotsi-0.0.3.tar.gz", hash = "sha256:70209fb30b254b625517fcb9022c48b3ba1d91f887fcc56cac98214c16a40cae"},
 ]
 email-validator = [
     {file = "email_validator-1.1.3-py2.py3-none-any.whl", hash = "sha256:5675c8ceb7106a37e40e2698a57c056756bf3f272cfa8682a4f87ebd95d8440b"},
