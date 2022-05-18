@@ -35,6 +35,30 @@
     </div>
 </div>
 
+<!-- submit button -->
+<button id="submitButton" type="button" class="btn btn-primary">Submit</button>
+<p id="demo"></p>
 
+
+<div class="solvedContainer">
+    <div class="modal fade" id="solvedModal" tabindex="-1" aria-labelledby="solvedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Puzzle Solved!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    bruh
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Custom scripting -->
+<script src="{{url_for('static', filename='listeners.js')}}"></script>
 
 {% endblock %}
