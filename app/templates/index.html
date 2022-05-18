@@ -35,10 +35,11 @@
     </div>
 </div>
 
+<p>{{current_user.username}}</p>
+
 <!-- submit button -->
 <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
 <p id="demo"></p>
-
 
 <div class="solvedContainer">
     <div class="modal fade" id="solvedModal" tabindex="-1" aria-labelledby="solvedModalLabel" aria-hidden="true">
@@ -59,6 +60,11 @@
 
 
 <!-- Custom scripting -->
-<script src="{{url_for('static', filename='listeners.js')}}"></script>
+<script src="{{url_for('static', filename='akari.js')}}"></script>
+
+<!-- Custom scripting -->
+<script src="{{url_for('static', filename='index.js')}}"></script>
+
+
 
 {% endblock %}
