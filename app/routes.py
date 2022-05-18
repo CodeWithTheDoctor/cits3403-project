@@ -154,6 +154,7 @@ def submit_puzzle():
         "time"
     }
     """
+    print('start')
     data = request.get_json() or {}
 
     if "user_id" not in data:
@@ -164,10 +165,11 @@ def submit_puzzle():
     time = float(data["time"])
 
     if check_puzzle():
+        print('checking')
         entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
         db.session.add(entry)
-        # db.session.commit()
-        db.session.rollback()
+        db.session.commit()
+        # db.session.rollback()
 
         data = entry.to_dict()
         response = jsonify(data)

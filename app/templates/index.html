@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+    var user_id = '{{current_user.id}}';
+</script>
 
 <!-- modal text rules -->
 <div class="container">
@@ -35,7 +38,6 @@
     </div>
 </div>
 
-<p>{{current_user.username}}</p>
 
 <!-- submit button -->
 <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
