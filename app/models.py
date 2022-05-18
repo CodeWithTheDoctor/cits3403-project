@@ -42,6 +42,10 @@ class User_Puzzle(db.Model):
     puzzle = db.relationship("Puzzle", back_populates="users")
     user = db.relationship("User", back_populates="puzzles")
 
+    def to_dict(self):
+        data = {"user_id": self.user_id, "puzzle_id": self.puzzle_id, "time": self.time}
+        return data
+
 
 # Posts is for reference only, not used in production
 class Post(db.Model):
