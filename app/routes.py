@@ -1,4 +1,3 @@
-import sqlite3
 from flask import (
     jsonify,
     render_template,
@@ -8,7 +7,7 @@ from flask import (
     request,
     abort,
 )
-import sqlalchemy
+from sqlalchemy.exc import IntegrityError
 from app import app, db, errors
 from app.forms import LoginForm
 from flask_login import current_user, login_required, login_user, logout_user
@@ -67,6 +66,7 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
+# TODO: Convert to an api route?
 @app.route("/<puzzle_id>/leaderboard", methods=["GET"])
 def leaderboard(puzzle_id):
     # TODO: Check referring url
@@ -88,6 +88,7 @@ def leaderboard(puzzle_id):
     )
 
 
+# TODO: Convert to an api route?
 @app.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
@@ -107,15 +108,36 @@ def statistics(username):
     return render_template("statistics.html", title="Statistics", stats=stats)
 
 
-def add_puzzle(config: str) -> bool:
+"""
+API Routes defined from here
+"""
+
+
+def validate_puzzle(config: str) -> bool:
+    """
+    Serverside validation of the puzzle
+    """
+    pass
+
+
+@app.route("/api/admin/add", methods=["POST"])
+def add_puzzle(config: str) -> dict:
     if not validate_puzzle(config):
         app.logger.info("Puzzle is invalid")
+        return errors.bad_request("Puzzle is invalid")
     else:
-        new_puzzle = Puzzle(config=config)
-        db.session.add(new_puzzle)
-        db.session.commit()
-        app.logger.info("New puzzle succesfully added.")
-        return True
+        try:
+            new_puzzle = Puzzle(config=config)
+            db.session.add(new_puzzle)
+            db.session.commit()
+            app.logger.info("New puzzle succesfully added.")
+            response = jsonify({"config": config})
+            response.status_code = 201
+        except:
+            db.session.rollback()
+            response = errors.bad_request("error adding puzzle")
+        finally:
+            return response
 
 
 @app.route("/api/puzzle/<user_id>", methods=["GET"])
@@ -145,18 +167,10 @@ def get_puzzle(user_id):
     choices = list(set(puzzle_ids_all).difference(done_puzzles))
 
     choice = random.choice(choices)
-    app.logger.error(choice)
     data = {"config": Puzzle.query.get(choice).config}
     response = jsonify(data)
     response.status_code = 200
     return response
-
-
-def validate_puzzle(config: str) -> bool:
-    """
-    Serverside validation of the puzzle
-    """
-    pass
 
 
 @app.route("/api/puzzle/submit", methods=["POST"])
@@ -189,7 +203,7 @@ def submit_puzzle():
             response = jsonify(data)
             response.status_code = 201
 
-        except sqlalchemy.exc.IntegrityError:
+        except IntegrityError:
             app.logger.error("Duplicate entry exists")
             db.session.rollback()
             response = errors.bad_request("Duplicate entry exists")
