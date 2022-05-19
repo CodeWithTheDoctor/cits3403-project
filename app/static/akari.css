@@ -33,3 +33,7 @@
   background-color: yellow;
   transition: 0.5s;
 }
+
+.empty-grid {
+  background-color: bisque;
+}
