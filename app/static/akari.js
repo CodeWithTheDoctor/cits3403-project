@@ -519,5 +519,5 @@ const getNumBulbs = (x, y) => {
   return count;
 };
 
-parseGrid(exampleLevel);
-renderGrid();
+// parseGrid(exampleLevel);
+// renderGrid();

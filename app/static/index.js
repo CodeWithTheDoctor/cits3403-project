@@ -2,7 +2,27 @@ $(document).ready(function(){
     // init seconds for timer
     var totalSeconds = 0;
 
+    // render blank grid - disabled click
+    renderGrid();
 
+
+    // select and render puzzle once start is clicked
+    $("#startButton").on("click",function() {
+        $.ajax({
+            url: "http://127.0.0.1:5000/api/puzzle/2",
+            success: function(result) {
+                $("#div1").html(result.config)
+
+            }
+        }).done(function(response) {
+            console.log(response)
+            $("#grid-box").empty();
+            parseGrid(exampleLevel);
+            renderGrid();
+        })
+    })
+
+    // check and submit puzzle when button clicked
     $("#submitButton").click(function() {
         if (isSolved()) {
 

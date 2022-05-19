@@ -7,7 +7,7 @@
 // "34 52\n"+
 // "\n"+
 // "14";
-const exampleLevel = "03 213 33 435 63\n" + "30\n" + "326\n" + "34 52\n" + "\n" + "14";
+//const exampleLevel = "03 213 33 435 63\n" + "30\n" + "326\n" + "34 52\n" + "\n" + "14";
 
 /**
  * Enums
@@ -519,5 +519,5 @@ const getNumBulbs = (x, y) => {
   return count;
 };
 
-parseGrid(exampleLevel);
-renderGrid();
+// parseGrid(exampleLevel);
+// renderGrid();
