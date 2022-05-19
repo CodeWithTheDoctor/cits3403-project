@@ -20,7 +20,7 @@ body {
   border-color: #746354;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
   background-color: #796756;
   border-color: #796756;
 }
