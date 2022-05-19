@@ -1,7 +1,49 @@
-/*
-  Akari Grid Styling
- */
 
+body {
+  background-color: #faf8ef;
+}
+
+/*
+* Navbar styling
+*/
+
+.navbar {
+  background-color: #bbada0;
+}
+
+/*
+* Buttons
+*/
+
+.btn-primary {
+  background-color: #8f7a66;
+  border-color: #746354;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #796756;
+  border-color: #796756;
+}
+
+.btn-danger {
+  background-color: #f56241;
+  border: #f56241;
+}
+
+.btn-danger:hover {
+  background-color: #943b28;
+  border: #943b28;
+}
+
+.btn-warning {
+  background-color: #edcc62;
+  border-color: #edcc62;
+}
+
+
+/*
+* Akari Grid Styling
+*/
 .grid-wrapper{
   display: grid;
   grid-template-columns: repeat(7, 104px);
