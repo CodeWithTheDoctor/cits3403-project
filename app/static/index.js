@@ -3,8 +3,8 @@ $(document).ready(function(){
     var totalSeconds = 0;
 
     // render blank grid - disabled click
+    $("#grid-box").off('click');
     renderGrid();
-
 
     // select and render puzzle once start is clicked
     $("#startButton").on("click",function() {
@@ -16,9 +16,17 @@ $(document).ready(function(){
             }
         }).done(function(response) {
             console.log(response)
+
+            // hide start button
+            $("#startButton").hide();
+
+            // start timer
+
+            // remove child elements of grid box then render puzzle
             $("#grid-box").empty();
             parseGrid(exampleLevel);
             renderGrid();
+            $("#grid-box").on('click');
         })
     })
 

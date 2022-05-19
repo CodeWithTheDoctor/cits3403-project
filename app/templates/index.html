@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<!-- game css -->
+<link href="{{url_for('static',filename='akari.css')}}" rel="stylesheet">
+
 <script>
     var user_id = '{{current_user.id}}';
 </script>
@@ -36,7 +40,8 @@
 <div class="container">
     <!-- start button -->
     <button id="startButton" type="button" class="btn btn-primary">Start</button>
-    <div class="grid-wrapper" id="grid-box">
+    <div class="d-flex justify-content-center">
+        <div class="grid-wrapper" id="grid-box"></div>
     </div>
     <!-- submit button -->
     <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
