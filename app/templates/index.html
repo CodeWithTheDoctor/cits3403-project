@@ -1,44 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Button trigger modal -->
-<div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+  <!-- Button trigger modal -->
+  <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Rules
+      Rules
     </button>
-</div>
+  </div>
 
-<div class="container">
+  <div class="container">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalLabel">Akari Rules</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Place light bulbs (circles) according to the following rules:
-                    <ol>
-                        <li>Light bulbs may be placed in any of the white squares, the number in black squares show how many light
-                            bulbs are next to it, vertically and horizontally.</li>
-                        <li>Each light bulb illuminates from bulb to black square or outer frame in its row and column.</li>
-                        <li>Every white square must be illuminated and a light bulb can not illuminate another light bulb.</li>
-                    </ol>
-                </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Akari Rules</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Place light bulbs (circles) according to the following rules:
+            <ol>
+              <li>Light bulbs may be placed in any of the white squares, the number in black squares show how many light bulbs are next to it, vertically and horizontally.</li>
+              <li>Each light bulb illuminates from bulb to black square or outer frame in its row and column.</li>
+              <li>Every white square must be illuminated and a light bulb can not illuminate another light bulb.</li>
+            </ol>
+          </div>
 
-                <div class="modal-footer">
-                    <sub>rules from https://www.nikoli.co.jp/en/puzzles/akari/</sub>
-                </div>
-            </div>
+          <div class="modal-footer">
+            <sub>rules from https://www.nikoli.co.jp/en/puzzles/akari/</sub>
+          </div>
         </div>
+      </div>
     </div>
 
-    <h1>Hi, {{current_user.username}}!</h1>
+    <h1>Hi,
+      {{current_user.username}}!</h1>
 
     <div class="container">
-        <div class="grid-wrapper" id="grid-box">
-        </div>
+      <div class="grid-wrapper" id="grid-box"></div>
     </div>
 
-
-    {% endblock %}
+  {% endblock %}
