@@ -1,4 +1,3 @@
-from distutils.command.config import config
 from app import app, db, routes
 from app.models import User, Puzzle, User_Puzzle
 from config import Config

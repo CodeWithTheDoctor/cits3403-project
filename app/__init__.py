@@ -3,11 +3,8 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
-from flask_cors import CORS, cross_origin
-import logging
-import os
+from flask_cors import CORS
 
-# FIXME: Where is the logs dir?
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -18,7 +15,6 @@ CORS(app)
 
 from app import routes, models, errors
 
-# TODO: error logging and duplicate username bug
 # def create_app(config_class=Config):
 # if not app.debug and not app.testing:
 #     if app.config["LOG_TO_STDOUT"]:
