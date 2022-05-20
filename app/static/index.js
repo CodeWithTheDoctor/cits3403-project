@@ -5,6 +5,10 @@
 // init seconds for timer globally
 let totalSeconds = 0;
 
+function startTimer() {
+  timer = setInterval(setTime, 1000);
+}
+
 /**
  * 
  */
@@ -45,7 +49,7 @@ $(document).ready(function(){
       console.log(response)
 
       // start timer
-      setInterval(setTime, 1000);
+      startTimer();
 
       // hide start button
       $("#startButton").hide(400);
@@ -65,7 +69,7 @@ $(document).ready(function(){
     if (isSolved()) {
 
       // stop timer
-        // clearInterval(timer)
+      clearInterval(timer);
       
       // upload values to database
         $.ajax({
