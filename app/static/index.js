@@ -1,7 +1,35 @@
-$(document).ready(function(){
-  // init seconds for timer
-  var totalSeconds = 0;
+/**
+ * File that handles game page styling and db connection
+ */
 
+// init seconds for timer globally
+let totalSeconds = 0;
+
+/**
+ * 
+ */
+function setTime() {
+  ++totalSeconds;
+  $("#seconds").html(pad(totalSeconds % 60));
+  $("#minutes").html(pad(parseInt(totalSeconds / 60)));
+}
+
+/**
+ * 
+ * @param val value of total seconds 
+ * @returns returns val in formatted string form
+ */
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
+
+$(document).ready(function(){
   // render blank grid - with no click
   renderGrid();
 
@@ -16,10 +44,11 @@ $(document).ready(function(){
     }).done(function(response) {
       console.log(response)
 
+      // start timer
+      setInterval(setTime, 1000);
+
       // hide start button
       $("#startButton").hide(400);
-
-      // start timer
 
       // remove child elements of grid box then render puzzle
       $("#grid-box").empty();

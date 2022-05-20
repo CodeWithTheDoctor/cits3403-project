@@ -77,8 +77,8 @@ body {
 }
 
 /*
-* Grid start overlay
-*/
+ * Grid start overlay
+ */
 
 #gameOverlay {
   position: absolute;
@@ -97,5 +97,15 @@ body {
 
 .startButtonContainer {
   position: absolute;
-  margin: 18%;
+  margin-top: 340px;
+}
+
+/*
+ * Timer
+ */
+
+.timer {
+  font-family:'Consolas';
+  font-size: xx-large;
+  font-weight: 700;
 }
