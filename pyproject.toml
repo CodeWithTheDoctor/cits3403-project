@@ -33,6 +33,7 @@ python-dotenv = "^0.20.0"
 gunicorn = "^20.1.0"
 dotsi = "^0.0.3"
 Flask-Cors = "^3.0.10"
+pytest = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 
