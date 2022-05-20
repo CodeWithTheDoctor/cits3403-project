@@ -18,36 +18,35 @@ def populate_db():
         db.session.add(x)
 
     up1 = User_Puzzle(user_id=1, puzzle_id=2, time=30)
-    up2 = User_Puzzle(User_id=1, puzzle_id=1, time=20.4)
+    up2 = User_Puzzle(user_id=1, puzzle_id=1, time=20.4)
 
     db.session.add(up1)
     db.session.add(up2)
     db.session.commit()
 
 
-@pytest.fixture()
-def app():
-    basedir = os.path.abspath(os.path.dirname(__file__))
+# @pytest.fixture()
+# def app():
+#     basedir = os.path.abspath(os.path.dirname(__file__))
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-        basedir, "testdb"
-    )
+#     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
+#         basedir, "testdb"
+#     )
 
-    app = app.test_client()
-    db.create_all()
-    populate_db()
-    yield app
+#     app = app.test_client()
+#     db.create_all()
+#     populate_db()
+#     yield app
 
 
 class StudentModelCase(unittest.TestCase):
     def setUp(self):
         basedir = os.path.abspath(os.path.dirname(__file__))
-
+        self.app = app.test_client()
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
             basedir, "testdb"
         )
 
-        app = app.test_client()
         db.create_all()
         populate_db()
 
@@ -61,8 +60,7 @@ class StudentModelCase(unittest.TestCase):
 
 
 def main():
-    s1 = StudentModelCase()
-    s1.test_one()
+    unittest.main()
 
 
 if __name__ == "main":
