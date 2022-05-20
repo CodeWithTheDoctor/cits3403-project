@@ -106,27 +106,6 @@ const parseGrid = puzzleString => {
  */
 
 /**
- * Function for rendering an empty grid with no listeners - used before game start
- */
- const renderEmptyGrid = () => {
-  for (i = 0; i < 7; i++) {
-    for (j = 0; j < 7; j++) {
-      const gridBox = document.getElementById("grid-box");
-      let itemClass = "empty-grid";
-
-      let cell = document.createElement("div");
-      cell.className = itemClass;
-      cell.id = `${j},${i}`;
-      gridBox.appendChild(cell);
-    }
-  }
-
-
-};
-
-
-
-/**
  * Function for rendering the grid to the page by adding nodes for each cell to the grid-wrapper div container.
  */
 const renderGrid = () => {

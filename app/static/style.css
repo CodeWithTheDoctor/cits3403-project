@@ -76,6 +76,26 @@ body {
   transition: 0.5s;
 }
 
-.empty-grid {
-  background-color: bisque;
+/*
+* Grid start overlay
+*/
+
+#gameOverlay {
+  position: absolute;
+  height: 725px;
+  width: 725px;
+  margin-top: 4px;
+  border: 2px solid;
+  border-radius: 10px;
+  background-color: black;
+  opacity: 50%;
+}
+
+#grid-box {
+  position: absolute;
+}
+
+.startButtonContainer {
+  position: absolute;
+  margin: 18%;
 }

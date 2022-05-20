@@ -5,13 +5,6 @@
     var user_id = '{{current_user.id}}';
   </script>
 
-  <!-- Button trigger modal -->
-  <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Rules
-    </button>
-  </div>
-
   <div class="container">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -37,16 +30,32 @@
     </div>
 </div>
 
-<!-- game grid -->
+<!-- main container  -->
 <div class="container">
-    <!-- start button -->
-    <button id="startButton" type="button" class="btn btn-primary">Start</button>
-    <div class="d-flex justify-content-center">
-        <div class="grid-wrapper" id="grid-box"></div>
+  <div class="d-flex justify-content-center">
+    <!-- Button trigger modal -->
+    <div class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Rules
+      </button>
     </div>
+
     <!-- submit button -->
     <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
     <p id="demo"></p>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <!-- grid -->
+    <div id="grid-box" class="grid-wrapper"></div>
+    <!-- grid start overlay -->
+    <div id='gameOverlay' class="game-overlay"></div>
+    
+    <div class="startButtonContainer">
+      <!-- start button -->
+      <button id="startButton" type="button" class="btn btn-primary">Start</button>
+    </div>
+  </div>
 </div>
 
 <div class="solvedContainer">
