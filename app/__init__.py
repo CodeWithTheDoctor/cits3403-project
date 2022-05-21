@@ -11,7 +11,7 @@ import logging.handlers
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
-login.login_view = "login"  # pass flask-login the view function
+login.login_view = "auth.login"  # pass flask-login the view function
 cors = CORS()
 
 # stream_handler = logging.StreamHandler()
