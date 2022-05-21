@@ -7,6 +7,7 @@ from flask import (
     request,
     abort,
 )
+from flask_cors import cross_origin
 from sqlalchemy.exc import IntegrityError
 from app import app, db, errors
 from app.forms import LoginForm
@@ -18,6 +19,7 @@ from app.forms import RegistrationForm
 import random
 import datetime
 import dotsi
+import logging
 
 
 @app.route("/")
@@ -98,6 +100,8 @@ def statistics(username):
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
     times = [puzzle.time for puzzle in query]
 
+    average = 10000
+
     if not times:
         average = sum(times) / len(times)
 
@@ -173,6 +177,7 @@ def get_puzzle(user_id):
     return response
 
 
+# @login_required
 @app.route("/api/puzzle/submit", methods=["POST"])
 def submit_puzzle():
     # TODO: add some sort of authentication?
@@ -188,17 +193,15 @@ def submit_puzzle():
     data = dotsi.fy(request.get_json()) or {}
     for required in ("user_id", "puzzle_id", "time"):
         if required not in data:
-            return errors.bad_request("Must include user_id, puzzle_id and time")
-
-    user_id = data.user_id
-    puzzle_id = data.puzzle_id
-    time = float(data.time)
+            pass
+            # return errors.bad_request("Must include user_id, puzzle_id and time")
+    user_id, puzzle_id, time = data
 
     if check_puzzle():
         entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
         try:
             db.session.add(entry)
-            db.session.commit()
+            # db.session.commit()
             data = entry.to_dict()
             response = jsonify(data)
             response.status_code = 201
@@ -209,6 +212,7 @@ def submit_puzzle():
             response = errors.bad_request("Duplicate entry exists")
 
         finally:
+            db.session.rollback()
             return response
 
     else:

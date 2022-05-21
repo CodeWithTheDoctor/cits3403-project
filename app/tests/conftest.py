@@ -37,33 +37,3 @@ def app():
     db.create_all()
     populate_db()
     yield app
-
-
-class StudentModelCase(unittest.TestCase):
-    def setUp(self):
-        basedir = os.path.abspath(os.path.dirname(__file__))
-
-        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-            basedir, "testdb"
-        )
-
-        app = app.test_client()
-        db.create_all()
-        populate_db()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-
-    def test_one(self):
-        u = User.query.first()
-        self.assertTrue(u.username == "henry")
-
-
-def main():
-    s1 = StudentModelCase()
-    s1.test_one()
-
-
-if __name__ == "main":
-    main()
