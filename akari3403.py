@@ -17,5 +17,4 @@ def make_shell_context():
         "User_Puzzle": User_Puzzle,
         "routes": routes,
         "submit_puzzle": routes.submit_puzzle,
-        "populate_db": populate_db,
     }
