@@ -37,6 +37,14 @@ def create_app(config_class=Config):
 
     app.register(auth_bp)
 
+    from app.main import bp as main_bp
+
+    app.register(main_bp)
+
+    from app.api import bp as api_bp
+
+    app.register(api_bp)
+
     if not app.debug and not app.testing:
         if app.config["LOG_TO_STDOUT"]:
             stream_handler = logging.StreamHandler()
