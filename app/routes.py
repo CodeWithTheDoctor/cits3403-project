@@ -7,7 +7,6 @@ from flask import (
     request,
     abort,
 )
-from flask_cors import cross_origin
 from sqlalchemy.exc import IntegrityError
 from app import app, db, errors
 from app.forms import LoginForm
@@ -19,7 +18,6 @@ from app.forms import RegistrationForm
 import random
 import datetime
 import dotsi
-import logging
 
 
 @app.route("/")

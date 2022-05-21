@@ -1,13 +1,12 @@
 import pytest
 import os
-from app import app, db
+from app import create_app, db
 from app.models import User, Puzzle, User_Puzzle
-import unittest
 
 
 def populate_db():
-    names = ["henry", "lateesha", "susan"]
-    puzzles = ["123", "345", "456", "789"]
+    names = ["fred", "bob"]
+    puzzles = ["123", "456", "789"]
 
     for name in names:
         user = User(username=name)
@@ -18,22 +17,47 @@ def populate_db():
         db.session.add(x)
 
     up1 = User_Puzzle(user_id=1, puzzle_id=2, time=30)
-    up2 = User_Puzzle(User_id=1, puzzle_id=1, time=20.4)
+    up2 = User_Puzzle(user_id=1, puzzle_id=1, time=20.4)
 
     db.session.add(up1)
     db.session.add(up2)
     db.session.commit()
 
 
-@pytest.fixture()
+@pytest.fixture
 def app():
-    basedir = os.path.abspath(os.path.dirname(__file__))
+    app = create_app()
+    app.testing = True
 
+    basedir = os.path.abspath(os.path.dirname(__file__))
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
         basedir, "testdb"
     )
-
-    app = app.test_client()
+    app.app_context().push()
+    db.drop_all()
     db.create_all()
     populate_db()
+
     yield app
+
+    # clean up db after
+    db.session.remove()
+    db.drop_all()
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+
+@pytest.fixture
+def runner(app):
+    return app.test_cli_runner()
+
+
+@pytest.fixture
+def my_client():
+    app = create_app()
+    app.app_context().push
+    app.testing = True
+    return app.test_client()
