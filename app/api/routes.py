@@ -1,6 +1,5 @@
 from flask import (
     jsonify,
-    render_template,
     request,
     abort,
 )
@@ -15,10 +14,9 @@ import random
 import datetime
 import dotsi
 
-# TODO: Convert to an api route?
+
 @bp.route("/<int:puzzle_id>/leaderboard", methods=["GET"])
 def leaderboard(puzzle_id):
-    # TODO: Check referring url
     query = (
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
@@ -29,47 +27,52 @@ def leaderboard(puzzle_id):
         {"username": entry.user.username, "time": entry.time} for entry in query
     ]
 
+    response = jsonify(leaderboard)
+    response.status_code = 200
+    return response
 
-# TODO: Convert to an api route?
+
 @bp.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
-    # FIXME: division by zero error when notimes listed
 
     user = User.query.filter_by(username=username).first_or_404()
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
     times = [puzzle.time for puzzle in query]
 
+    # default large number to stop missing error
     average = 10000
 
     if not times:
+        # prevent division by zero error when no puzzles
         average = sum(times) / len(times)
 
     num_puzzles = len(query)
 
     stats = {"username": user.username, "average": average, "num_puzzles": num_puzzles}
 
-    return render_template("statistics.html", title="Statistics", stats=stats)
+    response = jsonify(stats)
+    response.status_code = 200
 
 
-@bp.route("/api/admin/add", methods=["POST"])
-def add_puzzle(config: str) -> dict:
-    if not validate_puzzle(config):
-        app.logger.info("Puzzle is invalid")
-        return errors.bad_request("Puzzle is invalid")
-    else:
-        try:
-            new_puzzle = Puzzle(config=config)
-            db.session.add(new_puzzle)
-            db.session.commit()
-            app.logger.info("New puzzle succesfully added.")
-            response = jsonify({"config": config})
-            response.status_code = 201
-        except:
-            db.session.rollback()
-            response = errors.bad_request("error adding puzzle")
-        finally:
-            return response
+# @bp.route("/api/admin/add", methods=["POST"])
+# def add_puzzle(config: str) -> dict:
+#     if not validate_puzzle(config):
+#         app.logger.info("Puzzle is invalid")
+#         return errors.bad_request("Puzzle is invalid")
+#     else:
+#         try:
+#             new_puzzle = Puzzle(config=config)
+#             db.session.add(new_puzzle)
+#             db.session.commit()
+#             app.logger.info("New puzzle succesfully added.")
+#             response = jsonify({"config": config})
+#             response.status_code = 201
+#         except:
+#             db.session.rollback()
+#             response = errors.bad_request("error adding puzzle")
+#         finally:
+#             return response
 
 
 @bp.route("/api/puzzle/<user_id>", methods=["GET"])
@@ -105,7 +108,7 @@ def get_puzzle(user_id):
     return response
 
 
-# @login_required
+@login_required
 @bp.route("/api/puzzle/submit", methods=["POST"])
 def submit_puzzle():
     # TODO: add some sort of authentication?
@@ -122,6 +125,7 @@ def submit_puzzle():
     for required in ("user_id", "puzzle_id", "time"):
         if required not in data:
             pass
+            # FIXME: comment out while testing
             # return errors.bad_request("Must include user_id, puzzle_id and time")
     user_id, puzzle_id, time = data
 
