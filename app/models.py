@@ -16,6 +16,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     score = db.Column(db.Integer, index=True)
     puzzles = db.relationship("User_Puzzle", back_populates="user")
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    streak = db.Column(db.Integer, default=0)
 
     def set_password(self, password) -> None:
         self.password_hash = generate_password_hash(password)
