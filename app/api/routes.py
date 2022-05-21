@@ -1,23 +1,22 @@
 from flask import (
     jsonify,
     render_template,
-    flash,
-    redirect,
-    url_for,
     request,
     abort,
 )
 from sqlalchemy.exc import IntegrityError
 from app import app, db, errors
-from flask_login import current_user, login_required, login_user, logout_user
+from flask_login import current_user, login_required
 from app.models import User, User_Puzzle, Puzzle
+from app.api import bp
+from app.api import validate_puzzle, check_puzzle
 
 import random
 import datetime
 import dotsi
 
 # TODO: Convert to an api route?
-@app.route("/<puzzle_id>/leaderboard", methods=["GET"])
+@bp.route("/<int:puzzle_id>/leaderboard", methods=["GET"])
 def leaderboard(puzzle_id):
     # TODO: Check referring url
     query = (
@@ -30,16 +29,9 @@ def leaderboard(puzzle_id):
         {"username": entry.user.username, "time": entry.time} for entry in query
     ]
 
-    return render_template(
-        "leaderboard.html",
-        title="Leaderboard",
-        leaderboard=leaderboard,
-        puzzle_id=puzzle_id,
-    )
-
 
 # TODO: Convert to an api route?
-@app.route("/user/<username>/statistics")
+@bp.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
     # FIXME: division by zero error when notimes listed
@@ -60,19 +52,7 @@ def statistics(username):
     return render_template("statistics.html", title="Statistics", stats=stats)
 
 
-"""
-API Routes defined from here
-"""
-
-
-def validate_puzzle(config: str) -> bool:
-    """
-    Serverside validation of the puzzle
-    """
-    pass
-
-
-@app.route("/api/admin/add", methods=["POST"])
+@bp.route("/api/admin/add", methods=["POST"])
 def add_puzzle(config: str) -> dict:
     if not validate_puzzle(config):
         app.logger.info("Puzzle is invalid")
@@ -92,7 +72,7 @@ def add_puzzle(config: str) -> dict:
             return response
 
 
-@app.route("/api/puzzle/<user_id>", methods=["GET"])
+@bp.route("/api/puzzle/<user_id>", methods=["GET"])
 def get_puzzle(user_id):
     """
     Returns the config for a random puzzle from the list of unsolved puzzles of a user
@@ -126,7 +106,7 @@ def get_puzzle(user_id):
 
 
 # @login_required
-@app.route("/api/puzzle/submit", methods=["POST"])
+@bp.route("/api/puzzle/submit", methods=["POST"])
 def submit_puzzle():
     # TODO: add some sort of authentication?
     """
@@ -165,7 +145,3 @@ def submit_puzzle():
 
     else:
         abort(403)
-
-
-def check_puzzle() -> bool:
-    return True

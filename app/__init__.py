@@ -73,4 +73,4 @@ def create_app(config_class=Config):
 
 app = create_app()
 
-from app.models import Puzzle, User
+from app import models
