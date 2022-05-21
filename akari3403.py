@@ -1,6 +1,9 @@
-from app import app, db, routes
+from app import app, db, routes, cli, create_app
 from app.models import User, Puzzle, User_Puzzle
 from config import Config
+
+app = create_app()
+cli.register(app)
 
 
 @app.shell_context_processor
