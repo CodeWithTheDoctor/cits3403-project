@@ -75,7 +75,7 @@ def statistics(username):
 #             return response
 
 
-@bp.route("/api/puzzle/<user_id>", methods=["GET"])
+@bp.route("/puzzle/<user_id>", methods=["GET"])
 def get_puzzle(user_id):
     """
     Returns the config for a random puzzle from the list of unsolved puzzles of a user
@@ -108,8 +108,8 @@ def get_puzzle(user_id):
     return response
 
 
-@login_required
-@bp.route("/api/puzzle/submit", methods=["POST"])
+# @login_required
+@bp.route("/puzzle/submit", methods=["POST"])
 def submit_puzzle():
     # TODO: add some sort of authentication?
     """
@@ -118,7 +118,7 @@ def submit_puzzle():
         "user_id':
         "puzzle_id":
         "time":
-        "solution": TODO: Implement this
+        "solution": #TODO: Implement this maybe
     }
     """
     data = dotsi.fy(request.get_json()) or {}
