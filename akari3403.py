@@ -1,4 +1,4 @@
-from app import app, db, cli, create_app
+from app import db, cli, create_app
 from app.main import routes
 from app.models import User, Puzzle, User_Puzzle
 from config import Config

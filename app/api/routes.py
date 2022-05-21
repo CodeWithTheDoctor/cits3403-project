@@ -4,11 +4,11 @@ from flask import (
     abort,
 )
 from sqlalchemy.exc import IntegrityError
-from app import app, db, errors
-from flask_login import current_user, login_required
+from app import db, errors
+from flask_login import login_required
 from app.models import User, User_Puzzle, Puzzle
 from app.api import bp
-from app.api import validate_puzzle, check_puzzle
+from app.api.utils import check_puzzle
 
 import random
 import datetime
@@ -139,7 +139,7 @@ def submit_puzzle():
             response.status_code = 201
 
         except IntegrityError:
-            app.logger.error("Duplicate entry exists")
+            # app.logger.error("Duplicate entry exists")
             db.session.rollback()
             response = errors.bad_request("Duplicate entry exists")
 

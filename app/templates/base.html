@@ -20,16 +20,15 @@
 
     <nav class="navbar navbar-light navbar-expand bg-light">
         <div class="container">
-            <a class="nav-brand" href="{{url_for('index')}}">Home</a>
+            <a class="nav-brand" href="{{url_for('main.index')}}">Home</a>
 
             <!-- Title -->
             <h1 class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">Akari Game</h1>
 
             {% if current_user.is_anonymous %}
-            <a class="nav-item" href="{{url_for('login')}}"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+            <a class="nav-item" href="{{url_for('auth.login')}}"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
             {% else %}
-            <a class="nav-item" href="{{url_for('statistics', username=current_user.username)}}">Statistics</a>
-            <a class="nav-item" href="{{url_for('logout')}}">Logout</a>
+            <a class="nav-item" href="{{url_for('auth.logout')}}">Logout</a>
             {% endif %}
         </div>
         <hr />
