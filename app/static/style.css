@@ -62,6 +62,14 @@ body {
 
 
 /*
+ * Game page
+ */
+.game-container {
+  margin-top: 20px;
+}
+
+
+/*
 * Akari Grid Styling
 */
 .grid-wrapper{
