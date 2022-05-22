@@ -66,8 +66,8 @@ $(document).ready(function(){
       parseGrid(puzzleString);
       $("#grid-box").hide();
       renderGrid();
-      $("#grid-box").show(200, "swing");
-      $("#gameOverlay").hide(400);
+      $("#grid-box").fadeIn();
+      $("#gameOverlay").fadeOut();
     })
   })
 
@@ -110,7 +110,9 @@ $(document).ready(function(){
         })
 
       // if solved then show leaderboard and stuff
-      $("#solvedModal").modal("show");
+      $("#results-modal").modal("show");
+      // show results button
+      $("#results-container").show();
 
     } else {
       // show prompt that is not solved

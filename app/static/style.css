@@ -85,6 +85,10 @@ body {
   padding-inline: 5px;
 }
 
+#results-container {
+  display: none;
+}
+
 /*
  * Modals
  */
