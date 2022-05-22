@@ -2,7 +2,6 @@ import pytest
 import os
 from app import create_app, db, cli
 from app.models import User, Puzzle, User_Puzzle
-from pathlib import Path
 
 
 def populate_db():
@@ -11,6 +10,7 @@ def populate_db():
 
     for name in names:
         user = User(username=name)
+        user.set_password("password")
         db.session.add(user)
 
     for x in puzzles:
@@ -34,10 +34,10 @@ def app():
     # create in memory database
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"
 
-    app.app_context().push()
-    db.drop_all()
-    db.create_all()
-    populate_db()
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+        populate_db()
 
     yield app
 
@@ -48,6 +48,7 @@ def app():
 
 @pytest.fixture
 def client(app):
+    app.app_context().push()
     return app.test_client()
 
 
@@ -57,8 +58,31 @@ def runner(app):
 
 
 @pytest.fixture
-def my_client():
-    app = create_app()
-    app.app_context().push
+def req_ctx(app):
+    app.test_request_context().push
+    return
+
+
+@pytest.fixture
+def app_ctx(app):
+    app.app_context().push()
     app.testing = True
     return app.test_client()
+
+
+class AuthActions(object):
+    def __init__(self, client):
+        self._client = client
+
+    def login(self, username="test", password="test"):
+        return self._client.post(
+            "/auth/login", data={"username": username, "password": password}
+        )
+
+    def logout(self):
+        return self._client.get("/auth/logout")
+
+
+@pytest.fixture
+def auth(client):
+    return AuthActions(client)
