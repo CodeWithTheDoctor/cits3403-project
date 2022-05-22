@@ -137,6 +137,10 @@ $("#submitButton").click(async function () {
 
     console.log(leaderboard);
 
+    /*
+     * generate results content
+    */
+    $("table-title").text(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
     // generate results modal contents
     $( ".timer" ).clone().appendTo( "#modal-time" );
 

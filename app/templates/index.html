@@ -38,6 +38,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
+        <!-- modal title -->
         <div class="modal-header">
           <h3>Puzzle Solved in -&nbsp</h3>
           <div id="modal-time"></div>
@@ -49,33 +50,17 @@
           <div class="row">
             <!-- leaderboard -->
             <div class="col-md-6">
-              <table class="table">
+              <table class="table caption-top">
+                <caption id="table-title">List of users</caption>
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Time</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
+                  <!-- insert rows with jquery -->
                 </tbody>
               </table>
             </div>
@@ -84,6 +69,7 @@
             <div class="col-md-6">
 
               <div class="d-flex flex-column mb-3">
+                <!-- div with some copy and paste thing -->
                 Share your results on social media!
                 <div class="d-inline-flex">
                   <button type="button" class="btn btn-icon btn-block  mr-2 "><span><img src="https://img.icons8.com/color/48/000000/twitter.png" class="img-fluid mr-1" width="25"></span> <span class="fb"> Twitter</span></button>
