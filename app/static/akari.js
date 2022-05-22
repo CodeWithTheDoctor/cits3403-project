@@ -1,12 +1,6 @@
 /**
- * EXAMPLE
+ * JS that is responsible for rendering the akari board
  */
-// const a = "03 213 33 435 63\n"+
-// "30\n"+
-// "326\n"+
-// "34 52\n"+
-// "\n"+
-// "14";
 
 /**
  * Enums
