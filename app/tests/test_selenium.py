@@ -10,16 +10,16 @@ from app.models import User
 from app import db
 
 
-def test_lambdatest_todo_app(app_ctx):
+def test_selenium():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get("http://127.0.0.1:5000/auth/register")
     driver.maximize_window()
 
     # Test register user
-    driver.find_element(By.ID, "username").send_keys("john")
+    driver.find_element(By.ID, "username").send_keys("test_user")
     driver.find_element(By.ID, "password").send_keys("password")
     driver.find_element(By.ID, "password2").send_keys("password")
-    driver.find_element(By.ID, "email").send_keys("john@example.com")
+    driver.find_element(By.ID, "email").send_keys("test@example.com")
     driver.find_element(By.ID, "submit").click()
 
     sleep(1)
@@ -31,7 +31,8 @@ def test_lambdatest_todo_app(app_ctx):
     driver.find_element(By.ID, "password").send_keys("password")
     driver.find_element(By.ID, "submit").click()
 
-    User.query.filter_by(username="john").first().delete()
+    test_user = User.query.filter_by(username="test_user").first()
+    db.session.delete(test_user)
     db.session.commit()
 
     sleep(1)

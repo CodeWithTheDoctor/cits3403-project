@@ -12,6 +12,6 @@ def test_user_statistics(app_ctx):
 
 
 def test_non_existent_user(app_ctx):
-    response = app_ctx.get("/api/user/johnthethird12345/statistics")
+    response = app_ctx.get("/api/user/statistics/johnthethird12345")
 
     assert response.status_code == 404
