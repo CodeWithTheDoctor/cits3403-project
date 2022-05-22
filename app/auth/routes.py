@@ -1,8 +1,8 @@
 from app.auth import bp
-from flask import render_template, redirect, url_for, flash, request
+from flask import abort, render_template, redirect, url_for, flash, request
 from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user
-from app import db
+from app import db, oauth
 from app.models import User
 from app.auth.forms import LoginForm, RegistrationForm
 
@@ -44,3 +44,39 @@ def register():
         flash("Congratulations, you are now a registered user!")
         return redirect(url_for("auth.login"))
     return render_template("auth/register.html", title="Register", form=form)
+
+
+@bp.route("")
+def auth():
+    token = oauth.google.authorize_access_token()
+    g_user = token.get("userinfo")
+
+    print("hello!")
+    if g_user:
+        user = User.query.filter_by(email=g_user.email).first()
+        if user is not None:
+            login_user(user, remember=False)
+
+        else:
+            # create new user
+            try:
+                new_user = User(username=g_user.given_name, email=g_user.email)
+                new_user.set_password("password")
+                print("enter try block")
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user, remember=False)
+                next_page = request.args.get("next")
+            except:
+                abort(500)
+
+        if not next_page or url_parse(next_page).netloc != "":
+            next_page = url_for("main.index")
+        return redirect(next_page)
+    return redirect(url_for("main.index"))
+
+
+@bp.route("/google")
+def google():
+    redirect_uri = url_for("auth.auth", _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)

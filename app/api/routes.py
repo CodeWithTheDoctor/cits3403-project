@@ -15,8 +15,9 @@ import datetime
 import dotsi
 
 
-@bp.route("/<int:puzzle_id>/leaderboard", methods=["GET"])
+@bp.route("/leaderboard/<int:puzzle_id>", methods=["GET"])
 def leaderboard(puzzle_id):
+    """Leaderboard statistics given a puzzle id"""
     query = (
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
