@@ -98,6 +98,20 @@ $("#submitButton").click(function () {
       success: function(response, data) {
         console.log(response)
         console.log(data)
+
+        // retreive leaderboard data
+        $.ajax({
+          url: `/leaderboard/${puzzle_id}`,
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            console.log(data);
+          }
+        }).done(function (data) {
+          let leaderboard = data;
+        })
+
+
       },
       error: function(xhr, response, error) {
         console.log(xhr.responseText)
@@ -107,19 +121,7 @@ $("#submitButton").click(function () {
       },
     })
 
-    // retreive leaderboard data
-    $.ajax({
-      url: `/leaderboard/${puzzle_id}`,
-      type: "GET",
-      dataType: "json",
-      success: function (data) {
-        console.log("leaderboard")
-        console.log(data);
-      }
-    }).done(function (data) {
-      console.log(data);
-    })
-
+    console.log(leaderboard);
 
     // generate results modal contents
     $( ".timer" ).clone().appendTo( "#modal-time" );

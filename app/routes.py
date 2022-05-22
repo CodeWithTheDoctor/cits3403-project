@@ -195,16 +195,12 @@ def submit_puzzle():
     }
     """
     data = dotsi.fy(request.get_json()) or {}
-    for required in ("user_id", "puzzle_id", "time"):
-        if required not in data:
-            pass
-            # return errors.bad_request("Must include user_id, puzzle_id and time")
-    user_id, puzzle_id, time = data
 
     if check_puzzle():
-        entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
+        entry = User_Puzzle(time=data.time, puzzle_id=data.puzzle_id, user_id=data.user_id)
         try:
             db.session.add(entry)
+            db.session.commit()
             data = entry.to_dict()
             response = jsonify(data)
             response.status_code = 201
@@ -215,7 +211,6 @@ def submit_puzzle():
             response = errors.bad_request("Duplicate entry exists")
 
         finally:
-            db.session.rollback()
             return response
 
     else:
