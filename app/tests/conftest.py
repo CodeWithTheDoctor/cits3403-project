@@ -25,14 +25,15 @@ def populate_db():
     db.session.commit()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app():
     app = create_app()
-    app.testing = True
+
     cli.register(app)
 
     # create in memory database
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"
+    app.config["WTF_CSRF_ENABLED"] = False
 
     with app.app_context():
         db.drop_all()
@@ -46,9 +47,11 @@ def app():
     db.drop_all()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def client(app):
-    app.app_context().push()
+    app.testing = True
+    ctx = app.app_context()
+    ctx.push()
     return app.test_client()
 
 
@@ -59,14 +62,15 @@ def runner(app):
 
 @pytest.fixture
 def req_ctx(app):
-    app.test_request_context().push
-    return
+    ctx = app.test_request_context()
+    ctx.push()
+    return app.test_client()
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def app_ctx(app):
-    app.app_context().push()
-    app.testing = True
+    ctx = app.app_context()
+    ctx.push()
     return app.test_client()
 
 

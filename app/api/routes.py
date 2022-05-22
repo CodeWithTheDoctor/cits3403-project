@@ -76,7 +76,7 @@ def statistics(username):
 #             return response
 
 
-@bp.route("/puzzle/<user_id>", methods=["GET"])
+@bp.route("/puzzle/<int:user_id>", methods=["GET"])
 def get_puzzle(user_id):
     """
     Returns the config for a random puzzle from the list of unsolved puzzles of a user
