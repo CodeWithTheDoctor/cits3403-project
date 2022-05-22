@@ -18,17 +18,8 @@ def test_lambdatest_todo_app(app_ctx):
     driver.find_element(By.ID, "password").send_keys("password")
     driver.find_element(By.ID, "password2").send_keys("password")
     driver.find_element(By.ID, "email").send_keys("john@example.com")
-    driver.find_element(By.ID, "submit").click()
+    # driver.find_element(By.ID, "submit").click()
 
-    assert "test" in driver
-    print(driver)
-    title = "Akari"
-    assert title in driver.title
+    assert "test" in driver.find_element(By.TAG_NAME, "h1")
 
-    sleep(5)
-
-    driver.find_element(By.ID, "addbutton").click()
-    sleep(5)
-
-    sleep(2)
     driver.close()
