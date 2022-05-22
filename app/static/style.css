@@ -97,9 +97,8 @@ body {
 /*
  * Game page
  */
-.game-container {
+#game-container {
   margin-top: 25px;
-  margin-left: 22%;
   width: 725px;
 }
 
@@ -123,10 +122,6 @@ body {
 
 .modal-content {
   background-color: #faf8ef
-}
-
-#modal-time {
-  justify-content: center;
 }
 
 /*
