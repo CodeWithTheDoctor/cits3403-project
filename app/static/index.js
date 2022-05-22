@@ -83,37 +83,50 @@ $("#submitButton").click(function () {
 
     // create puzzle submission obj
     submission  = {
-
       user_id: user_id,
       puzzle_id: puzzle_id,
       time: totalSeconds
     };
     
     // upload submission to database
-      $.ajax({
-        url  : "/api/puzzle/submit",
-        type : "POST",
-        data : JSON.stringify(submission),
-        dataType : "json",
-        contentType: "application/json",
-        success: function(response, data) {
-          console.log(response)
-          console.log(data)
-        },
-        error: function(xhr, response, error) {
-          console.log(xhr.responseText)
-          console.log(xhr.statusText)
-          console.log(response)
-          console.log(error)
-        },
-      })
+    $.ajax({
+      url  : "/api/puzzle/submit",
+      type : "POST",
+      data : JSON.stringify(submission),
+      dataType : "json",
+      contentType: "application/json",
+      success: function(response, data) {
+        console.log(response)
+        console.log(data)
+      },
+      error: function(xhr, response, error) {
+        console.log(xhr.responseText)
+        console.log(xhr.statusText)
+        console.log(response)
+        console.log(error)
+      },
+    })
+
+    // retreive leaderboard data
+    $.ajax({
+      url: `/leaderboard/${puzzle_id}`,
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        console.log("leaderboard")
+        console.log(data);
+      }
+    }).done(function (data) {
+      console.log(data);
+    })
 
 
+    // generate results modal contents
     $( ".timer" ).clone().appendTo( "#modal-time" );
 
-
-    // if solved then show leaderboard and stuff
+    // open modal
     $("#results-modal").modal("show");
+
     // show results button
     $("#results-container").show();
 

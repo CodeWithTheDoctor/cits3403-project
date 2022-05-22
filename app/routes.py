@@ -66,26 +66,34 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
-# TODO: Convert to an api route?
 @app.route("/leaderboard/<puzzle_id>", methods=["GET"])
 def leaderboard(puzzle_id):
-    # TODO: Check referring url
+    """
+    Returns the top 5 fastest solve times with usernames
+
+        Parameters:
+            puzzle_id (int): id of puzzle to fetch leaderboard
+
+    response structure:
+    {
+        "leaderboard":
+    }
+    """
     query = (
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
         .all()
+        .limit(5)
     )
 
     leaderboard = [
         {"username": entry.user.username, "time": entry.time} for entry in query
     ]
-
-    return render_template(
-        "leaderboard.html",
-        title="Leaderboard",
-        leaderboard=leaderboard,
-        puzzle_id=puzzle_id,
-    )
+    
+    data = {"leaderboard": leaderboard}
+    response = jsonify(data)
+    response.status_code = 200
+    return response
 
 
 # TODO: Convert to an api route?
