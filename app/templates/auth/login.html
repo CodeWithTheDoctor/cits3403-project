@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <hr/>
   <h1>Sign In</h1>
 
@@ -28,4 +28,12 @@
   <a href="{{url_for('auth.register')}}">Click to Register!</a></p>
   <p><a href="{{url_for('auth.google')}}" >Sign in with google</a></p>
   </p>
+
+  <div id="tweet-container"> this is the tweet container</div>
+  <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<a id ="tweet-container" class="twitter-share-button"
+  href="https://twitter.com/intent/tweet">
+Tweet</a>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
 {% endblock %}
