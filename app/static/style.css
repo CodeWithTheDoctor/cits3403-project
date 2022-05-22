@@ -11,6 +11,21 @@ body {
   background-color: #bbada0;
 }
 
+.navbar-brand {
+  color: black;
+}
+
+.navbar-brand {
+  width: 100%;
+}
+.navbar-nav {
+  width: 100%;
+}
+
+.nav-title {
+  color: #000000;
+  text-decoration: none;
+}
 /*
 * Buttons
 */
@@ -38,6 +53,11 @@ body {
 .btn-warning {
   background-color: #edcc62;
   border-color: #edcc62;
+}
+
+.btn-warning:hover {
+  background-color: #ac9549;
+  border-color: #ac9549;
 }
 
 
