@@ -17,7 +17,8 @@ import dotsi
 
 @bp.route("/leaderboard/<int:puzzle_id>", methods=["GET"])
 def leaderboard(puzzle_id):
-    """_summary_
+    """
+    Provide the solve times for a given puzzle id, sorted in ascending
 
     Args:
         puzzle_id (int): the id of the puzzle to get stats for
@@ -40,8 +41,7 @@ def leaderboard(puzzle_id):
     return response
 
 
-@bp.route("/user/<username>/statistics")
-@login_required
+@bp.route("/statistics/<username>", methods=["GET"])
 def statistics(username):
 
     user = User.query.filter_by(username=username).first_or_404()
@@ -51,7 +51,7 @@ def statistics(username):
     # default large number to stop missing error
     average = 10000
 
-    if not times:
+    if times:
         # prevent division by zero error when no puzzles
         average = sum(times) / len(times)
 
@@ -62,25 +62,7 @@ def statistics(username):
     response = jsonify(stats)
     response.status_code = 200
 
-
-# @bp.route("/api/admin/add", methods=["POST"])
-# def add_puzzle(config: str) -> dict:
-#     if not validate_puzzle(config):
-#         app.logger.info("Puzzle is invalid")
-#         return errors.bad_request("Puzzle is invalid")
-#     else:
-#         try:
-#             new_puzzle = Puzzle(config=config)
-#             db.session.add(new_puzzle)
-#             db.session.commit()
-#             app.logger.info("New puzzle succesfully added.")
-#             response = jsonify({"config": config})
-#             response.status_code = 201
-#         except:
-#             db.session.rollback()
-#             response = errors.bad_request("error adding puzzle")
-#         finally:
-#             return response
+    return response
 
 
 @bp.route("/puzzle/<int:user_id>", methods=["GET"])

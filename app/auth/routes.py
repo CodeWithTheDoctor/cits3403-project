@@ -51,7 +51,6 @@ def auth():
     token = oauth.google.authorize_access_token()
     g_user = token.get("userinfo")
 
-    print("hello!")
     if g_user:
         user = User.query.filter_by(email=g_user.email).first()
         if user is not None:

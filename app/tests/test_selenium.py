@@ -22,14 +22,11 @@ def test_lambdatest_todo_app(app_ctx):
     driver.find_element(By.ID, "email").send_keys("john@example.com")
     driver.find_element(By.ID, "submit").click()
 
-    sleep(2)
+    sleep(1)
     # assert "test" in driver
 
-    sleep(5)
+    sleep(1)
     driver.get("http://127.0.0.1:5000/auth/login")
-    assert (
-        "Please log in" in driver.find_element(By.CLASS_NAME, "alert alert-danger").text
-    )
     driver.find_element(By.ID, "username").send_keys("david")
     driver.find_element(By.ID, "password").send_keys("password")
     driver.find_element(By.ID, "submit").click()
@@ -37,5 +34,5 @@ def test_lambdatest_todo_app(app_ctx):
     User.query.filter_by(username="john").first().delete()
     db.session.commit()
 
-    sleep(2)
+    sleep(1)
     driver.close()
