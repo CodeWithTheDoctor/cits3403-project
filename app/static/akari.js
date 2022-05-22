@@ -43,7 +43,7 @@ initialiseEmptyGrid();
  * @param {string} puzzleString
  */
 const parseGrid = puzzleString => {
-  const coords = puzzleString.split("\n");
+  const coords = puzzleString.split("z");
   const BLACK_CELLS = coords[0].split(" ");
   const ZERO_CELLS = coords[1].split(" ");
   const ONE_CELLS = coords[2].split(" ");
@@ -518,5 +518,3 @@ const getNumBulbs = (x, y) => {
   return count;
 };
 
-// parseGrid(exampleLevel);
-// renderGrid();

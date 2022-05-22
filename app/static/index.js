@@ -33,6 +33,9 @@ function pad(val) {
 }
 
 
+/**
+ * 
+ */
 $(document).ready(function(){
   // render blank grid - with no click
   renderGrid();
@@ -40,13 +43,15 @@ $(document).ready(function(){
   // select and render puzzle once start is clicked
   $("#startButton").on("click",function() {
     $.ajax({
-      url: "http://127.0.0.1:5000/api/puzzle/2",
-      success: function(result) {
-        $("#div1").html(result.config)
-
+      url: `/api/puzzle/${user_id}`,
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        console.log(data);
       }
-    }).done(function(response) {
-      console.log(response)
+    }).done(function(data) {
+      let puzzleString = data.config;
+      puzzle_id        = data.puzzle_id;
 
       // start timer
       startTimer();
@@ -56,7 +61,7 @@ $(document).ready(function(){
 
       // remove child elements of grid box then render puzzle
       $("#grid-box").empty();
-      parseGrid(exampleLevel);
+      parseGrid(puzzleString);
       $("#grid-box").hide();
       renderGrid();
       $("#grid-box").show(200, "swing");
@@ -70,15 +75,31 @@ $(document).ready(function(){
 
       // stop timer
       clearInterval(timer);
+
+
+      submission  = {
+        user_id: user_id,
+        puzzle_id: puzzle_id,
+        time: totalSeconds
+      };
       
       // upload values to database
         $.ajax({
-          url  : '/api/puzzle/submit',
-          type : 'POST',
-          data : {'user_id' : user_id,
-              'puzzle_id' : 1,
-              'time' : totalSeconds},
-          dataType : 'json',
+          url  : "/api/puzzle/submit",
+          type : "POST",
+          data : JSON.stringify(submission),
+          dataType : "json",
+          contentType: "application/json",
+          success: function(response, data) {
+            console.log(response)
+            console.log(data)
+          },
+          error: function(xhr, response, error) {
+            console.log(xhr.responseText)
+            console.log(xhr.statusText)
+            console.log(response)
+            console.log(error)
+          },
         })
 
       // if solved then show leaderboard and stuff 
