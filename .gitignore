@@ -7,3 +7,6 @@ __pycache__/
 *.py[cod]
 timnotes.md
 .env
+logs
+.pytest__cache/
+webdrivers

@@ -9,7 +9,7 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 ### Puzzle Page / Home Page
 - Once signed in, they are redirected to the home page, i.e. the puzzle page.
 - This is where the user can start the Akari puzzle of the day!
-- When the "start" button is clicked, the timer begins. 
+- When the "start" button is clicked, the timer begins.
 - Pressing the submit button will check if the puzzle is solved or not. If it is, the time will be recorded and uploaded to the database.
   - If the puzzle is wrong, then the user will be informed.
 
@@ -42,4 +42,11 @@ OR
 - `flask db migrate`
 - `flask db upgrade`
 
- 
+# On change to databse
+- flask db migrate
+- flask db upgrade
+
+
+# Testing
+- python3 -m pytest
+- python3 -m pytest --cov=app
