@@ -8,6 +8,7 @@ from datetime import datetime
 
 @bp.before_app_request
 def before_request():
+    # TODO: for streaks
     # if current_user.is_authenticated:
     #     last = current_user.last_seen
     #     now = datetime.utcnow()

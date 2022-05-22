@@ -21,3 +21,8 @@ poetry add <pkgname>
 # On change to databse
 flask db migrate
 flask db upgrade
+
+
+# Testing
+python3 -m pytest
+python3 -m pytest --cov=app

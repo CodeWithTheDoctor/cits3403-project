@@ -1,7 +1,8 @@
 import pytest
 import os
-from app import create_app, db
+from app import create_app, db, cli
 from app.models import User, Puzzle, User_Puzzle
+from pathlib import Path
 
 
 def populate_db():
@@ -28,11 +29,11 @@ def populate_db():
 def app():
     app = create_app()
     app.testing = True
+    cli.register(app)
 
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(
-        basedir, "testdb"
-    )
+    # create in memory database
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"
+
     app.app_context().push()
     db.drop_all()
     db.create_all()
