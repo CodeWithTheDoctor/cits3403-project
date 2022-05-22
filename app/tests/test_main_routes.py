@@ -36,7 +36,7 @@ def test_register_form_submits_to_db(app_ctx):
     assert u1.username == "Bran"
 
 
-def test_modify_session(req_ctx, app_ctx):
+def test_modify_session(app_ctx):
 
     response = app_ctx.get("/auth/login")
 
@@ -48,3 +48,7 @@ def test_modify_session(req_ctx, app_ctx):
 
     assert response.status_code == 200
     assert response.request.path == "/index"
+
+    response = app_ctx.get("/auth/logout", follow_redirects=True)
+
+    assert response.status_code == 200

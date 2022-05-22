@@ -57,6 +57,7 @@ def client(app):
 
 @pytest.fixture
 def runner(app):
+    app.app_context().push()
     return app.test_cli_runner()
 
 
