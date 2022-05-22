@@ -67,7 +67,7 @@ def register():
 
 
 # TODO: Convert to an api route?
-@app.route("/<puzzle_id>/leaderboard", methods=["GET"])
+@app.route("/leaderboard/<puzzle_id>", methods=["GET"])
 def leaderboard(puzzle_id):
     # TODO: Check referring url
     query = (
