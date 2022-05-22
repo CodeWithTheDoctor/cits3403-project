@@ -1,5 +1,5 @@
 /**
- * File that handles game page styling and db connection
+ * JS that handles game page styling and db connection
  */
 
 // init seconds for timer globally

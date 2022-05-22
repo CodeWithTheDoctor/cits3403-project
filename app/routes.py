@@ -198,7 +198,6 @@ def submit_puzzle():
         entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
         try:
             db.session.add(entry)
-            # db.session.commit()
             data = entry.to_dict()
             response = jsonify(data)
             response.status_code = 201
