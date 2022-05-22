@@ -57,52 +57,67 @@ $(document).ready(function () {
 
       // hide start button
       $("#startButton").hide(400);
+      // enable Submit button
+      $("#submitButton").removeAttr("disabled");
 
       // remove child elements of grid box then render puzzle
       $("#grid-box").empty();
       parseGrid(puzzleString);
       $("#grid-box").hide();
       renderGrid();
-      $("#grid-box").show(200, "swing");
-      $("#gameOverlay").hide(400);
-    });
-  });
+      $("#grid-box").fadeIn();
+      $("#gameOverlay").fadeOut();
+    })
+  })
 
   // check and submit puzzle when button clicked
   $("#submitButton").click(function () {
     if (isSolved()) {
+
+      // hide wrong text after submit
+      $("#wrong-container").hide();
+
+      // disable submit button
+      $("#submitButton").attr("disabled", "");
+
       // stop timer
       clearInterval(timer);
 
-      submission = {
+      // create puzzle submission obj
+      submission  = {
+
         user_id: user_id,
         puzzle_id: puzzle_id,
         time: totalSeconds
       };
-
-      // upload values to database
-      $.ajax({
-        url: "/api/puzzle/submit",
-        type: "POST",
-        data: JSON.stringify(submission),
-        dataType: "json",
-        contentType: "application/json",
-        success: function (response, data) {
-          console.log(response);
-          console.log(data);
-        },
-        error: function (xhr, response, error) {
-          console.log(xhr.responseText);
-          console.log(xhr.statusText);
-          console.log(response);
-          console.log(error);
-        }
-      });
+      
+      // upload submission to database
+        $.ajax({
+          url  : "/api/puzzle/submit",
+          type : "POST",
+          data : JSON.stringify(submission),
+          dataType : "json",
+          contentType: "application/json",
+          success: function(response, data) {
+            console.log(response)
+            console.log(data)
+          },
+          error: function(xhr, response, error) {
+            console.log(xhr.responseText)
+            console.log(xhr.statusText)
+            console.log(response)
+            console.log(error)
+          },
+        })
 
       // if solved then show leaderboard and stuff
+      $("#results-modal").modal("show");
+      // show results button
+      $("#results-container").show();
+
     } else {
       // show prompt that is not solved
-      $("#demo").text("Not Solved");
+      $("#wrong-text").text("Not Solved");
     }
   });
 });

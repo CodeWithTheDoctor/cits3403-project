@@ -35,6 +35,11 @@ body {
   border-color: #746354;
 }
 
+.btn-primary:disabled{
+  background-color: #8f7a66;
+  border-color: #746354;
+}
+
 .btn-primary:hover, .btn-primary:focus {
   background-color: #796756;
   border-color: #796756;
@@ -93,9 +98,36 @@ body {
  * Game page
  */
 .game-container {
-  margin-top: 20px;
+  margin-top: 25px;
+  margin-left: 22%;
+  width: 725px;
 }
 
+.wrong-submit {
+  height: 38px;
+  width: 63.66px;
+  border: 1px solid black;
+}
+
+.flex-container {
+  padding-inline: 5px;
+}
+
+#results-container {
+  display: none;
+}
+
+/*
+ * Modals
+ */
+
+.modal-content {
+  background-color: #faf8ef
+}
+
+#modal-time {
+  justify-content: center;
+}
 
 /*
 * Akari Grid Styling
@@ -128,7 +160,7 @@ body {
 }
 
 .selected, .lit {
-  background-color: yellow;
+  background-color: #FFE48E;
   transition: 0.5s;
 }
 
@@ -161,6 +193,7 @@ body {
  */
 
 .timer {
+  padding-right: 10px;
   font-family:'Consolas';
   font-size: xx-large;
   font-weight: 700;

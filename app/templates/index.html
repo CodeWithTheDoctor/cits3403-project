@@ -8,8 +8,8 @@
 <!-- Modals-->
 <!-- rules modal-->
 <div class="container">
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" id="rules-modal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="ModalLabel">Akari Rules</h5>
@@ -33,8 +33,8 @@
 </div>
 
 <!-- solved modal -->
-<div class="solvedContainer">
-  <div class="modal fade" id="solvedModal" tabindex="-1" aria-labelledby="solvedModalLabel" aria-hidden="true">
+<div class="container">
+  <div class="modal fade" id="results-modal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -42,7 +42,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  bruh
+                <div id="modal-time"></div>
               </div>
 
           </div>
@@ -54,18 +54,32 @@
 <!-- main container  -->
 <div class="game-container">
 
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex flex-row mb-3">
+      <div class="flex-container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rules-modal">
+          Rules
+        </button>
+      </div>
+
+      <div class="flex-container">
+        <!-- submit button -->
+        <button id="submitButton" type="button" class="btn btn-primary" disabled>Submit</button>
+      </div>
+
+      <div class="flex-container" id="wrong-container">
+        <p id="wrong-text"></p>
+      </div>
+
+      <div class="flex-container" id="results-container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#results-modal">Results</button>
+      </div>
+    </div>
+
     <div class="timer">
       <label id="minutes">00</label>:<label id="seconds">00</label>
     </div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Rules
-    </button>
-
-    <!-- submit button -->
-    <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
-    <p id="demo"></p>
   </div>
 
   <div class="d-flex justify-content-center">
@@ -76,7 +90,7 @@
     
     <div class="startButtonContainer">
       <!-- start button -->
-      <button id="startButton" type="button" class="btn btn-primary">Start</button>
+      <button id="startButton" type="button" class="btn btn-primary btn-lg">Start</button>
     </div>
   </div>
 </div>
