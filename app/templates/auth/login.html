@@ -20,7 +20,7 @@
     </p>
     <p>{{form.remember_me()}}
       {{form.remember_me.label}}</p>
-    <p>{{form.submit()}}</p>
+    <p>{{form.submit(class_='btn btn-primary')}}</p>
   </form>
   <p>New user?<a href="{{url_for('auth.register')}}">Click to Register!</a>
   <p><a href="{{url_for('auth.google')}}" >Sign in with google</a></p>

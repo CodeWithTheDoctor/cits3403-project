@@ -1,29 +1,36 @@
-# env
-add environment variable to .flaskenv
+# Akari
 
-# To install dependencies on local machine
-poetry install
+# Instructions to the run web app:
 
-# To enter venv in terminal
-poetry shell
+### Environment Variables
+- Add environment variables to the '.flaskenv' file
 
-# To spin up DEVELOPMENT server
-poetry run flask run
+### To install dependencies on local machine
+`poetry install`
+
+### To enter venv in terminal
+`poetry shell`
+
+### To spin up DEVELOPMENT server
+- `poetry run flask run`
 
 OR
 
-poetry shell
-flask run
+- `poetry shell` <br>
+`flask run`
 
-# To add dependencies
-poetry add <pkgname>
+### To add dependencies
+- `poetry add <pkgname>`
+
+### On change to databse
+- `flask db migrate`
+- `flask db upgrade`
 
 # On change to databse
-flask db migrate
-flask db upgrade
+- flask db migrate
+- flask db upgrade
 
 
 # Testing
-python3 -m pytest
-  
-python3 -m pytest --cov=app
+- python3 -m pytest
+- python3 -m pytest --cov=app
