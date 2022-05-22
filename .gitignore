@@ -9,3 +9,4 @@ timnotes.md
 .env
 logs
 .pytest__cache/
+webdrivers
