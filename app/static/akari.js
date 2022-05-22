@@ -1,13 +1,6 @@
 /**
- * EXAMPLE
+ * JS that is responsible for rendering the akari board
  */
-// const a = "03 213 33 435 63\n"+
-// "30\n"+
-// "326\n"+
-// "34 52\n"+
-// "\n"+
-// "14";
-const exampleLevel = "03 213 33 435 63\n" + "30\n" + "326\n" + "34 52\n" + "\n" + "14";
 
 /**
  * Enums
@@ -43,7 +36,7 @@ initialiseEmptyGrid();
  * @param {string} puzzleString
  */
 const parseGrid = puzzleString => {
-  const coords = puzzleString.split("\n");
+  const coords = puzzleString.split("z");
   const BLACK_CELLS = coords[0].split(" ");
   const ZERO_CELLS = coords[1].split(" ");
   const ONE_CELLS = coords[2].split(" ");
@@ -159,7 +152,6 @@ const renderCell = (CELL_STATUS, id) => {
   cell.id = `${id}`;
   cell.onclick = toggleCell;
   gridBox.appendChild(cell);
-  // gridBox.innerHTML += `<div class="${itemClass}" id="${id}">${innerText}</div>`;
 };
 
 /**
@@ -178,7 +170,7 @@ const toggleCell = e => {
     if (!e.target.className.includes("selected")) {
       addSides(e.target);
       e.target.className += " selected";
-      e.target.innerHTML = "<img src='images/bulb.png'>";
+      e.target.innerHTML = "<img src='static/images/bulb.png'>";
     } else {
       removeSides(e.target);
       e.target.className = e.target.parentNode.className.split("selected").join("").trim();
@@ -518,6 +510,3 @@ const getNumBulbs = (x, y) => {
     }
   return count;
 };
-
-parseGrid(exampleLevel);
-renderGrid();

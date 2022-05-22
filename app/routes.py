@@ -151,6 +151,7 @@ def get_puzzle(user_id):
 
     response structure:
     {
+        "puzzle_id":
         "config":
     }
     """
@@ -189,17 +190,14 @@ def submit_puzzle():
     data = dotsi.fy(request.get_json()) or {}
     for required in ("user_id", "puzzle_id", "time"):
         if required not in data:
-            return errors.bad_request("Must include user_id, puzzle_id and time")
-
-    user_id = data.user_id
-    puzzle_id = data.puzzle_id
-    time = float(data.time)
+            pass
+            # return errors.bad_request("Must include user_id, puzzle_id and time")
+    user_id, puzzle_id, time = data
 
     if check_puzzle():
         entry = User_Puzzle(time=time, puzzle_id=puzzle_id, user_id=user_id)
         try:
             db.session.add(entry)
-            db.session.commit()
             data = entry.to_dict()
             response = jsonify(data)
             response.status_code = 201
@@ -210,6 +208,7 @@ def submit_puzzle():
             response = errors.bad_request("Duplicate entry exists")
 
         finally:
+            db.session.rollback()
             return response
 
     else:
