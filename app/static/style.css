@@ -62,6 +62,34 @@ body {
 
 
 /*
+ * Sign-in page
+ */
+
+.akari-infobox {
+  background-color: #eee1c9;
+  width: 800px;
+  padding: 20px;
+}
+.akari-infobox h1{
+  color: #000;
+}
+
+.akari-infobox img {
+  width: 50%;
+  height: max-content;
+  border: 5px solid;
+  border-radius: 10px;
+}
+
+.akari-infobox p {
+  margin: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 14pt;
+}
+
+/*
  * Game page
  */
 .game-container {

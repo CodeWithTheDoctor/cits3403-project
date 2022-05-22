@@ -10,7 +10,7 @@ function startTimer() {
 }
 
 /**
- * 
+ *
  */
 function setTime() {
   ++totalSeconds;
@@ -19,8 +19,8 @@ function setTime() {
 }
 
 /**
- * 
- * @param val value of total seconds 
+ *
+ * @param val value of total seconds
  * @returns returns val in formatted string form
  */
 function pad(val) {
@@ -32,26 +32,25 @@ function pad(val) {
   }
 }
 
-
 /**
- * 
+ *
  */
-$(document).ready(function(){
+$(document).ready(function () {
   // render blank grid - with no click
   renderGrid();
 
   // select and render puzzle once start is clicked
-  $("#startButton").on("click",function() {
+  $("#startButton").on("click", function () {
     $.ajax({
       url: `/api/puzzle/${user_id}`,
       type: "GET",
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         console.log(data);
       }
-    }).done(function(data) {
+    }).done(function (data) {
       let puzzleString = data.config;
-      puzzle_id        = data.puzzle_id;
+      puzzle_id = data.puzzle_id;
 
       // start timer
       startTimer();
@@ -66,43 +65,41 @@ $(document).ready(function(){
       renderGrid();
       $("#grid-box").show(200, "swing");
       $("#gameOverlay").hide(400);
-    })
-  })
+    });
+  });
 
   // check and submit puzzle when button clicked
-  $("#submitButton").click(function() {
+  $("#submitButton").click(function () {
     if (isSolved()) {
-
       // stop timer
       clearInterval(timer);
 
-
-      submission  = {
+      submission = {
         user_id: user_id,
         puzzle_id: puzzle_id,
         time: totalSeconds
       };
-      
-      // upload values to database
-        $.ajax({
-          url  : "/api/puzzle/submit",
-          type : "POST",
-          data : JSON.stringify(submission),
-          dataType : "json",
-          contentType: "application/json",
-          success: function(response, data) {
-            console.log(response)
-            console.log(data)
-          },
-          error: function(xhr, response, error) {
-            console.log(xhr.responseText)
-            console.log(xhr.statusText)
-            console.log(response)
-            console.log(error)
-          },
-        })
 
-      // if solved then show leaderboard and stuff 
+      // upload values to database
+      $.ajax({
+        url: "/api/puzzle/submit",
+        type: "POST",
+        data: JSON.stringify(submission),
+        dataType: "json",
+        contentType: "application/json",
+        success: function (response, data) {
+          console.log(response);
+          console.log(data);
+        },
+        error: function (xhr, response, error) {
+          console.log(xhr.responseText);
+          console.log(xhr.statusText);
+          console.log(response);
+          console.log(error);
+        }
+      });
+
+      // if solved then show leaderboard and stuff
     } else {
       // show prompt that is not solved
       $("#demo").text("Not Solved");
