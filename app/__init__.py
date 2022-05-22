@@ -43,7 +43,7 @@ app.logger.setLevel(logging.DEBUG)
 #     app.logger.setLevel(logging.INFO)
 #     app.logger.info("Akari startup")
 #     # return app
-from app.models import Puzzle, User
+from app.models import Puzzle, User, User_Puzzle
 
 
 @app.cli.command("add-puzzle")
@@ -115,3 +115,26 @@ def delete_user(user_id):
     except Exception as e:
         print("Error encountered while deleting")
         print(e)
+
+
+@app.cli.command("user-puzzle")
+@click.argument("puzzle_id")
+def getLeaderboard(puzzle_id):
+    results = User_Puzzle.query.filter_by(puzzle_id=puzzle_id).order_by(User_Puzzle.time).all()
+    print(results)
+    
+    if results is None:
+        print(f"ERROR: No puzzle exists by {user_id}")
+        return
+    
+    for result in results:
+        print(f"resutlt {result.id}: user - {result.user_id} : puzzle - {puzzle_id}")
+
+       
+@app.cli.command("results")
+def users():
+    """Show all users"""
+    results = User_Puzzle.query.all()
+
+    for result in results:
+        print(f"user - {result.user_id} : puzzle - {result.puzzle_id} : time - {result.time}")

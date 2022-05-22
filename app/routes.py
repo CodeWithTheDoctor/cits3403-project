@@ -83,7 +83,6 @@ def leaderboard(puzzle_id):
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
         .all()
-        .limit(5)
     )
 
     leaderboard = [
