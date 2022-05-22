@@ -18,6 +18,7 @@ function setTime() {
   $("#minutes").html(pad(parseInt(totalSeconds / 60)));
 }
 
+
 /**
  *
  * @param val value of total seconds
@@ -30,6 +31,47 @@ function pad(val) {
   } else {
     return valString;
   }
+}
+
+
+/**
+ * 
+ * @param {*} result 
+ * @returns 
+ */
+async function postResult(result) {
+  const response = await $.ajax({
+    url  : "/api/puzzle/submit",
+    type : "POST",
+    data : JSON.stringify(result),
+    contentType: "application/json",
+    success: function(response, data) {
+      console.log(response)
+    },
+    error: function(xhr, response, error) {
+      console.log(xhr.responseText)
+      console.log(xhr.statusText)
+      console.log(response)
+      console.log(error)
+    }
+  })
+
+  return response;
+}
+
+/**
+ * 
+ * @param {*} puzzle_id 
+ * @returns 
+ */
+async function getLeaderboard(puzzle_id) {
+  const response = await $.ajax({
+    url: `/leaderboard/${puzzle_id}`,
+    type: "GET",
+    dataType: "json",
+  })
+
+  return response;
 }
 
 
@@ -70,7 +112,7 @@ function pad(val) {
 /**
 *  check and submit puzzle when button clicked
 */
-$("#submitButton").click(function () {
+$("#submitButton").click(async function () {
   if (isSolved()) {
 
     // hide wrong text after submit
@@ -89,37 +131,9 @@ $("#submitButton").click(function () {
     };
     
     // upload submission to database
-    $.ajax({
-      url  : "/api/puzzle/submit",
-      type : "POST",
-      data : JSON.stringify(submission),
-      dataType : "json",
-      contentType: "application/json",
-      success: function(response, data) {
-        console.log(response)
-        console.log(data)
-
-        // retreive leaderboard data
-        $.ajax({
-          url: `/leaderboard/${puzzle_id}`,
-          type: "GET",
-          dataType: "json",
-          success: function (data) {
-            console.log(data);
-          }
-        }).done(function (data) {
-          let leaderboard = data;
-        })
-
-
-      },
-      error: function(xhr, response, error) {
-        console.log(xhr.responseText)
-        console.log(xhr.statusText)
-        console.log(response)
-        console.log(error)
-      },
-    })
+    await postResult(submission)
+    // get leaderboard data
+    let leaderboard = await getLeaderboard(puzzle_id);
 
     console.log(leaderboard);
 
