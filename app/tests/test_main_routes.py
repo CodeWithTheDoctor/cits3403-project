@@ -46,26 +46,4 @@ def test_modify_session(req_ctx, app_ctx):
     )
 
     assert response.status_code == 200
-
-    session["user_id"] = 2
-    assert session["user_id"] == 2
-    print(session)
-
-    assert False
-    # assert session["username"] == "fred"
-    # assert response.status_code == 200
-    # with client:
-    #     response = auth.login("fred", "ewqe")
-    #     print(response.data)
-    #     # client.post("/auth/login", data={"username": "fred", "password": "password"})
-    #     client.get("/")
-    #     # client.get("/auth/logout")
-    #     # print(session)
-    # # with app.test_request_context():
-    # #     print(session)
-    # #     client.get("/")
-    # #     # assert session["user_id"] == 1
-    # #     print(g.username)
-    # #     print(session.keys())
-    # assert False
-    # # assert response.status_code == 200
+    assert response.request.path == "/index"

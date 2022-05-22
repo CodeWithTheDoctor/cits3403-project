@@ -17,7 +17,15 @@ import dotsi
 
 @bp.route("/leaderboard/<int:puzzle_id>", methods=["GET"])
 def leaderboard(puzzle_id):
-    """Leaderboard statistics given a puzzle id"""
+    """
+    Leaderboard statistics given a puzzle id
+
+        Parameters:
+            puzzle_id (int): the id of the puzzle to get stats for
+
+        Returns:
+            :obj: an array of objects for all the users who have completed the puzzle
+    """
     query = (
         User_Puzzle.query.filter_by(puzzle_id=puzzle_id)
         .order_by(User_Puzzle.time)
@@ -36,6 +44,12 @@ def leaderboard(puzzle_id):
 @bp.route("/user/<username>/statistics")
 @login_required
 def statistics(username):
+    """
+    User statistics
+
+        Parameters:
+
+    """
 
     user = User.query.filter_by(username=username).first_or_404()
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
