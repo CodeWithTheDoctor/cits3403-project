@@ -36,17 +36,16 @@
             </a>
             {% if current_user.is_anonymous %}
 
-              <a class="nav-item mt-1" href="{{url_for('login')}}">
+              <a class="nav-item mt-1" href="{{url_for('auth.login')}}">
                 <button type="button" class="btn btn-primary">Login</button>
               </a>
             {% else %}
               <div class="other-btns d-flex justify-content-between">
                 <li class="nav-item mx-4 mt-1">
-                  <a class="nav-item btn btn-warning" href="{{url_for('statistics', username=current_user.username)}}">Statistics</a>
                 </li>
 
                 <li class="nav-item mx-4 mt-1">
-                  <a class="nav-item btn btn-danger" href="{{url_for('logout')}}">Logout</a>
+                  <a class="nav-item btn btn-danger" href="{{url_for('auth.logout')}}">Logout</a>
                 </li>
               </div>
             {% endif %}
