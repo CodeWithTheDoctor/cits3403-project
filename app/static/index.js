@@ -66,7 +66,7 @@ async function postResult(result) {
  */
 async function getLeaderboard(puzzle_id) {
   const response = await $.ajax({
-    url: `/leaderboard/${puzzle_id}`,
+    url: `/leaderboard/4`,
     type: "GET",
     dataType: "json",
   })

@@ -35,31 +35,67 @@
 <!-- solved modal -->
 <div class="container">
   <div class="modal fade" id="results-modal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
 
-            <div class="modal-header">
-              <h3>Puzzle Solved in -&nbsp</h3>
-              <div id="modal-time"></div>
-              <h3>!</h3>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header">
+          <h3>Puzzle Solved in -&nbsp</h3>
+          <div id="modal-time"></div>
+          <h3>!</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <!-- leaderboard -->
+            <div class="col-md-6">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <div class="modal-body">
-              <div class="row">
-                <!-- leaderboard -->
-                <div class="col-md-6">
-                  Left
-                </div>
-                <div class="col-md-6">
-                  Right
-                </div>
-              </div>
-              </div>
 
+            <div class="col-md-6">
+
+              <div class="d-flex flex-column mb-3">
+                Share your results on social media!
+                <div class="d-inline-flex">
+                  <button type="button" class="btn btn-icon btn-block  mr-2 "><span><img src="https://img.icons8.com/color/48/000000/twitter.png" class="img-fluid mr-1" width="25"></span> <span class="fb"> Twitter</span></button>
+                  <button type="button" class="btn btn-icon btn-block  ml-2 "><span><img src="https://i.imgur.com/URmkevm.png" class="img-fluid mr-1 my-auto" width="25"></span><span class="fb">Facebook</span></button>  
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
       </div>
+    </div>
   </div>
 </div>
 
