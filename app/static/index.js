@@ -10,7 +10,7 @@ function startTimer() {
 }
 
 /**
- * 
+ *
  */
 function setTime() {
   ++totalSeconds;
@@ -19,8 +19,8 @@ function setTime() {
 }
 
 /**
- * 
- * @param val value of total seconds 
+ *
+ * @param val value of total seconds
  * @returns returns val in formatted string form
  */
 function pad(val) {
@@ -32,26 +32,25 @@ function pad(val) {
   }
 }
 
-
 /**
- * 
+ *
  */
-$(document).ready(function(){
+$(document).ready(function () {
   // render blank grid - with no click
   renderGrid();
 
   // select and render puzzle once start is clicked
-  $("#startButton").on("click",function() {
+  $("#startButton").on("click", function () {
     $.ajax({
       url: `/api/puzzle/${user_id}`,
       type: "GET",
       dataType: "json",
-      success: function(data) {
+      success: function (data) {
         console.log(data);
       }
-    }).done(function(data) {
+    }).done(function (data) {
       let puzzleString = data.config;
-      puzzle_id        = data.puzzle_id;
+      puzzle_id = data.puzzle_id;
 
       // start timer
       startTimer();
@@ -72,8 +71,9 @@ $(document).ready(function(){
   })
 
   // check and submit puzzle when button clicked
-  $("#submitButton").click(function() {
+  $("#submitButton").click(function () {
     if (isSolved()) {
+
       // hide wrong text after submit
       $("#wrong-container").hide();
 
@@ -85,6 +85,7 @@ $(document).ready(function(){
 
       // create puzzle submission obj
       submission  = {
+
         user_id: user_id,
         puzzle_id: puzzle_id,
         time: totalSeconds
