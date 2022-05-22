@@ -110,7 +110,6 @@ def get_puzzle(user_id):
     return response
 
 
-# @login_required
 @bp.route("/puzzle/submit", methods=["POST"])
 def submit_puzzle():
     # TODO: add some sort of authentication?
@@ -120,7 +119,6 @@ def submit_puzzle():
         "user_id':
         "puzzle_id":
         "time":
-        "solution": #TODO: Implement this maybe
     }
     """
     data = dotsi.fy(request.get_json()) or {}
