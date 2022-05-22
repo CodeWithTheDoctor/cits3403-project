@@ -25,4 +25,5 @@ flask db upgrade
 
 # Testing
 python3 -m pytest
+  
 python3 -m pytest --cov=app
