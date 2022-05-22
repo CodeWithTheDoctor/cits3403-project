@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-import sys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from time import sleep
@@ -8,31 +8,27 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
 
-def test_lambdatest_todo_app():
+def test_lambdatest_todo_app(app_ctx):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    # chrome_driver = webdriver.Chrome(
-    #     "/home/timothy/code/cits3403/cits3403-project/webdrivers"
-    # )
-
-    driver.get("https://flask_te")
+    driver.get("http://127.0.0.1:5000/auth/register")
     driver.maximize_window()
 
-    driver.find_element_by_name("li1").click()
-    driver.find_element_by_name("li2").click()
+    # Test register user
+    driver.find_element(By.ID, "username").send_keys("john")
+    driver.find_element(By.ID, "password").send_keys("password")
+    driver.find_element(By.ID, "password2").send_keys("password")
+    driver.find_element(By.ID, "email").send_keys("john@example.com")
+    driver.find_element(By.ID, "submit").click()
 
-    title = "Sample page - lambdatest.com"
-    assert title == driver.title
+    assert "test" in driver
+    print(driver)
+    title = "Akari"
+    assert title in driver.title
 
-    sample_text = "Happy Testing at LambdaTest"
-    email_text_field = driver.find_element_by_id("sampletodotext")
-    email_text_field.send_keys(sample_text)
     sleep(5)
 
-    driver.find_element_by_id("addbutton").click()
+    driver.find_element(By.ID, "addbutton").click()
     sleep(5)
-
-    output_str = driver.find_element_by_name("li6").text
-    sys.stderr.write(output_str)
 
     sleep(2)
     driver.close()
