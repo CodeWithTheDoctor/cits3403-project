@@ -36,7 +36,7 @@ initialiseEmptyGrid();
  * @param {string} puzzleString
  */
 const parseGrid = puzzleString => {
-  const coords = puzzleString.split("\n");
+  const coords = puzzleString.split("z");
   const BLACK_CELLS = coords[0].split(" ");
   const ZERO_CELLS = coords[1].split(" ");
   const ONE_CELLS = coords[2].split(" ");
@@ -165,7 +165,7 @@ const toggleCell = e => {
     e.target.remove();
   } else {
     const coords = e.target.id.split(",").map(num => parseInt(num));
-    if (isBlack(coords[0], coords[1]))
+    if (isBlack(coords[0], coords[1])) 
       return;
     if (!e.target.className.includes("selected")) {
       addSides(e.target);
@@ -188,7 +188,7 @@ const addSides = node => {
 
   // Traversal to the left
   for (x = coords[0] - 1; x >= 0; x--) {
-    if (x < 0 || isBlack(x, coords[1]))
+    if (x < 0 || isBlack(x, coords[1])) 
       break;
     const id = x + "," + coords[1];
     let neighbourCell = document.getElementById(id);
@@ -197,7 +197,7 @@ const addSides = node => {
 
   // Traversal to the right
   for (x = coords[0] + 1; x <= 6; x++) {
-    if (x > 6 || isBlack(x, coords[1]))
+    if (x > 6 || isBlack(x, coords[1])) 
       break;
     const id = x + "," + coords[1];
     let neighbourCell = document.getElementById(id);
@@ -206,7 +206,7 @@ const addSides = node => {
 
   // Traversal upwards
   for (y = coords[1] - 0; y >= 0; y--) {
-    if (y < 0 || isBlack(coords[0], y))
+    if (y < 0 || isBlack(coords[0], y)) 
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
@@ -215,7 +215,7 @@ const addSides = node => {
 
   // Traversal downwards
   for (y = coords[1] + 1; y <= 6; y++) {
-    if (y > 6 || isBlack(coords[0], y))
+    if (y > 6 || isBlack(coords[0], y)) 
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
@@ -242,7 +242,7 @@ const removeSides = node => {
 
   // Traversal to the right
   for (x = coords[0] + 1; x <= 6; x++) {
-    if (x > 6 || isBlack(x, coords[1]))
+    if (x > 6 || isBlack(x, coords[1])) 
       break;
     const id = x + "," + coords[1];
     let neighbourCell = document.getElementById(id);
@@ -251,7 +251,7 @@ const removeSides = node => {
 
   // Traversal upwards
   for (y = coords[1] - 0; y >= 0; y--) {
-    if (y < 0 || isBlack(coords[0], y))
+    if (y < 0 || isBlack(coords[0], y)) 
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
@@ -260,7 +260,7 @@ const removeSides = node => {
 
   // Traversal downwards
   for (y = coords[1] + 1; y <= 6; y++) {
-    if (y > 6 || isBlack(coords[0], y))
+    if (y > 6 || isBlack(coords[0], y)) 
       break;
     const id = coords[0] + "," + y;
     let neighbourCell = document.getElementById(id);
@@ -292,7 +292,7 @@ const isBlack = (x, y) => {
 const unlightCell = neighbourCell => {
   let numLits = findLitClasses(neighbourCell.className);
   let litStr = "";
-  for (i = 0; i < numLits - 1; i++)
+  for (i = 0; i < numLits - 1; i++) 
     litStr += " lit";
   neighbourCell.className = neighbourCell.className.split("lit").join("") + litStr;
 };
@@ -333,7 +333,7 @@ const isSolved = () => {
       }
       const cell = document.getElementById(id);
       if (cell.className.includes("selected")) {
-        if (canSeeBulb(x, y))
+        if (canSeeBulb(x, y)) 
           return false;
         }
       else if (!cell.className.includes("lit")) {
@@ -359,40 +359,40 @@ const canSeeBulb = (x, y) => {
     }
     const id = i + "," + y;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("selected"))
+    if (neighbourCell.className.includes("selected")) 
       return true;
     }
-
+  
   // Traversal to the right
   for (i = x + 1; i <= 6; i++) {
-    if (i > 6 || isBlack(i, y))
+    if (i > 6 || isBlack(i, y)) 
       break;
     const id = i + "," + y;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("selected"))
+    if (neighbourCell.className.includes("selected")) 
       return true;
     }
-
+  
   // Traversal upwards
   for (j = y - 1; j >= 0; j--) {
-    if (j < 0 || isBlack(x, j))
+    if (j < 0 || isBlack(x, j)) 
       break;
     const id = x + "," + j;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("selected"))
+    if (neighbourCell.className.includes("selected")) 
       return true;
     }
-
+  
   // Traversal downwards
   for (j = y + 1; j <= 6; j++) {
-    if (j > 6 || isBlack(x, j))
+    if (j > 6 || isBlack(x, j)) 
       break;
     const id = x + "," + j;
     let neighbourCell = document.getElementById(id);
-    if (neighbourCell.className.includes("selected"))
+    if (neighbourCell.className.includes("selected")) 
       return true;
     }
-
+  
   return false;
 };
 
@@ -407,105 +407,105 @@ const getNumBulbs = (x, y) => {
   if (x == 0) {
     if (y == 0) {
       let cell = document.getElementById(x + 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y + 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     else if (y == 6) {
       let cell = document.getElementById(x + "," + (
       y - 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     else {
       let cell = document.getElementById(x + 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y + 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y - 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     } else if (x == 6) {
     if (y == 0) {
       let cell = document.getElementById(x - 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y + 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     else if (y == 6) {
       let cell = document.getElementById(x + "," + (
       y - 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x - 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     else {
       let cell = document.getElementById(x - 1 + "," + y);
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y + 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       cell = document.getElementById(x + "," + (
       y - 1));
-      if (cell.className.includes("selected"))
+      if (cell.className.includes("selected")) 
         count++;
       }
     } else if (y == 0) {
     let cell = document.getElementById(x - 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + "," + (
     y + 1));
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     }
   else if (y == 6) {
     let cell = document.getElementById(x - 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + "," + (
     y - 1));
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     }
   else {
     let cell = document.getElementById(x - 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + "," + (
     y - 1));
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + 1 + "," + y);
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     cell = document.getElementById(x + "," + (
     y + 1));
-    if (cell.className.includes("selected"))
+    if (cell.className.includes("selected")) 
       count++;
     }
   return count;
