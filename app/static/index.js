@@ -76,14 +76,14 @@ $(document).ready(function(){
       // stop timer
       clearInterval(timer);
 
-
+      // create puzzle submission obj
       submission  = {
         user_id: user_id,
         puzzle_id: puzzle_id,
         time: totalSeconds
       };
       
-      // upload values to database
+      // upload submission to database
         $.ajax({
           url  : "/api/puzzle/submit",
           type : "POST",
@@ -102,10 +102,12 @@ $(document).ready(function(){
           },
         })
 
-      // if solved then show leaderboard and stuff 
+      // if solved then show leaderboard and stuff
+      $("#solvedModal").modal("show");
+
     } else {
       // show prompt that is not solved
-      $("#demo").text("Not Solved");
+      $("#wrong-text").text("Not Solved");
     }
   });
 });
