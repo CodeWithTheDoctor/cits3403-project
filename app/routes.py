@@ -167,7 +167,8 @@ def get_puzzle(user_id):
     choices = list(set(puzzle_ids_all).difference(done_puzzles))
 
     choice = random.choice(choices)
-    data = {"config": Puzzle.query.get(choice).config}
+    p = Puzzle.query.get(choice)
+    data = {"puzzle_id": p.id, "config": p.config}
     response = jsonify(data)
     response.status_code = 200
     return response
