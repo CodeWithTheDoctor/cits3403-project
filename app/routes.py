@@ -167,7 +167,7 @@ def get_puzzle(user_id):
     choices = list(set(puzzle_ids_all).difference(done_puzzles))
 
     choice = random.choice(choices)
-    p = Puzzle.query.get(choice)
+    p = dotsi.fy(Puzzle.query.get(choice))
     data = {"puzzle_id": p.id, "config": p.config}
     response = jsonify(data)
     response.status_code = 200
