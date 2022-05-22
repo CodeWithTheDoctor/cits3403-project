@@ -16,6 +16,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     score = db.Column(db.Integer, index=True)
     puzzles = db.relationship("User_Puzzle", back_populates="user")
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    streak = db.Column(db.Integer, default=0)
 
     def set_password(self, password) -> None:
         self.password_hash = generate_password_hash(password)
@@ -45,14 +47,3 @@ class User_Puzzle(db.Model):
     def to_dict(self):
         data = {"user_id": self.user_id, "puzzle_id": self.puzzle_id, "time": self.time}
         return data
-
-
-# Posts is for reference only, not used in production
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
-    def __repr__(self) -> str:
-        return "<Post {}>".format(self.body)
