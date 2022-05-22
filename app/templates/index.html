@@ -39,20 +39,22 @@
           <div class="modal-content">
 
             <div class="modal-header">
-              <h3>`Puzzle Solved in - `</h3>
+              <h3>Puzzle Solved in -&nbsp</h3>
               <div id="modal-time"></div>
               <h3>!</h3>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-              <div class="d-inline-flex">
+              <div class="row">
                 <!-- leaderboard -->
-                <div></div>
-
-                <div>
-
+                <div class="col-md-6">
+                  Left
                 </div>
+                <div class="col-md-6">
+                  Right
+                </div>
+              </div>
               </div>
 
             </div>
@@ -63,36 +65,40 @@
 
 
 <!-- main container  -->
-<div class="game-container">
+<div class="justify-content-center">
+  <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-between" id="game-container">
+      <div class="d-flex flex-row mb-3">
 
-  <div class="d-flex justify-content-between">
-    <div class="d-flex flex-row mb-3">
-      <div class="flex-container">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rules-modal">
-          Rules
-        </button>
+        <!-- button row -->
+        <div class="flex-container">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rules-modal">
+            Rules
+          </button>
+        </div>
+  
+        <div class="flex-container">
+          <!-- submit button -->
+          <button id="submitButton" type="button" class="btn btn-primary" disabled>Submit</button>
+        </div>
+  
+        <div class="flex-container" id="wrong-container">
+          <p id="wrong-text"></p>
+        </div>
+  
+        <div class="flex-container" id="results-container">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#results-modal">Results</button>
+        </div>
       </div>
-
-      <div class="flex-container">
-        <!-- submit button -->
-        <button id="submitButton" type="button" class="btn btn-primary" disabled>Submit</button>
+  
+      <div class="timer">
+        <label id="minutes">00</label>:<label id="seconds">00</label>
       </div>
-
-      <div class="flex-container" id="wrong-container">
-        <p id="wrong-text"></p>
-      </div>
-
-      <div class="flex-container" id="results-container">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#results-modal">Results</button>
-      </div>
-    </div>
-
-    <div class="timer">
-      <label id="minutes">00</label>:<label id="seconds">00</label>
     </div>
   </div>
 
+  <!-- grid row -->
   <div class="d-flex justify-content-center">
     <!-- grid -->
     <div id="grid-box" class="grid-wrapper"></div>
