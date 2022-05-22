@@ -37,6 +37,7 @@ def test_register_form_submits_to_db(app_ctx):
 
 
 def test_modify_session(req_ctx, app_ctx):
+
     response = app_ctx.get("/auth/login")
 
     response = app_ctx.post(
