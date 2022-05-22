@@ -10,3 +10,8 @@ def test_puzzle_added(runner):
 
     result = runner.invoke(args="puzzles")
     assert "Puzzle: 4" in result.output
+
+
+def test_print_puzzles(runner):
+    result = runner.invoke(args="puzzles")
+    assert "Puzzle" in result
