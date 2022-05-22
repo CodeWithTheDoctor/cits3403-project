@@ -35,6 +35,11 @@ body {
   border-color: #746354;
 }
 
+.btn-primary:disabled{
+  background-color: #8f7a66;
+  border-color: #746354;
+}
+
 .btn-primary:hover, .btn-primary:focus {
   background-color: #796756;
   border-color: #796756;
@@ -123,7 +128,7 @@ body {
 }
 
 .selected, .lit {
-  background-color: yellow;
+  background-color: #FFE48E;
   transition: 0.5s;
 }
 

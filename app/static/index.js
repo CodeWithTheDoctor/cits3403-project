@@ -58,6 +58,8 @@ $(document).ready(function(){
 
       // hide start button
       $("#startButton").hide(400);
+      // enable Submit button
+      $("#submitButton").removeAttr("disabled");
 
       // remove child elements of grid box then render puzzle
       $("#grid-box").empty();
@@ -72,6 +74,11 @@ $(document).ready(function(){
   // check and submit puzzle when button clicked
   $("#submitButton").click(function() {
     if (isSolved()) {
+      // hide wrong text after submit
+      $("#wrong-container").hide();
+
+      // disable submit button
+      $("#submitButton").attr("disabled", "");
 
       // stop timer
       clearInterval(timer);
