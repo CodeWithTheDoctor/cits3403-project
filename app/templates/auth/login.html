@@ -1,45 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <hr/>
-  <div class="d-flex flex-wrap justify-content-between">
+<hr />
+<div class="d-flex flex-wrap justify-content-between">
     <div class="login-box">
-      <h1>Sign In</h1>
+        <h1>Sign In</h1>
 
-      <form action="" method="post" novalidate="novalidate">
-        {{form.hidden_tag()}}
-        <p>
-          {{form.username.label}}<br/>
-          {{form.username(size=32)}}
-          {% for error in form.username.errors %}
-            <span style="color: red">[{{ error }}]</span>
-          {% endfor %}
+        <form action="" method="post" novalidate="novalidate">
+            {{form.hidden_tag()}}
+            <p>
+                {{form.username.label}}<br />
+                {{form.username(size=32)}}
+                {% for error in form.username.errors %}
+                <span style="color: red">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{form.password.label}}<br />
+                {{form.password(size=32)}}
+                {% for error in form.password.errors %}
+                <span style="color: red">[{{error}}]</span>
+                {% endfor %}
+            </p>
+            <p>{{form.remember_me()}}
+                {{form.remember_me.label}}</p>
+            <p>{{form.submit(class_='btn btn-primary')}}</p>
+        </form>
+        <p>New user?<br>
+            <a href="{{url_for('auth.register')}}">Click to Register!</a></p>
+        <p><a href="{{url_for('auth.google')}}">Sign in with google</a></p>
         </p>
-        <p>
-          {{form.password.label}}<br/>
-          {{form.password(size=32)}}
-          {% for error in form.password.errors %}
-            <span style="color: red">[{{error}}]</span>
-          {% endfor %}
-        </p>
-        <p>{{form.remember_me()}}
-          {{form.remember_me.label}}</p>
-        <p>{{form.submit(class_='btn btn-primary')}}</p>
-      </form>
-      <p>New user?
-        <a href="{{url_for('auth.register')}}">Register Now!</a>
-      </p>
     </div>
     <div class="akari-infobox">
-      <h1>
-        Web Akari
-      </h1>
-      <div class="d-flex justify-content-between flex-wrap">
-        <div class="d-flex justify-content-center">
-          <img src="{{url_for('static',filename='images/grid.png')}}">
+        <h1>
+            Web Akari
+        </h1>
+        <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex justify-content-center">
+                <img src="{{url_for('static',filename='images/grid.png')}}">
+            </div>
+            <p>Web Akari is a daily challenge to warmup your cognitive abilities and strengthen those braincells. Be challenged with a new level each day and see if you can beat your friends.</p>
         </div>
-        <p>Web Akari is a daily challenge to warmup your cognitive abilities and strengthen those braincells. Be challenged with a new level each day and see if you can beat your friends.</p>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}
