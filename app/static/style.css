@@ -129,6 +129,159 @@ body {
   justify-content: center;
 }
 
+/* stats modal */
+
+.modal{
+  top: 20%;
+}
+
+.btn-close{
+  box-shadow: none;
+  border: none;
+  outline: none;
+  justify-content: top-right;
+}
+
+.modal-body p {
+  color: gray;
+  align-items: left;
+  position: relative;
+  justify-content: center;
+}
+
+.modal-body .icons{
+  margin: 15px 0px 20px 0px;
+}
+
+.modal-body .icons a{
+  text-decoration: none;
+  border: 2.5px solid transparent;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-body .icons a:nth-child(1){
+  color: #1877F2;
+  border-color: #B7D4FB;
+}
+
+.modal-body .icons a:nth-child(1):hover{
+  background-color: #1877F2;
+  color: #fff;
+}
+
+.modal-body .icons a:nth-child(2){
+  color: #46C1F6 !important;
+  border-color: #b6e7fc;
+}
+
+.modal-body .icons a:nth-child(2):hover{
+  background-color: #46C1F6;
+  color: #fff !important;
+}
+
+.modal-body .icons a:nth-child(3){
+  color: #e1306c;
+  border-color: #f5bccf;
+}
+
+.modal-body .icons a:nth-child(3):hover{
+  background-color: #e1306c;
+  color: #fff;
+}
+
+.modal-body .icons a:nth-child(4){
+  color: #25d366;
+  border-color: #bef4d2;
+}
+
+.modal-body .icons a:nth-child(4):hover{
+  background-color: #25d366;
+  color: #fff;
+}
+
+
+.modal-body .icons a:nth-child(5){
+  color: #FF8b60;
+  border-color: #f8d7cb;
+}
+
+.modal-body .icons a:nth-child(5):hover{
+  background-color: #FF8b60;
+  color: #fff;
+}
+
+.modal-body .icons a:hover{
+  border-color: transparent;
+}
+
+.modal-body .icons a span{
+  transition: all 0.09s ease-in-out;
+}
+
+.modal-body .icons a:hover span{
+  transform: scaleX(1.1);
+}
+
+.modal-body .field{
+  margin: 15px 0px -5px 0px;
+  height: 45px;
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
+.modal-body .field.active{
+  border-color: orange;
+}
+
+.field i{
+  color: white;
+  width: 40px;
+  height: auto;
+  margin: 1 3px;
+  padding: 1 3px;
+  justify-content: center;
+}
+
+
+.field input{
+  border: none;
+  outline: none;
+  font-size: 0.89rem;
+  width: 100%;
+  height: 100%;
+}
+
+.field button{
+  padding: 5px 16px;
+  color: white;
+  background-color: orange;
+  border: 2px solid orange;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.field button:hover {
+  color: white;
+  background-color: darkorange;
+  box-shadow: orange;
+
+}
+
+@media (max-width: 330px) {
+  .modal-body .icons a{
+      margin-right: 15px;
+      width: 35px;
+      height: 35px;
+  }
+}
+
+
+
 /*
 * Akari Grid Styling
 */
