@@ -1,153 +1,159 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script>
-  var user_id = '{{current_user.id}}';
-</script>
+  <script>
+    var user_id = '{{current_user.id}}';
+    var username = '{{current_user.username}}'
+  </script>
 
-<!-- Modals-->
-<!-- rules modal-->
-<div class="container">
-  <div class="modal fade" id="rules-modal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalLabel">Akari Rules</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Place light bulbs (circles) according to the following rules:
-          <ol>
-            <li>Light bulbs may be placed in any of the white squares, the number in black squares show how many light bulbs are next to it, vertically and horizontally.</li>
-            <li>Each light bulb illuminates from bulb to black square or outer frame in its row and column.</li>
-            <li>Every white square must be illuminated and a light bulb can not illuminate another light bulb.</li>
-          </ol>
-        </div>
+  <!-- Modals-->
+  <!-- rules modal-->
+  <div class="container">
+    <div class="modal fade" id="rules-modal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Akari Rules</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Place light bulbs (circles) according to the following rules:
+            <ol>
+              <li>Light bulbs may be placed in any of the white squares, the number in black squares show how many light bulbs are next to it, vertically and horizontally.</li>
+              <li>Each light bulb illuminates from bulb to black square or outer frame in its row and column.</li>
+              <li>Every white square must be illuminated and a light bulb can not illuminate another light bulb.</li>
+            </ol>
+          </div>
 
-        <div class="modal-footer">
-          <sub>rules from https://www.nikoli.co.jp/en/puzzles/akari/</sub>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- solved modal -->
-<div class="container">
-  <div class="modal fade" id="results-modal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- modal title -->
-        <div class="modal-header">
-          <h3>Puzzle Solved in -&nbsp</h3>
-          <div id="modal-time"></div>
-          <h3>!</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          <div class="row">
-            <!-- leaderboard -->
-            <div class="col-md-6">
-              <table class="table caption-top">
-                <caption id="table-title"></caption>
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Time</th>
-                  </tr>
-                </thead>
-                <tbody id="table-body">
-                  <!-- insert rows with jquery -->
-                </tbody>
-              </table>
-            </div>
-
-
-            <div class="col-md-6">
-
-              <div class="d-flex flex-column mb-3">
-                <!-- share on social media buttons-->
-                Share your results on social media!
-                <div class="d-inline-flex">
-                  <!-- share to twitter-->
-                  <button id="twitterButton" type="button" class="btn btn-icon btn-block  mr-2 "><span><img src="https://img.icons8.com/color/48/000000/twitter.png" class="img-fluid mr-1" width="25"></span> <span class="fb">Twitter</span></button>
-                  <!-- share to facebook-->
-                  <button id="facebookButton" type="button" class="btn btn-icon btn-block  ml-2 "><span><img src="https://i.imgur.com/URmkevm.png" class="img-fluid mr-1 my-auto" width="25"></span><span class="fb">Facebook</span></button> 
-
-                  <button id="copyButton" type="button" class="btn btn-icon btn-block  ml-2"><span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-                      <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-                      <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-                    </svg>
-                    </span><span class="fb">&nbspCopy Text</span>
-                  </button>
-                </div>
-
-                <!-- div with some copy and paste thing -->
-                <div class="form-floating mb-3">
-                  <textarea class="form-control-plaintext" id="game-results"></textarea>
-                </div>
-                <p id="copied"></p>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <sub>rules from https://www.nikoli.co.jp/en/puzzles/akari/</sub>
           </div>
         </div>
-
       </div>
+    </div>
+  </div>
+
+  <!-- statistics modal -->
+  <div class="container">
+    <div class="modal fade" id="statistics-modal" tabindex="-1" aria-labelledby="statistics ModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Users Statistics</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4>Hello
+              {{current_user.username}}! Here are you current stats:</h4>
+            <ul>
+              <li>Games Played:
+                <span id="numGamesPlaceholder"></span></li>
+              <li>Average solve time:
+                <span id="avgSolveTimePlaceholder"></span>
+                seconds</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- solved modal -->
+  <div class="container">
+    <div class="modal fade" id="results-modal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- modal title -->
+          <div class="modal-header">
+            <h3>Puzzle Solved in -&nbsp</h3>
+            <div id="modal-time"></div>
+            <h3>!</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="d-flex flex-column mb-3">
+            <!-- share on social media buttons-->
+            Share your results on social media!
+            <div class="d-inline-flex">
+              <!-- share to twitter-->
+              <button id="twitterButton" type="button" class="btn btn-icon btn-block  mr-2 ">
+                <span><img src="https://img.icons8.com/color/48/000000/twitter.png" class="img-fluid mr-1" width="25"></span>
+                <span class="fb">Twitter</span></button>
+              <!-- share to facebook-->
+              <button id="facebookButton" type="button" class="btn btn-icon btn-block  ml-2 ">
+                <span><img src="https://i.imgur.com/URmkevm.png" class="img-fluid mr-1 my-auto" width="25"></span><span class="fb">Facebook</span></button>
+
+              <button id="copyButton" type="button" class="btn btn-icon btn-block  ml-2">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewbox="0 0 16 16">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  </svg>
+                </span><span class="fb">&nbspCopy Text</span>
+              </button>
+            </div>
+
+            <!-- div with some copy and paste thing -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control-plaintext" id="game-results"></textarea>
+            </div>
+            <p id="copied"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- main container -->
+<div class="justify-content-center">
+<div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-between" id="game-container">
+    <div class="d-flex flex-row mb-3">
+
+      <!-- button row -->
+      <div class="flex-container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rules-modal">
+          Rules
+        </button>
+      </div>
+
+      <div class="flex-container">
+        <!-- submit button -->
+        <button id="submitButton" type="button" class="btn btn-primary" disabled="disabled">Submit</button>
+      </div>
+
+      <div class="flex-container" id="wrong-container">
+        <p id="wrong-text"></p>
+      </div>
+
+      <div class="flex-container" id="results-container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#results-modal">Results</button>
+      </div>
+    </div>
+
+    <div class="timer">
+      <label id="minutes">00</label>:<label id="seconds">00</label>
     </div>
   </div>
 </div>
 
+<!-- grid row -->
+<div class="d-flex justify-content-center">
+  <!-- grid -->
+  <div id="grid-box" class="grid-wrapper"></div>
+  <!-- grid start overlay -->
+  <div id='gameOverlay' class="game-overlay"></div>
 
-<!-- main container  -->
-<div class="justify-content-center">
-  <div class="d-flex justify-content-center">
-    <div class="d-flex justify-content-between" id="game-container">
-      <div class="d-flex flex-row mb-3">
-
-        <!-- button row -->
-        <div class="flex-container">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rules-modal">
-            Rules
-          </button>
-        </div>
-  
-        <div class="flex-container">
-          <!-- submit button -->
-          <button id="submitButton" type="button" class="btn btn-primary" disabled>Submit</button>
-        </div>
-  
-        <div class="flex-container" id="wrong-container">
-          <p id="wrong-text"></p>
-        </div>
-  
-        <div class="flex-container" id="results-container">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#results-modal">Results</button>
-        </div>
-      </div>
-  
-      <div class="timer">
-        <label id="minutes">00</label>:<label id="seconds">00</label>
-      </div>
-    </div>
+  <div class="startButtonContainer">
+    <!-- start button -->
+    <button id="startButton" type="button" class="btn btn-primary btn-lg">Start</button>
   </div>
-
-  <!-- grid row -->
-  <div class="d-flex justify-content-center">
-    <!-- grid -->
-    <div id="grid-box" class="grid-wrapper"></div>
-    <!-- grid start overlay -->
-    <div id='gameOverlay' class="game-overlay"></div>
-    
-    <div class="startButtonContainer">
-      <!-- start button -->
-      <button id="startButton" type="button" class="btn btn-primary btn-lg">Start</button>
-    </div>
-  </div>
+</div>
 </div>
 
 <!-- Custom scripting -->

@@ -48,6 +48,7 @@ def register():
 
 @bp.route("")
 def auth():
+    """Redirect for google oauth, redirect to index after"""
     token = oauth.google.authorize_access_token()
     g_user = token.get("userinfo")
 
@@ -77,5 +78,6 @@ def auth():
 
 @bp.route("/google")
 def google():
+    """Redirect uri for google oauth"""
     redirect_uri = url_for("auth.auth", _external=True)
     return oauth.google.authorize_redirect(redirect_uri)

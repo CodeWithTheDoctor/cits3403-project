@@ -10,3 +10,4 @@ timnotes.md
 logs
 .pytest__cache/
 webdrivers
+.venv
