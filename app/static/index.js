@@ -182,11 +182,12 @@ $("#submitButton").click(async function () {
     
     // display time on modal
     $( ".timer" ).clone().appendTo( "#modal-time" );
-    // update title
-    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
 
+    // update leaderboard title
+    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
     // generate rows of table
     generateTable(leaderboard);
+    // 
 
     // open modal
     $("#results-modal").modal("show");

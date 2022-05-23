@@ -111,6 +111,11 @@ def submit_puzzle():
     }
     """
     data = dotsi.fy(request.get_json()) or {}
+    for required in ("user_id", "puzzle_id", "time"):
+        if required not in data:
+            pass
+            # FIXME: comment out while testing
+            # return errors.bad_request("Must include user_id, puzzle_id and time")
 
     if check_puzzle():
         entry = User_Puzzle(time=data.time, puzzle_id=data.puzzle_id, user_id=data.user_id)
