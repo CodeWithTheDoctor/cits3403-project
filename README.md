@@ -13,7 +13,7 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 - Pressing the submit button will check if the puzzle is solved or not. If it is, the time will be recorded and uploaded to the database.
   - If the puzzle is wrong, then the user will be informed.
   - Submitting the puzzle successfuly will pull up a modal showing your time, and the top 5 people on the leaderboard, as well as a section to share your score on social media platforms
-- 
+
 
 ### Statistics Page
 - User can view the the number of puzzles they have solved, and their average solve time.
