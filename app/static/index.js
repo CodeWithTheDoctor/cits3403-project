@@ -10,7 +10,7 @@ let totalSeconds = 0;
  */
 
 /**
- * 
+ *
  */
 function startTimer() {
   timer = setInterval(setTime, 1000);
@@ -24,7 +24,6 @@ function setTime() {
   $("#seconds").html(pad(totalSeconds % 60));
   $("#minutes").html(pad(parseInt(totalSeconds / 60)));
 }
-
 
 /**
  *
@@ -40,19 +39,18 @@ function pad(val) {
   }
 }
 
-
 /**
  * Table generation
  */
 function generateTable(leaderboard) {
-  for(let result = 0; result < 5; result++) {
+  for (let result = 0; result < 5; result++) {
     try {
       var position = result + 1;
       var username = leaderboard[result].username;
-      var time     = leaderboard[result].time;
+      var time = leaderboard[result].time;
     } catch (error) {
       var username = "- -";
-      var time     = "- -";    
+      var time = "- -";
     } finally {
       let markup = `<tr><td>${position}</td><td>${username}</td><td>${time}</td></tr>`;
       $("#table-body").append(markup);
@@ -65,34 +63,34 @@ function generateTable(leaderboard) {
  */
 
 /**
- * 
- * @param {*} result 
- * @returns 
+ *
+ * @param {*} result
+ * @returns
  */
 async function postResult(result) {
   const response = await $.ajax({
-    url  : "/api/puzzle/submit",
-    type : "POST",
-    data : JSON.stringify(result),
+    url: "/api/puzzle/submit",
+    type: "POST",
+    data: JSON.stringify(result),
     contentType: "application/json",
-    success: function(response, data) {
-      console.log(response)
+    success: function (response, data) {
+      console.log(response);
     },
-    error: function(xhr, response, error) {
-      console.log(xhr.responseText)
-      console.log(xhr.statusText)
-      console.log(response)
-      console.log(error)
+    error: function (xhr, response, error) {
+      console.log(xhr.responseText);
+      console.log(xhr.statusText);
+      console.log(response);
+      console.log(error);
     }
-  })
+  });
 
   return response;
 }
 
 /**
- * 
- * @param {*} puzzle_id 
- * @returns 
+ *
+ * @param {*} puzzle_id
+ * @returns
  */
 async function getLeaderboard(puzzle_id) {
   const response = await $.ajax({
@@ -102,22 +100,21 @@ async function getLeaderboard(puzzle_id) {
     success: function (data) {
       console.log(data);
     },
-    error: function(xhr, response, error) {
-      console.log(xhr.responseText)
-      console.log(xhr.statusText)
-      console.log(response)
-      console.log(error)
+    error: function (xhr, response, error) {
+      console.log(xhr.responseText);
+      console.log(xhr.statusText);
+      console.log(response);
+      console.log(error);
     }
-  })
+  });
 
   return response;
 }
 
-
- /**
-  * select and render puzzle once start is clicked
-  */
- $("#startButton").on("click", function () {
+/**
+ * select and render puzzle once start is clicked
+ */
+$("#startButton").on("click", function () {
   $.ajax({
     url: `/api/puzzle/${user_id}`,
     type: "GET",
@@ -144,16 +141,14 @@ async function getLeaderboard(puzzle_id) {
     renderGrid();
     $("#grid-box").fadeIn();
     $("#gameOverlay").fadeOut();
-  })
-})
-
+  });
+});
 
 /**
-*  check and submit puzzle when button clicked
-*/
+ *  check and submit puzzle when button clicked
+ */
 $("#submitButton").click(async function () {
   if (isSolved()) {
-
     // hide wrong text after submit
     $("#wrong-container").hide();
     // disable submit button
@@ -163,44 +158,59 @@ $("#submitButton").click(async function () {
     clearInterval(timer);
 
     // create puzzle submission obj
-    submission  = {
+    submission = {
       user_id: user_id,
       puzzle_id: puzzle_id,
       time: totalSeconds
     };
-    
+
     // upload submission to database
-    await postResult(submission)
+    await postResult(submission);
     // get leaderboard data
     let leaderboard = await getLeaderboard(puzzle_id);
 
     console.log(leaderboard);
 
     /*
-     * generate results content
-    */
-    
+         * generate results content
+         */
+
     // display time on modal
-    $( ".timer" ).clone().appendTo( "#modal-time" );
+    $(".timer").clone().appendTo("#modal-time");
 
     // update leaderboard title
-    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
+    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`);
     // generate rows of table
     generateTable(leaderboard);
-    // 
+    //
 
     // open modal
     $("#results-modal").modal("show");
 
     // show results button
     $("#results-container").show();
-
   } else {
     // show prompt that is not solved
     $("#wrong-text").text("Not Solved");
   }
 });
 
+/**
+ * Fetches statistics of the user and renders it on the statistics modal.
+ */
+$("#statisticsButton").click(function () {
+  $.ajax({
+    url: `/api/statistics/${username}`,
+    type: "GET",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    }
+  }).done(function (data) {
+    $("#numGamesPlaceholder").text(data.num_puzzles);
+    $("#avgSolveTimePlaceholder").text(data.average);
+  });
+});
 
 /**
  * loads rendergrid on document ready
