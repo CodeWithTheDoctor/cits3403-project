@@ -17,7 +17,7 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 - User can view the the number of puzzles they have solved, and their average solve time.
 
 # Instructions to the run web app:
-(Poetry)[https://python-poetry.org/docs/] has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv
+[Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv
 
 
 ## Instructions for using a poetry build
