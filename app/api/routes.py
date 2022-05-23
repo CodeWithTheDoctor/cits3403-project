@@ -43,6 +43,18 @@ def leaderboard(puzzle_id):
 
 @bp.route("/statistics/<username>", methods=["GET"])
 def statistics(username):
+    """GET request for user statistics
+
+    Args:
+        username (str): username
+
+    Returns:
+        obj: {
+            "username":
+            "average":
+            "num_puzzles
+        }
+    """
 
     user = User.query.filter_by(username=username).first_or_404()
     query = User_Puzzle.query.filter_by(user_id=user.id).all()
@@ -103,6 +115,8 @@ def get_puzzle(user_id):
 def submit_puzzle():
     # TODO: add some sort of authentication?
     """
+    Submit a puzzle with the object to db
+
     request structures:
     {
         "user_id':
@@ -118,7 +132,9 @@ def submit_puzzle():
             # return errors.bad_request("Must include user_id, puzzle_id and time")
 
     if check_puzzle():
-        entry = User_Puzzle(time=data.time, puzzle_id=data.puzzle_id, user_id=data.user_id)
+        entry = User_Puzzle(
+            time=data.time, puzzle_id=data.puzzle_id, user_id=data.user_id
+        )
         try:
             db.session.add(entry)
             db.session.commit()
