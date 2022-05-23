@@ -22,3 +22,16 @@ def test_puzzle_deleted(runner):
     assert "success" in result.output
     result = runner.invoke(args="delete-puzzle 500")
     assert "ERROR:" in result.output
+
+
+def test_print_users(runner):
+    result = runner.invoke(args="users")
+    assert "User" in result.output
+
+
+def test_delete_user(runner):
+    result = runner.invoke(args="delete-user 2")
+    assert "successfully" in result.output
+
+    result = runner.invoke(args="delete-user 500")
+    assert "ERROR" in result.output

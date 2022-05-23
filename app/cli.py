@@ -31,7 +31,7 @@ def register(app):
         try:
             db.session.delete(p)
             db.session.commit()
-            print(f"Puzzle: {puzzle_id} successfuly deleted")
+            print(f"Puzzle: {puzzle_id} successfully deleted")
         except Exception as e:
             print("Error encountered while deleting")
             print(e)
@@ -50,7 +50,7 @@ def register(app):
         users = User.query.all()
 
         for user in users:
-            print(f"Puzzle: {user.id} has username {user.username}")
+            print(f"User: {user.id} has username {user.username}")
 
     @app.cli.command("delete-user")
     @click.argument("user_id")
@@ -65,7 +65,7 @@ def register(app):
         try:
             db.session.delete(u)
             db.session.commit()
-            print(f"Puzzle: {user_id} successfuly deleted")
+            print(f"User: {user_id} successfully deleted")
         except Exception as e:
             print("Error encountered while deleting")
             print(e)
