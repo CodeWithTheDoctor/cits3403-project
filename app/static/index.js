@@ -71,30 +71,24 @@ function generateShare() {
   /**
    * event handlers for share buttons
    */
-  shareMessage = shareMessage.replace("\n", "%0A");
+  let shareUrl = shareMessage.replace("\n", "%0A");
   // tweet
   $('#twitterButton').click(function() {
-    window.open(`https://twitter.com/intent/tweet?text=${shareMessage}`);
+    window.open(`https://twitter.com/intent/tweet?text=${shareUrl}`);
   });
 
   // post to facebook
   $('#facebookButton').click(function() {
-    window.open(`https://twitter.com/intent/tweet?text=${shareMessage}`);
+    window.open(`https://twitter.com/intent/tweet?text=${shareUrl}`);
   });
 
   // copy to clipboard
-  $('copyButton').click(function myFunction() {
-    /* Get the text field */
-    var copyText = document.getElementById("game-results");
+  $('#copyButton').click(function myFunction() {
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(shareMessage);
 
-    /* Select the text field */
-    copyText.select();
-
-    /* Copy the text inside the text field */
-    navigator.clipboard.writeText(copyText.value);
-
-    /* Alert the copied text */
-    alert("Copied the text: " + copyText.value);
+    // Alert that text is copied
+    $("#copied").text("Copied!");
   });
 }
 
