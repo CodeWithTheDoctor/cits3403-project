@@ -17,9 +17,10 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 - User can view the the number of puzzles they have solved, and their average solve time.
 
 # Instructions to the run web app:
+[Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv
 
-### Environment Variables
-- Add environment variables to the '.flaskenv' file
+
+## Instructions for using a poetry build
 
 ### To install dependencies on local machine
 `poetry install`
@@ -33,20 +34,26 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 OR
 
 - `poetry shell` <br>
-`flask run`
+- `flask run`
 
 ### To add dependencies
 - `poetry add <pkgname>`
 
-### On change to databse
-- `flask db migrate`
+## Instructions for regular venv building
+- `python3 -m venv .venv`
+- `source .venv/bin/activate`
+- `pip install -r requirements.txt`
+- `flask run`
+
+# For developers
+## Database commands
+These commands need to be run when changes to the database schema are made.
+
+- `flask db migrate -m <message>`
 - `flask db upgrade`
 
-# On change to databse
-- flask db migrate
-- flask db upgrade
+## Testing
+- `python3 -m pytest`
 
-
-# Testing
-- python3 -m pytest
-- python3 -m pytest --cov=app
+To run the coverage testing
+- `python3 -m pytest --cov=app`
