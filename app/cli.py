@@ -1,6 +1,6 @@
 import click
 from app import db
-from app.models import Puzzle, User
+from app.models import Puzzle, User, User_Puzzle
 
 
 def register(app):
@@ -69,3 +69,26 @@ def register(app):
         except Exception as e:
             print("Error encountered while deleting")
             print(e)
+            
+            
+    @app.cli.command("user-puzzle")
+    @click.argument("puzzle_id")
+    def getLeaderboard(puzzle_id):
+        results = User_Puzzle.query.filter_by(puzzle_id=puzzle_id).order_by(User_Puzzle.time).all()
+        print(results)
+        
+        if results is None:
+            print(f"ERROR: No puzzle exists by {user_id}")
+            return
+        
+        for result in results:
+            print(f"resutlt {result.id}: user - {result.user_id} : puzzle - {puzzle_id}")
+
+        
+    @app.cli.command("results")
+    def results():
+        """Show all users"""
+        results = User_Puzzle.query.all()
+
+        for result in results:
+            print(f"user - {result.user_id} : puzzle - {result.puzzle_id} : time - {result.time}")

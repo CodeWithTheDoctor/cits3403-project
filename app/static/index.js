@@ -5,6 +5,13 @@
 // init seconds for timer globally
 let totalSeconds = 0;
 
+/**
+ * Timer Functions
+ */
+
+/**
+ * 
+ */
 function startTimer() {
   timer = setInterval(setTime, 1000);
 }
@@ -18,6 +25,7 @@ function setTime() {
   $("#minutes").html(pad(parseInt(totalSeconds / 60)));
 }
 
+
 /**
  *
  * @param val value of total seconds
@@ -30,6 +38,79 @@ function pad(val) {
   } else {
     return valString;
   }
+}
+
+
+/**
+ * Table generation
+ */
+function generateTable(leaderboard) {
+  for(let result = 0; result < 5; result++) {
+    try {
+      var position = result + 1;
+      var username = leaderboard[result].username;
+      var time     = leaderboard[result].time;
+    } catch (error) {
+      var username = "- -";
+      var time     = "- -";    
+    } finally {
+      let markup = `<tr><td>${position}</td><td>${username}</td><td>${time}</td></tr>`;
+      $("#table-body").append(markup);
+    }
+  }
+}
+
+/**
+ * API calls
+ */
+
+/**
+ * 
+ * @param {*} result 
+ * @returns 
+ */
+async function postResult(result) {
+  const response = await $.ajax({
+    url  : "/api/puzzle/submit",
+    type : "POST",
+    data : JSON.stringify(result),
+    contentType: "application/json",
+    success: function(response, data) {
+      console.log(response)
+    },
+    error: function(xhr, response, error) {
+      console.log(xhr.responseText)
+      console.log(xhr.statusText)
+      console.log(response)
+      console.log(error)
+    }
+  })
+
+  return response;
+}
+
+/**
+ * 
+ * @param {*} puzzle_id 
+ * @returns 
+ */
+async function getLeaderboard(puzzle_id) {
+  const response = await $.ajax({
+    url: `api/leaderboard/${puzzle_id}`,
+    type: "GET",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function(xhr, response, error) {
+      console.log(xhr.responseText)
+      console.log(xhr.statusText)
+      console.log(response)
+      console.log(error)
+    }
+  })
+
+  return response;
 }
 
 
@@ -70,7 +151,7 @@ function pad(val) {
 /**
 *  check and submit puzzle when button clicked
 */
-$("#submitButton").click(function () {
+$("#submitButton").click(async function () {
   if (isSolved()) {
 
     // hide wrong text after submit
@@ -83,37 +164,34 @@ $("#submitButton").click(function () {
 
     // create puzzle submission obj
     submission  = {
-
       user_id: user_id,
       puzzle_id: puzzle_id,
       time: totalSeconds
     };
     
     // upload submission to database
-      $.ajax({
-        url  : "/api/puzzle/submit",
-        type : "POST",
-        data : JSON.stringify(submission),
-        dataType : "json",
-        contentType: "application/json",
-        success: function(response, data) {
-          console.log(response)
-          console.log(data)
-        },
-        error: function(xhr, response, error) {
-          console.log(xhr.responseText)
-          console.log(xhr.statusText)
-          console.log(response)
-          console.log(error)
-        },
-      })
+    await postResult(submission)
+    // get leaderboard data
+    let leaderboard = await getLeaderboard(puzzle_id);
 
+    console.log(leaderboard);
 
+    /*
+     * generate results content
+    */
+    
+    // display time on modal
     $( ".timer" ).clone().appendTo( "#modal-time" );
 
+    // update leaderboard title
+    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
+    // generate rows of table
+    generateTable(leaderboard);
+    // 
 
-    // if solved then show leaderboard and stuff
+    // open modal
     $("#results-modal").modal("show");
+
     // show results button
     $("#results-container").show();
 
