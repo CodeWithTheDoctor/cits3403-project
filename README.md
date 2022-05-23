@@ -21,6 +21,9 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 # Instructions to the run web app:
 [Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv (virtual environment).
 
+## Deployed Application
+A deployed application can be found at https://flask-test123456.herokuapp.com
+
 
 ## Instructions for using a poetry build
 
