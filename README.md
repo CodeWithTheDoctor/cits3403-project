@@ -12,12 +12,14 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 - When the "start" button is clicked, the timer begins.
 - Pressing the submit button will check if the puzzle is solved or not. If it is, the time will be recorded and uploaded to the database.
   - If the puzzle is wrong, then the user will be informed.
+  - Submitting the puzzle successfuly will pull up a modal showing your time, and the top 5 people on the leaderboard, as well as a section to share your score on social media platforms
+- 
 
 ### Statistics Page
 - User can view the the number of puzzles they have solved, and their average solve time.
 
 # Instructions to the run web app:
-[Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv
+[Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv (virtual environment).
 
 
 ## Instructions for using a poetry build
@@ -28,7 +30,7 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 ### To enter venv in terminal
 `poetry shell`
 
-### To spin up DEVELOPMENT server
+### To run the DEVELOPMENT server
 - `poetry run flask run`
 
 OR
@@ -39,20 +41,20 @@ OR
 ### To add dependencies
 - `poetry add <pkgname>`
 
-## Instructions for regular venv building
+### Instructions for regular venv building
 - `python3 -m venv .venv`
 - `source .venv/bin/activate`
 - `pip install -r requirements.txt`
 - `flask run`
 
 # For developers
-## Database commands
+### Database commands
 These commands need to be run when changes to the database schema are made.
 
 - `flask db migrate -m <message>`
 - `flask db upgrade`
 
-## Testing
+### Testing
 - `python3 -m pytest`
 
 To run the coverage testing
