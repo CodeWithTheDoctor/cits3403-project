@@ -3,7 +3,7 @@
 - Sean Peralta Garcia - 23088091 
 - Ashish Manoj Ithape - 23066342
 - Shao-ming Tan 20920822
-- Jummanah - 23087282
+- Jummana Al-Shimary - 23087282
 
 # Web Akari
 Web Akari is a web-based akari daily game for people to test out their puzzle-solving skills on a daily basis!
