@@ -5,6 +5,13 @@
 // init seconds for timer globally
 let totalSeconds = 0;
 
+/**
+ * Timer Functions
+ */
+
+/**
+ * 
+ */
 function startTimer() {
   timer = setInterval(setTime, 1000);
 }
@@ -33,6 +40,29 @@ function pad(val) {
   }
 }
 
+
+/**
+ * Table generation
+ */
+function generateTable(leaderboard) {
+  for(let result = 0; result < 5; result++) {
+    try {
+      var position = result + 1;
+      var username = leaderboard[result].username;
+      var time     = leaderboard[result].time;
+    } catch (error) {
+      var username = "- -";
+      var time     = "- -";    
+    } finally {
+      let markup = `<tr><td>${position}</td><td>${username}</td><td>${time}</td></tr>`;
+      $("#table-body").append(markup);
+    }
+  }
+}
+
+/**
+ * API calls
+ */
 
 /**
  * 
@@ -66,9 +96,18 @@ async function postResult(result) {
  */
 async function getLeaderboard(puzzle_id) {
   const response = await $.ajax({
-    url: `/leaderboard/4`,
+    url: `api/leaderboard/${puzzle_id}`,
     type: "GET",
     dataType: "json",
+    success: function (data) {
+      console.log(data);
+    },
+    error: function(xhr, response, error) {
+      console.log(xhr.responseText)
+      console.log(xhr.statusText)
+      console.log(response)
+      console.log(error)
+    }
   })
 
   return response;
@@ -140,9 +179,14 @@ $("#submitButton").click(async function () {
     /*
      * generate results content
     */
-    $("table-title").text(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
-    // generate results modal contents
+    
+    // display time on modal
     $( ".timer" ).clone().appendTo( "#modal-time" );
+    // update title
+    $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
+
+    // generate rows of table
+    generateTable(leaderboard);
 
     // open modal
     $("#results-modal").modal("show");
