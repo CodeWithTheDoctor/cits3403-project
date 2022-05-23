@@ -125,6 +125,10 @@ body {
   background-color: #faf8ef
 }
 
+#game-results {
+  border-color: black;
+}
+
 /*
 * Akari Grid Styling
 */
