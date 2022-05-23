@@ -9,16 +9,11 @@ let totalSeconds = 0;
  * Timer Functions
  */
 
-/**
- * 
- */
 function startTimer() {
   timer = setInterval(setTime, 1000);
 }
 
-/**
- *
- */
+
 function setTime() {
   ++totalSeconds;
   $("#seconds").html(pad(totalSeconds % 60));
@@ -27,7 +22,6 @@ function setTime() {
 
 
 /**
- *
  * @param val value of total seconds
  * @returns returns val in formatted string form
  */
@@ -43,6 +37,11 @@ function pad(val) {
 
 /**
  * Table generation
+ */
+
+/**
+ * create a table with fastest 5 times
+ * @param leaderboard 
  */
 function generateTable(leaderboard) {
   for(let result = 0; result < 5; result++) {
@@ -98,9 +97,9 @@ function generateShare() {
  */
 
 /**
- * 
+ * uploads result to db
  * @param {*} result 
- * @returns 
+ * @returns response
  */
 async function postResult(result) {
   const response = await $.ajax({
@@ -123,7 +122,7 @@ async function postResult(result) {
 }
 
 /**
- * 
+ * fetches leaderboard
  * @param {*} puzzle_id 
  * @returns 
  */
