@@ -16,11 +16,6 @@ login = LoginManager()
 login.login_view = "auth.login"  # pass flask-login the view function
 cors = CORS()
 
-# stream_handler = logging.StreamHandler()
-# stream_handler.setLevel(logging.DEBUG)
-# app.logger.addHandler(stream_handler)
-# app.logger.setLevel(logging.DEBUG)
-
 
 def create_app(config_class=Config):
     app = Flask(__name__)
