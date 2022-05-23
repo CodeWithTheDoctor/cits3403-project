@@ -41,7 +41,7 @@ OR
 ### To add dependencies
 - `poetry add <pkgname>`
 
-### Instructions for regular venv building
+## Instructions for regular venv building
 - `python3 -m venv .venv`
 - `source .venv/bin/activate`
 - `pip install -r requirements.txt`
