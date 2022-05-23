@@ -45,13 +45,14 @@ OR
 - `pip install -r requirements.txt`
 - `flask run`
 
-# Database commands
+# For developers
+## Database commands
 These commands need to be run when changes to the database schema are made.
 
 - `flask db migrate -m <message>`
 - `flask db upgrade`
 
-# Testing
+## Testing
 - `python3 -m pytest`
 
 To run the coverage testing
