@@ -1,3 +1,10 @@
+# Authors
+
+- Sean Peralta Garcia - 23088091 
+- Ashish Manoj Ithape - 23066342
+- Shao-ming Tan 20920822
+- Jummanah - 23087282
+
 # Web Akari
 Web Akari is a web-based akari daily game for people to test out their puzzle-solving skills on a daily basis!
 
@@ -20,9 +27,6 @@ Web Akari is a web-based akari daily game for people to test out their puzzle-so
 
 # Instructions to the run web app:
 [Poetry](https://python-poetry.org/docs/) has been used as a python package manager but a requirements.txt file has been exported to use with a regular python venv (virtual environment).
-
-## Deployed Application
-A deployed application can be found at https://flask-test123456.herokuapp.com
 
 
 ## Instructions for using a poetry build
@@ -50,9 +54,42 @@ OR
 - `pip install -r requirements.txt`
 - `flask run`
 
+# Adding/Viewing/Deleting Puzzles
+
+## Structure of a puzzle string
+**Example file**: 
+```
+03 213 33 435 63
+30
+326
+34 52
+
+14
+```
+
+- The first line indicates the locations of all the black squares. [(0,3), (2,1), (2,3), (3,3), (4,3), (4,5), (6,3)]
+- The second line indicates the position of all the '0' black squares. [(3,0)]
+- The third line indicates the position of all the '1' black squares. [(3,2), (3,6)]
+- The fourth line indicates the position of all the '2' black squares. [(3,4), (5,2)]
+- The fifth line indicates the position of all the '3' black squares. [There's none]
+- The sixth line indicates the position of all the '4' black squares. [(1,4)]
+
+We rewrite that line, using `z` as the new-line separator, so the puzzle level string becomes: `03 213 33 435 63z30z326z34 52zz14`
+
+### Adding a puzzle to the database
+- Ensure that poetry shell is running (`poetry shell`)
+- Use the command `flask add-puzzle <puzzle-string>` to add the puzzle
+- eg: `flask add-puzzle 03 213 33 435 63z30z326z34 52zz14`
+
+### Viewing puzzles
+- `flask puzzles`
+
+### Deleting puzzles
+- `flask remove-puzzle <puzzle-id>`
+
 # For developers
 ### Database commands
-These commands need to be run when changes to the database schema are made.
+These commands need to be run when changes to the database schema are made. (Changes mean changes to the table, like the columns, etc. Adding new records to the table doesn't count as a change)
 
 - `flask db migrate -m <message>`
 - `flask db upgrade`
