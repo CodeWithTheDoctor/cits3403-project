@@ -46,7 +46,7 @@ def register():
     return render_template("auth/register.html", title="Register", form=form)
 
 
-@bp.route("")
+@bp.route("/")
 def auth():
     """Redirect for google oauth, redirect to index after"""
     token = oauth.google.authorize_access_token()
