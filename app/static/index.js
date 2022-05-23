@@ -60,6 +60,39 @@ function generateTable(leaderboard) {
   }
 }
 
+
+function generateShare() {
+  // add share message
+  let shareMessage = `I completed Akari puzzle ${puzzle_id} in ${$("#minutes").html()}:${$("#seconds").html()}mins\nPlay here: http://localhost:5000`;
+  $("#game-results").attr("value", shareMessage);
+  $("#game-results").attr("placeholder",shareMessage);
+
+
+  /**
+   * event handlers for share buttons
+   */
+  let shareUrl = shareMessage.replace("\n", "%0A");
+  // tweet
+  $('#twitterButton').click(function() {
+    window.open(`https://twitter.com/intent/tweet?text=${shareUrl}`);
+  });
+
+  // post to facebook
+  $('#facebookButton').click(function() {
+    window.open(`https://twitter.com/intent/tweet?text=${shareUrl}`);
+  });
+
+  // copy to clipboard
+  $('#copyButton').click(function myFunction() {
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(shareMessage);
+
+    // Alert that text is copied
+    $("#copied").text("Copied!");
+  });
+}
+
+
 /**
  * API calls
  */
@@ -187,7 +220,9 @@ $("#submitButton").click(async function () {
     $("#table-title").html(`Top 5 Leaderboard - Puzzle ${puzzle_id}`)
     // generate rows of table
     generateTable(leaderboard);
-    // 
+    // generate share function of modal
+    generateShare();
+
 
     // open modal
     $("#results-modal").modal("show");
