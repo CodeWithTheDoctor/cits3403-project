@@ -33,29 +33,53 @@
     </div>
   </div>
 
-  <!-- statistics modal-->
-  <div class="container">
-    <div class="modal fade" id="statistics-modal" tabindex="-1" aria-labelledby="statisticsModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+  <!-- Statistics page Modal -->
+  <div class="modal fade" id="statsModal" tabindex="-1" aria-labelledby="statsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="'document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="ModalLabel">User Statistics</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <h4>Hello
-              {{current_user.username}}! Here are you current stats:</h4>
-            <ul>
-              <li>Games Played:
-                <span id="numGamesPlaceholder"></span></li>
-              <li>Average solve time:
-                <span id="avgSolveTimePlaceholder"></span></li>
-            </ul>
-          </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="statsModalLabel">Statistics</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>Hello
+                  {{current_user.username}}! Here are you current stats:</h4>
+                <ul>
+                  <li>Games Played:
+                    <span id="numGamesPlaceholder">{{stats.num_puzzles}}</span></li>
+                  <li>Average solve time:
+                    <span id="avgSolveTimePlaceholder">{{stats.average}}</span></li>
+                </ul>
+                <p><i class="bi bi-share"></i> Share this link via</p>
+                <div class="d-flex align-items-center icons">                
+                    <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-facebook"></i>
+                    </a>                
+                    <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-twitter"></i></span>
+                    </a>                
+                    <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-instagram"></i>
+                    </a>                
+                    <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>                
+                    <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-reddit"></i>
+                    </a>
+                </div>
+                <p>Or copy link</p>
+                <div class="field d-flex align-items-center justify-content-between">
+                    <input type="text" value="smthn.com/share">
+                    <button><i class="bi bi-clipboard"></i></button>
+                </div>
+                <div class="modal-footer">
+                <sub>Thank You For Playing!</sub>
+            </div>
         </div>
-      </div>
     </div>
   </div>
+<!--footer-->
 
   <!-- solved modal -->
   <div class="container">

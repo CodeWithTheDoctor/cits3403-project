@@ -39,7 +39,7 @@
               <h1 class="nav col-12 col-md-auto mb-2 mb-md-0 justify-content-center">Akari Game</h1>
             </a>
             {% if current_user.is_anonymous %}
-
+              <button class="stats ms-2" type="button" data-bs-toggle="modal" data-bs-target="#statsModal">Statistics</button>
               <a class="nav-item mt-1" href="{{url_for('auth.login')}}">
                 <button type="button" class="btn btn-primary">Login</button>
               </a>

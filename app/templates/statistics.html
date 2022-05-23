@@ -2,8 +2,11 @@
 {% block content %}
 <div class="jumbotron">
     <h1>Hello {{stats.username}}!</h1>
-    <h2>Here are your stats!</h2>
-    <h3>Puzzles completed: {{stats.num_puzzles}} </h3>
-    <h3>Average solve time : {{stats.average}} seconds </h3>
+    <h2>Here are your stats!</h2><table> 
+    <tbody>
+        <tr>
+            <td>Puzzles completed: {{stats.num_puzzles}} </td>
+            <td>Average solve time : {{stats.average}} seconds </td>
+        </tr>
 </div>
 {% endblock %}
