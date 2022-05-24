@@ -51,9 +51,10 @@ def auth():
     """Redirect for google oauth, redirect to index after"""
     token = oauth.google.authorize_access_token()
     g_user = token.get("userinfo")
-
+    next_page = request.args.get("next")
     if g_user:
         user = User.query.filter_by(email=g_user.email).first()
+
         if user is not None:
             login_user(user, remember=False)
 
@@ -66,7 +67,7 @@ def auth():
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=False)
-                next_page = request.args.get("next")
+
             except:
                 abort(500)
 
